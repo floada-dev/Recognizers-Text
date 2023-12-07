@@ -6,7 +6,7 @@
 
     <groupId>com.microsoft.recognizers.text.tests</groupId>
     <artifactId>recognizer-tests</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-floada</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.microsoft.recognizers.text</groupId>
         <artifactId>recognizers-text-java</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-floada</version>
         <relativePath>../</relativePath>
     </parent>
 
@@ -35,12 +35,12 @@
         <dependency>
             <groupId>com.microsoft.recognizers.text</groupId>
             <artifactId>recognizers-text</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.recognizers.text.number</groupId>
             <artifactId>recognizers-text-number</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -67,25 +67,25 @@
         <dependency>
             <groupId>com.microsoft.recognizers.text.numberwithunit</groupId>
             <artifactId>recognizers-text-number-with-unit</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0-floada</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.microsoft.recognizers.text.datetime</groupId>
             <artifactId>recognizers-text-date-time</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0-floada</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.microsoft.recognizers.text.choice</groupId>
             <artifactId>recognizers-text-choice</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0-floada</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.microsoft.recognizers.text.sequence</groupId>
             <artifactId>recognizers-text-sequence</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0-floada</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

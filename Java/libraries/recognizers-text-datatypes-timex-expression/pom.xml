@@ -6,7 +6,7 @@
 
     <groupId>com.microsoft.recognizers.text.datatypes.timex.expression</groupId>
     <artifactId>recognizers-text-datatypes-timex-expression</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-floada</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.microsoft.recognizers.text</groupId>
         <artifactId>recognizers-text-java</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-floada</version>
         <relativePath>../../</relativePath>
     </parent>
 
@@ -40,26 +40,24 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
+            <groupId>com.microsoft.recognizers.text</groupId>
+            <artifactId>recognizers-text</artifactId>
+            <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.recognizers.text</groupId>
-            <artifactId>recognizers-text</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
-            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

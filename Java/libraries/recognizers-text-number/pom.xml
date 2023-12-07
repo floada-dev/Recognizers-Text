@@ -6,7 +6,7 @@
 
     <groupId>com.microsoft.recognizers.text.number</groupId>
     <artifactId>recognizers-text-number</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-floada</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.microsoft.recognizers.text</groupId>
         <artifactId>recognizers-text-java</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-floada</version>
         <relativePath>../../</relativePath>
     </parent>
 
@@ -44,12 +44,12 @@
         <dependency>
             <groupId>com.microsoft.recognizers.text</groupId>
             <artifactId>recognizers-text</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
         </dependency>
     </dependencies>
 
@@ -66,5 +66,5 @@
             </plugin>
         </plugins>
     </build>
-    
+
 </project>
