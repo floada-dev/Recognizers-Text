@@ -64,15 +64,28 @@ import com.microsoft.recognizers.text.datetime.parsers.DateTimeParseResult;
 import com.microsoft.recognizers.text.datetime.parsers.IDateTimeParser;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.DateTimePeriodParser;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishCommonDateTimeParserConfiguration;
-import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishDateTimePeriodParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishDateParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishDatePeriodParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishDateTimeParserConfiguration;
+import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishDateTimePeriodParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishDurationParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishHolidayParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishSetParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishTimeParserConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishTimePeriodParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishCommonDateTimeParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishDateParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishDatePeriodParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishDateTimeAltParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishDateTimeParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishDateTimePeriodParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishDurationParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishHolidayParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishMergedParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishSetParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishTimeParser;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishTimeParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishTimePeriodParserConfiguration;
 import com.microsoft.recognizers.text.datetime.utilities.DateTimeResolutionResult;
 import com.microsoft.recognizers.text.datetime.utilities.TimeZoneResolutionResult;
 import com.microsoft.recognizers.text.tests.AbstractTest;
@@ -80,6 +93,10 @@ import com.microsoft.recognizers.text.tests.NotSupportedException;
 import com.microsoft.recognizers.text.tests.TestCase;
 import com.microsoft.recognizers.text.tests.helpers.DateTimeResolutionResultMixIn;
 import com.microsoft.recognizers.text.tests.helpers.TimeZoneResolutionResultMixIn;
+import org.javatuples.Pair;
+import org.junit.Assert;
+import org.junit.AssumptionViolatedException;
+import org.junit.runners.Parameterized;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -90,11 +107,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import org.javatuples.Pair;
-import org.junit.Assert;
-import org.junit.AssumptionViolatedException;
-import org.junit.runners.Parameterized;
 
 public class DateTimeParserTest extends AbstractTest {
 
@@ -159,7 +171,7 @@ public class DateTimeParserTest extends AbstractTest {
 
         if (expected.getValue() != null) {
             DateTimeResolutionResult expectedValue = parseDateTimeResolutionResult(DateTimeResolutionResult.class, expected.getValue());
-            DateTimeResolutionResult actualValue = (DateTimeResolutionResult)actual.getValue();
+            DateTimeResolutionResult actualValue = (DateTimeResolutionResult) actual.getValue();
 
             Assert.assertEquals(getMessage(currentCase, "timex"), expectedValue.getTimex(), actualValue.getTimex());
             Assert.assertEquals(getMessage(currentCase, "futureResolution"), expectedValue.getFutureResolution(), actualValue.getFutureResolution());
@@ -172,7 +184,7 @@ public class DateTimeParserTest extends AbstractTest {
         if (expected.getValue() != null) {
 
             Map<String, List<Map<String, Object>>> expectedValue = parseDateTimeResolutionResult(expected.getValue());
-            Map<String, List<Map<String, Object>>> actualValue = (Map<String, List<Map<String, Object>>>)actual.getValue();
+            Map<String, List<Map<String, Object>>> actualValue = (Map<String, List<Map<String, Object>>>) actual.getValue();
 
             List<Map<String, Object>> expectedResults = expectedValue.get("values");
             List<Map<String, Object>> actualResults = actualValue.get("values");
@@ -187,7 +199,7 @@ public class DateTimeParserTest extends AbstractTest {
                 Map<String, Object> expectedItem = o.getValue0();
                 Map<String, Object> actualItem = o.getValue1();
                 Assert.assertTrue(String.format("Keys error \n\tExpected:\t%s\n\tActual:\t%s",
-                    String.join(",", expectedItem.keySet()), String.join(",", actualItem.keySet())), actualItem.keySet().containsAll(expectedItem.keySet()));
+                        String.join(",", expectedItem.keySet()), String.join(",", actualItem.keySet())), actualItem.keySet().containsAll(expectedItem.keySet()));
                 for (String key : expectedItem.keySet()) {
                     if (actualItem.containsKey(key)) {
                         Assert.assertEquals(getMessage(currentCase, "values." + key), expectedItem.get(key), actualItem.get(key));
@@ -211,6 +223,8 @@ public class DateTimeParserTest extends AbstractTest {
                     return getFrenchParser(name);
                 case Culture.German:
                     return getGermanParser(name);
+                case Culture.Swedish:
+                    return getSwedishParser(name);
                 default:
                     throw new NotSupportedException("Parser Type/Name not supported for culture: " + culture);
             }
@@ -314,30 +328,60 @@ public class DateTimeParserTest extends AbstractTest {
     private static IDateTimeParser getGermanParser(String name) throws NotSupportedException {
 
         switch (name) {
-        case "DateParser":
-            return new BaseDateParser(new GermanDateParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        case "DatePeriodParser":
-            return new BaseDatePeriodParser(new GermanDatePeriodParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        //case "DateTimeAltParser":
-        //    return new BaseDateTimeAltParser(new GermanDateTimeAltParserConfiguration(new EnglishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        case "DateTimeParser":
-            return new BaseDateTimeParser(new GermanDateTimeParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        case "DateTimePeriodParser":
-            return new BaseDateTimePeriodParser(new GermanDateTimePeriodParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        case "DurationParser":
-            return new BaseDurationParser(new GermanDurationParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        case "HolidayParser":
-            return new HolidayParserGer(new GermanHolidayParserConfiguration());
-        case "SetParser":
-            return new BaseSetParser(new GermanSetParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        case "MergedParser":
-            return new BaseMergedDateTimeParser(new GermanMergedParserConfiguration(DateTimeOptions.None));
-        case "TimeParser":
-            return new com.microsoft.recognizers.text.datetime.german.parsers.TimeParser(new GermanTimeParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        case "TimePeriodParser":
-            return new BaseTimePeriodParser(new GermanTimePeriodParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
-        default:
-            throw new NotSupportedException("German parser Type/Name not supported for type: " + name);
+            case "DateParser":
+                return new BaseDateParser(new GermanDateParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DatePeriodParser":
+                return new BaseDatePeriodParser(new GermanDatePeriodParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            //case "DateTimeAltParser":
+            //    return new BaseDateTimeAltParser(new GermanDateTimeAltParserConfiguration(new EnglishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DateTimeParser":
+                return new BaseDateTimeParser(new GermanDateTimeParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DateTimePeriodParser":
+                return new BaseDateTimePeriodParser(new GermanDateTimePeriodParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DurationParser":
+                return new BaseDurationParser(new GermanDurationParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "HolidayParser":
+                return new HolidayParserGer(new GermanHolidayParserConfiguration());
+            case "SetParser":
+                return new BaseSetParser(new GermanSetParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "MergedParser":
+                return new BaseMergedDateTimeParser(new GermanMergedParserConfiguration(DateTimeOptions.None));
+            case "TimeParser":
+                return new com.microsoft.recognizers.text.datetime.german.parsers.TimeParser(new GermanTimeParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "TimePeriodParser":
+                return new BaseTimePeriodParser(new GermanTimePeriodParserConfiguration(new GermanCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            default:
+                throw new NotSupportedException("German parser Type/Name not supported for type: " + name);
+        }
+    }
+
+    private static IDateTimeParser getSwedishParser(String name) throws NotSupportedException {
+
+        switch (name) {
+            case "DateParser":
+                return new BaseDateParser(new SwedishDateParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DatePeriodParser":
+                return new BaseDatePeriodParser(new SwedishDatePeriodParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DateTimeAltParser":
+                return new BaseDateTimeAltParser(new SwedishDateTimeAltParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DateTimeParser":
+                return new BaseDateTimeParser(new SwedishDateTimeParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DateTimePeriodParser":
+                return new BaseDateTimePeriodParser(new SwedishDateTimePeriodParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "DurationParser":
+                return new BaseDurationParser(new SwedishDurationParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "HolidayParser":
+                return new HolidayParserGer(new SwedishHolidayParserConfiguration());
+            case "SetParser":
+                return new BaseSetParser(new SwedishSetParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "MergedParser":
+                return new BaseMergedDateTimeParser(new SwedishMergedParserConfiguration(DateTimeOptions.None));
+            case "TimeParser":
+                return new SwedishTimeParser(new SwedishTimeParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            case "TimePeriodParser":
+                return new BaseTimePeriodParser(new SwedishTimePeriodParserConfiguration(new SwedishCommonDateTimeParserConfiguration(DateTimeOptions.None)));
+            default:
+                throw new NotSupportedException("Swedish parser Type/Name not supported for type: " + name);
         }
     }
 

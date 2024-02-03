@@ -19828,6 +19828,29 @@
     ]
   },
   {
+    "Input": "Friday the 26th of August 2022",
+    "Context": {
+      "ReferenceDateTime": "2021-03-15T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "friday the 26th of august 2022",
+        "Start": 0,
+        "End": 29,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2022-08-26",
+              "type": "date",
+              "value": "2022-08-26"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "Input": "Let's meet at friday the 26th around 4",
     "Context": {
       "ReferenceDateTime": "2021-03-15T00:00:00"
@@ -25845,6 +25868,29 @@
               "timex": "T08:15",
               "type": "time",
               "value": "08:15:00"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "2006 1st of march",
+    "Context": {
+      "ReferenceDateTime": "2010-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "2006 1st of march",
+        "Start": 0,
+        "End": 16,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2006-03-01",
+              "type": "date",
+              "value": "2006-03-01"
             }
           ]
         }

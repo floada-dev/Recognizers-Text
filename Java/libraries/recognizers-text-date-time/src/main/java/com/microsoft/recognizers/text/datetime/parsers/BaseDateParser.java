@@ -482,7 +482,7 @@ public class BaseDateParser implements IDateTimeParser {
         Boolean ambiguous = true;
 
         List<ExtractResult> er = this.config.getOrdinalExtractor().extract(trimmedText);
-        if (er.size() == 0) {
+        if (er.size() == 0 || er.get(0).getMetadata().getIsRelativeOrdinal()) {
             er = this.config.getIntegerExtractor().extract(trimmedText);
         }
 

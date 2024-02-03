@@ -27,13 +27,13 @@ public class FrenchDateTime {
 
     public static final String RangeConnectorRegex = "(?<and>\\b(de\\s+la|au|(jusqu')?a|et(\\s*la)?)\\b|(jusqu')?à|--|-|—|——)";
 
-    public static final String RelativeRegex = "(?<order>prochaine?|de|du|ce(tte)?|l[ae]|derni[eè]re|hier|pr[eé]c[eé]dente|au\\s+cours+(de|du\\s*))";
+    public static final String RelativeRegex = "(?<order>prochaine?|de|du|ce(tte)?|l[ae]|derni[eè]re?s?|hier|pr[eé]c[eé]dente|au\\s+cours+(de|du\\s*))";
 
-    public static final String StrictRelativeRegex = "(?<order>prochaine?|derni[eè]re|hier|pr[eé]c[eé]dente|au\\s+cours+(de|du\\s*))";
+    public static final String StrictRelativeRegex = "(?<order>prochaine?|derni[eè]re?s?|hier|pr[eé]c[eé]dente|au\\s+cours+(de|du\\s*))";
 
     public static final String NextSuffixRegex = "(?<order>prochain(es?)?|suivante)\\b";
 
-    public static final String PastSuffixRegex = "(?<order>derni[eè]r(es?)?|pr[eé]c[eé]dente)\\b";
+    public static final String PastSuffixRegex = "(?<order>derni[eè]re?s?|pr[eé]c[eé]dente)\\b";
 
     public static final String ThisPrefixRegex = "(?<order>ce(tte)?|au\\s+cours+(du|de))\\b";
 
@@ -111,7 +111,7 @@ public class FrenchDateTime {
             .replace("{RelativeMonthRegex}", RelativeMonthRegex)
             .replace("{WrittenMonthRegex}", WrittenMonthRegex);
 
-    public static final String DateUnitRegex = "(?<unit>an|mois|((l')?ann[eé]e|semaine|journ[eé]e|jour)(?<plural>s)?)\\b";
+    public static final String DateUnitRegex = "(?<unit>an|(?<plural>mois)|((l')?ann[eé]e|semaine|journ[eé]e|jour)(?<plural>s)?)\\b";
 
     public static final String SimpleCasesRegex = "\\b((d[ue])|entre\\s+)?({DayRegex})\\s*{TillRegex}\\s*({DayRegex})\\s+{MonthSuffixRegex}((\\s+|\\s*,\\s*){YearRegex})?\\b"
             .replace("{DayRegex}", DayRegex)
@@ -221,7 +221,7 @@ public class FrenchDateTime {
             .replace("{NextSuffixRegex}", NextSuffixRegex)
             .replace("{WeekDayRegex}", WeekDayRegex);
 
-    public static final String SpecialDayRegex = "\\b(avant[\\s|-]hier|apr[eè]s(-demain|\\s*demain)|(le\\s)?jour suivant|(le\\s+)?dernier jour|hier|lendemain|demain|(de\\s)?la journ[ée]e|aujourd'hui)\\b";
+    public static final String SpecialDayRegex = "\\b(avant[\\s|-]hier|apr[eè]s(-demain|\\s*demain)|(le\\s)?jour suivant|(le\\s+)?derni[eè]re?s? jour|hier|lendemain|demain|(de\\s)?la journ[ée]e|aujourd'hui)\\b";
 
     public static final String SpecialDayWithNumRegex = "^\\b$";
 
@@ -365,7 +365,7 @@ public class FrenchDateTime {
     public static final String MidmorningRegex = "(?<midmorning>milieu\\s*d[ue]\\s*{MorningRegex})"
             .replace("{MorningRegex}", MorningRegex);
 
-    public static final String MiddayRegex = "(?<midday>milieu(\\s*|-)d[eu]\\s*(jour|midi)|apr[eè]s(-|\\s*)midi|(?<=\\bà\\s+)midi)";
+    public static final String MiddayRegex = "(?<midday>milieu(\\s*|-)d[eu]\\s*(jour|midi)|apr[eè]s(-|\\s*)midi|(?<=à\\s+)midi)";
 
     public static final String MidafternoonRegex = "(?<midafternoon>milieu\\s*d'+{AfternoonRegex})"
             .replace("{AfternoonRegex}", AfternoonRegex);
@@ -557,9 +557,9 @@ public class FrenchDateTime {
 
     public static final String SetEachRegex = "\\b(?<each>(chaque|tous les|(toutes les))\\s*)";
 
-    public static final String SetLastRegex = "(?<last>prochain|dernier|derni[eè]re|pass[ée]s|pr[eé]c[eé]dent|courant|en\\s*cours)";
+    public static final String SetLastRegex = "(?<last>prochain|derni[eè]re?s?|pass[ée]s|pr[eé]c[eé]dent|courant|en\\s*cours)";
 
-    public static final String EachDayRegex = "^\\s*(chaque|tous les)\\s*(jour|jours)\\b";
+    public static final String EachDayRegex = "\\s*(chaque|tous les)\\s*(jour|jours)\\b";
 
     public static final String DurationFollowedUnit = "^\\s*{SuffixAndRegex}?(\\s+|-)?{DurationUnitRegex}"
             .replace("{SuffixAndRegex}", SuffixAndRegex)

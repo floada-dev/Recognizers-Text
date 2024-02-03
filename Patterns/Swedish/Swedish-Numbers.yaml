@@ -7,142 +7,142 @@ CompoundNumberLanguage: !bool true
 MultiDecimalSeparatorCulture: !bool true
 #Integer Regex
 RoundNumberIntegerRegex: !simpleRegex
-  def: (?#RoundNumberIntegerRegex)(hundra|tusen|miljon(er)?|miljard(er)?|biljon(er)?|biljard(er)?|triljon(er)?)
+  def: (hundra|tusen|miljon(er)?|miljard(er)?|biljon(er)?|biljard(er)?|triljon(er)?)
 ZeroToNineIntegerRegex: !simpleRegex
-  def: (?#ZeroToNineIntegerRegex)(tre|sju|åtta|fyra|fem|noll|nio|ett|en|två|sex)
+  def: (tre|sju|åtta|fyra|fem|noll|nio|ett|en|två|sex)
 TwoToNineIntegerRegex: !simpleRegex
-  def: (?#TwoToNineIntegerRegex)(tre|sju|åtta|fyra|fem|nio|två|sex)
+  def: (tre|sju|åtta|fyra|fem|nio|två|sex)
 NegativeNumberTermsRegex: !simpleRegex
-  def: (?#NegativeNumberTermsRegex)(?<negTerm>((minus|negativ(t)?)\s+))
+  def: (?<negTerm>((minus|negativ(t)?)\s+))
 NegativeNumberSignRegex: !nestedRegex
-  def: (?#NegativeNumberSignRegex)^({NegativeNumberTermsRegex}).*
+  def: ^({NegativeNumberTermsRegex}).*
   references: [ NegativeNumberTermsRegex ]
 AnIntRegex: !simpleRegex
-  def: (?#AnIntRegex)(e(n|tt))(?=\s)
+  def: (e(n|tt))(?=\s)
 TenToNineteenIntegerRegex: !simpleRegex
-  def: (?#TenToNineteenIntegerRegex)(sjutton|tretton|fjorton|arton|nitton|femton|sexton|elva|tolv|tio)
+  def: (sjutton|tretton|fjorton|arton|nitton|femton|sexton|elva|tolv|tio)
 TensNumberIntegerRegex: !simpleRegex
-  def: (?#TensNumberIntegerRegex)(sjuttio|tjugo|trettio|åttio|nittio|fyrtio|femtio|sextio)
+  def: (sjuttio|tjugo|trettio|åttio|nittio|fyrtio|femtio|sextio)
 SeparaIntRegex: !nestedRegex
-  def: (?#SeparaIntRegex)((({TenToNineteenIntegerRegex}|({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-\s*)?{ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|{ZeroToNineIntegerRegex})(\s*{RoundNumberIntegerRegex})*))|(({AnIntRegex}(\s*{RoundNumberIntegerRegex})+))
+  def: ((({TenToNineteenIntegerRegex}|({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-\s*)?{ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|{ZeroToNineIntegerRegex})(\s*{RoundNumberIntegerRegex})*))|(({AnIntRegex}(\s*{RoundNumberIntegerRegex})+))
   references: [ TenToNineteenIntegerRegex, TensNumberIntegerRegex, ZeroToNineIntegerRegex, RoundNumberIntegerRegex, AnIntRegex ]
 AllIntRegex: !nestedRegex
-  def: (?#AllIntRegex)(((({TenToNineteenIntegerRegex}|({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-\s*)?{ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|({ZeroToNineIntegerRegex}|{AnIntRegex}))?(\s*{RoundNumberIntegerRegex})))*{SeparaIntRegex})
+  def: (((({TenToNineteenIntegerRegex}|({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-\s*)?{ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|({ZeroToNineIntegerRegex}|{AnIntRegex}))?(\s*{RoundNumberIntegerRegex})))*{SeparaIntRegex})
   references: [ TenToNineteenIntegerRegex, TensNumberIntegerRegex, ZeroToNineIntegerRegex, AnIntRegex, RoundNumberIntegerRegex, SeparaIntRegex ]
 PlaceHolderPureNumber: !simpleRegex
-  def: (?#PlaceHolderPureNumber)\b
+  def: \b
 PlaceHolderDefault: !simpleRegex
-  def: (?#PlaceHolderDefault)\D|\b
+  def: \D|\b
 NumbersWithPlaceHolder: !paramsRegex
-  def: (?#NumbersWithPlaceHolder)(((?<!\d+\s*)-\s*)|(?<=\b))\d+(?!([\.,]\d+[a-zA-Z]))(?={placeholder})
+  def: (((?<!\d+\s*)-\s*)|(?<=\b))\d+(?!([\.,]\d+[a-zA-Z]))(?={placeholder})
   params: [ placeholder ]
 NumbersWithSuffix: !nestedRegex
-  def: (?#NumbersWithSuffix)(((?<!\d+\s*)-\s*)|(?<=\b))\d+\s*{BaseNumbers.NumberMultiplierRegex}(?=\b)
+  def: (((?<!\d+\s*)-\s*)|(?<=\b))\d+\s*{BaseNumbers.NumberMultiplierRegex}(?=\b)
   references: [ BaseNumbers.NumberMultiplierRegex ]
 RoundNumberIntegerRegexWithLocks: !nestedRegex
-  def: (?#RoundNumberIntegerRegexWithLocks)(?<=\b)\d+\s*{RoundNumberIntegerRegex}(?=\b)
+  def: (?<=\b)\d+\s*{RoundNumberIntegerRegex}(?=\b)
   references: [ RoundNumberIntegerRegex ]
 NumbersWithDozenSuffix: !simpleRegex
-  def: (?#NumbersWithDozenSuffix)(((?<!\d+\s*)-\s*)|(?<=\b))\d+\s+dussin(?=\b)
+  def: (((?<!\d+\s*)-\s*)|(?<=\b))\d+\s+dussin(?=\b)
 AllIntRegexWithLocks: !nestedRegex
-  def: (?#AllIntRegexWithLocks)((?<=\b){AllIntRegex}(?=\b))
+  def: ((?<=\b){AllIntRegex}(?=\b))
   references: [ AllIntRegex ]
 AllIntRegexWithDozenSuffixLocks: !nestedRegex
-  def: (?#AllIntRegexWithDozenSuffixLocks)(?<=\b)(((ett\s+)?halvt\s+dussin)|({AllIntRegex}\s+dussin))(?=\b)
+  def: (?<=\b)(((ett\s+)?halvt\s+dussin)|({AllIntRegex}\s+dussin))(?=\b)
   references: [ AllIntRegex ]
 #Ordinal Regex
 RoundNumberOrdinalRegex: !simpleRegex
-  def: (?#RoundNumberOrdinalRegex)(hundrade|tusende|miljonte|miljardte|biljonte|biljardte|triljonte|triljardte)
+  def: (hundrade|tusende|miljonte|miljardte|biljonte|biljardte|triljonte|triljardte)
 NumberOrdinalRegex: !simpleRegex
-  def: (?#NumberOrdinalRegex)(först(e|a)|andr(a|e)|tredje|fjärde|femte|sjätte|sjunde|åttonde|nionde|tionde|elfte|tolfte|trettonde|fjortonde|femtonde|sextonde|sjuttonde|artonde|nittonde|tjugonde|trettionde|fyrtionde|femtionde|sextionde|sjuttionde|åttionde|nittionde)
+  def: (först(e|a)|andr(a|e)|tredje|fjärde|femte|sjätte|sjunde|åttonde|nionde|tionde|elfte|tolfte|trettonde|fjortonde|femtonde|sextonde|sjuttonde|artonde|nittonde|tjugonde|trettionde|fyrtionde|femtionde|sextionde|sjuttionde|åttionde|nittionde)
 RelativeOrdinalRegex: !simpleRegex
-  def: (?#RelativeOrdinalRegex)(?<relativeOrdinal>(\bnäst(a|e)|\bföregående|\bnäst\s+sist(a|e)|\bsist(a|e)|\bnuvarande|\b(före|efter)\s+nuvarande|\bförr(a|e)|\btredje\s+från\s+slutet|\bsenaste|\btidigare|\bföre\s+den\s+sist(a|e)|\b(innan|efter|före)\s+sist(a|e)))
+  def: (?<relativeOrdinal>(\bnäst(a|e)|\bföregående|\bnäst\s+sist(a|e)|\bsist(a|e)|\bnuvarande|\b(före|efter)\s+nuvarande|\bförr(a|e)|\btredje\s+från\s+slutet|\bsenaste|\btidigare|\bföre\s+den\s+sist(a|e)|\b(innan|efter|före)\s+sist(a|e)))
 SuffixBasicOrdinalRegex: !nestedRegex
-  def: (?#SuffixBasicOrdinalRegex)((((({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-?\s*){ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|{ZeroToNineIntegerRegex}?|{AnIntRegex})(\s*{RoundNumberIntegerRegex})+)\s*(och\s+)?)*({TensNumberIntegerRegex}(\s+|\s*-?\s*))?{NumberOrdinalRegex})
+  def: ((((({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-?\s*){ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|{ZeroToNineIntegerRegex}?|{AnIntRegex})(\s*{RoundNumberIntegerRegex})+)\s*(och\s+)?)*({TensNumberIntegerRegex}(\s+|\s*-?\s*))?{NumberOrdinalRegex})
   references: [ TensNumberIntegerRegex, ZeroToNineIntegerRegex, AnIntRegex, RoundNumberIntegerRegex, NumberOrdinalRegex ]
 SuffixRoundNumberOrdinalRegex: !nestedRegex
-  def: (?#SuffixRoundNumberOrdinalRegex)(({AllIntRegex}\s*){RoundNumberOrdinalRegex})
+  def: (({AllIntRegex}\s*){RoundNumberOrdinalRegex})
   references: [ AllIntRegex, RoundNumberOrdinalRegex ]
 AllOrdinalNumberRegex: !nestedRegex
   def: ({SuffixRoundNumberOrdinalRegex}|{SuffixBasicOrdinalRegex})
   references: [ SuffixRoundNumberOrdinalRegex, SuffixBasicOrdinalRegex ]
 AllOrdinalRegex: !nestedRegex
-  def: (?#AllOrdinalRegex)({RelativeOrdinalRegex}|{AllOrdinalNumberRegex})
+  def: ({RelativeOrdinalRegex}|{AllOrdinalNumberRegex})
   references: [ RelativeOrdinalRegex, AllOrdinalNumberRegex ]
 OrdinalSuffixRegex: !simpleRegex
-  def: (?#OrdinalSuffixRegex)(?<=\b)(?:(\d*(1:(e|a)|2:(a|e)|3:e|4:e|5:e|6:e|7:e|8:e|9:e|0:e))|(11:e|12:e))(?=\b)
+  def: (?<=\b)(?:(\d*(1:(e|a)|2:(a|e)|3:e|4:e|5:e|6:e|7:e|8:e|9:e|0:e))|(11:e|12:e))(?=\b)
 OrdinalNumericRegex: !simpleRegex
-  def: (?#OrdinalNumericRegex)(?<=\b)(?:\d{1,3}(\s*,\s*\d{3})*\s*(:(e|a)))(?=\b)
+  def: (?<=\b)(?:\d{1,3}(\s*,\s*\d{3})*\s*(:(e|a)))(?=\b)
 OrdinalRoundNumberRegex: !nestedRegex
-  def: (?#OrdinalRoundNumberRegex)(?<!(en|ett)\s+)?{RoundNumberOrdinalRegex}
+  def: (?<!(en|ett)\s+)?{RoundNumberOrdinalRegex}
   references: [ RoundNumberOrdinalRegex ]
 OrdinalSwedishRegex: !nestedRegex
-  def: (?#OrdinalSwedishRegex)(?<=\b){AllOrdinalRegex}(?=\b)
+  def: (?<=\b){AllOrdinalRegex}(?=\b)
   references: [ AllOrdinalRegex ]
 #Fraction Regex
 #Swedish Ordinals are not possible to re-use as part of a fractional notation.
 #The below regex (RoundNumberFractionSwedishRegex) thus replaces RoundNumberOrdinalRegex in FractionNounRegex and FractionNounWithArticleRegex.
 RoundNumberFractionSwedishRegex: !simpleRegex
-  def: (?#RoundNumberFractionSwedishRegex)(hundradel(s|ar)?|tusendel(s|ar)?|miljon(te)?del(s|ar)?|miljarddel(s|ar)?|biljon(te)?del(s|ar)?|biljarddel(s|ar)?|triljon(te)?del(s|ar)?|triljarddel(s|ar)?)
+  def: (hundradel(s|ar)?|tusendel(s|ar)?|miljon(te)?del(s|ar)?|miljarddel(s|ar)?|biljon(te)?del(s|ar)?|biljarddel(s|ar)?|triljon(te)?del(s|ar)?|triljarddel(s|ar)?)
 FractionNotationWithSpacesRegex: !simpleRegex
-  def: (?#FractionNotationWithSpacesRegex)(((?<=\W|^)-\s*)|(?<=\b))\d+\s+\d+[/]\d+(?=(\b[^/]|$))
+  def: (((?<=\W|^)-\s*)|(?<=\b))\d+\s+\d+[/]\d+(?=(\b[^/]|$))
 FractionNotationRegex: !nestedRegex
-  def: (?#FractionNotationRegex){BaseNumbers.FractionNotationRegex}
+  def: '{BaseNumbers.FractionNotationRegex}'
   references: [ BaseNumbers.FractionNotationRegex ]
 FractionNounRegex: !nestedRegex
-  def: (?#FractionNounRegex)(?<=\b)({AllIntRegex}\s+(och\s+)?)?({AllIntRegex})(\s*|\s*-\s*)((({AllOrdinalNumberRegex})|({RoundNumberFractionSwedishRegex}))((de)?l(s|ar(na)?)?)?|halvor|kvart(ar|s))(?=\b)
+  def: (?<=\b)({AllIntRegex}\s+(och\s+)?)?({AllIntRegex})(\s*|\s*-\s*)((({AllOrdinalNumberRegex})|({RoundNumberFractionSwedishRegex}))((de)?l(s|ar(na)?)?)?|halvor|kvart(ar|s))(?=\b)
   references: [ AllIntRegex, AllOrdinalNumberRegex, RoundNumberFractionSwedishRegex ]
 FractionNounWithArticleRegex: !nestedRegex
-  def: (?#FractionNounWithArticleRegex)(?<=\b)((({AllIntRegex}\s+(och\s+)?)?(en|ett)?(\s+|\s*-\s*)(?!\bförsta\b|\bandra\b)(({AllOrdinalNumberRegex})|({RoundNumberFractionSwedishRegex})|halv(t)?|kvart(s)?))|(halva|hälften))(?=\b)
+  def: (?<=\b)((({AllIntRegex}\s+(och\s+)?)?(en|ett)?(\s+|\s*-\s*)(?!\bförsta\b|\bandra\b)(({AllOrdinalNumberRegex})|({RoundNumberFractionSwedishRegex})|halv(t)?|kvart(s)?))|(halva|hälften))(?=\b)
   references: [ AllIntRegex, AllOrdinalNumberRegex, RoundNumberFractionSwedishRegex ]
 FractionOverRegex: !simpleRegex
-  def: (?#FractionOverRegex)(genom|delat\s+(med|på)|delad\s+(med|på)|dividerat\s+(med|på)|dividerad\s+(med|på)|(ut)?av|på)
+  def: (genom|delat\s+(med|på)|delad\s+(med|på)|dividerat\s+(med|på)|dividerad\s+(med|på)|(ut)?av|på)
 FractionPrepositionRegex: !nestedRegex
-  def: (?#FractionPrepositionRegex)(?<!{BaseNumbers.CommonCurrencySymbol}\s*)(?<=\b)(?<numerator>({AllIntRegex})|((?<![\.,])\d+))\s+{FractionOverRegex}\s+(?<denominator>({AllIntRegex})|(\d+)(?![\.,]))(?=\b)
+  def: (?<!{BaseNumbers.CommonCurrencySymbol}\s*)(?<=\b)(?<numerator>({AllIntRegex})|((?<![\.,])\d+))\s+{FractionOverRegex}\s+(?<denominator>({AllIntRegex})|(\d+)(?![\.,]))(?=\b)
   references: [ AllIntRegex, BaseNumbers.CommonCurrencySymbol, FractionOverRegex ]
 FractionPrepositionWithinPercentModeRegex: !nestedRegex
-  def: (?#FractionPrepositionWithinPercentModeRegex)(?<!{BaseNumbers.CommonCurrencySymbol}\s*)(?<=\b)(?<numerator>({AllIntRegex})|((?<![\.,])\d+))\s+genom\s+(?<denominator>({AllIntRegex})|(\d+)(?![\.,]))(?=\b)
+  def: (?<!{BaseNumbers.CommonCurrencySymbol}\s*)(?<=\b)(?<numerator>({AllIntRegex})|((?<![\.,])\d+))\s+genom\s+(?<denominator>({AllIntRegex})|(\d+)(?![\.,]))(?=\b)
   references: [ AllIntRegex, BaseNumbers.CommonCurrencySymbol ]
 #Double Regex
 AllPointRegex: !nestedRegex
-  def: (?#AllPointRegex)((\s+{ZeroToNineIntegerRegex})+|(\s+{SeparaIntRegex}))
+  def: ((\s+{ZeroToNineIntegerRegex})+|(\s+{SeparaIntRegex}))
   references: [ ZeroToNineIntegerRegex, SeparaIntRegex ]
 AllFloatRegex: !nestedRegex
-  def: (?#AllFloatRegex){AllIntRegex}(\s+komma){AllPointRegex}
+  def: '{AllIntRegex}(\s+komma){AllPointRegex}'
   references: [ AllIntRegex, AllPointRegex ]
 DoubleWithMultiplierRegex: !nestedRegex
-  def: (?#DoubleWithMultiplierRegex)(((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))\d+[\.,]\d+\s*{BaseNumbers.NumberMultiplierRegex}(?=\b)
+  def: (((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))\d+[\.,]\d+\s*{BaseNumbers.NumberMultiplierRegex}(?=\b)
   references: [ BaseNumbers.NumberMultiplierRegex ]
 DoubleExponentialNotationRegex: !simpleRegex
-  def: (?#DoubleExponentialNotationRegex)(((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))(\d+([\.,]\d+)?)e([+-]*[1-9]\d*)(?=\b)
+  def: (((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))(\d+([\.,]\d+)?)e([+-]*[1-9]\d*)(?=\b)
 DoubleCaretExponentialNotationRegex: !simpleRegex
-  def: (?#DoubleCaretExponentialNotationRegex)(((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))(\d+([\.,]\d+)?)\^([+-]*[1-9]\d*)(?=\b)
+  def: (((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))(\d+([\.,]\d+)?)\^([+-]*[1-9]\d*)(?=\b)
 DoubleDecimalPointRegex: !paramsRegex
-  def: (?#DoubleDecimalPointRegex)(((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))\d+[\.,]\d+(?!([\.,]\d+))(?={placeholder})
+  def: (((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))\d+[\.,]\d+(?!([\.,]\d+))(?={placeholder})
   params: [ placeholder ]
 DoubleWithoutIntegralRegex: !paramsRegex
-  def: (?#DoubleWithoutIntegralRegex)(?<=\s|^)(?<!(\d+))[\.,]\d+(?!([\.,]\d+))(?={placeholder})
+  def: (?<=\s|^)(?<!(\d+))[\.,]\d+(?!([\.,]\d+))(?={placeholder})
   params: [ placeholder ]
 DoubleWithRoundNumber: !nestedRegex
-  def: (?#DoubleWithRoundNumber)(((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))\d+[\.,]\d+\s+{RoundNumberIntegerRegex}(?=\b)
+  def: (((?<!\d+\s*)-\s*)|((?<=\b)(?<!\d+[\.,])))\d+[\.,]\d+\s+{RoundNumberIntegerRegex}(?=\b)
   references: [ RoundNumberIntegerRegex ]
 DoubleAllFloatRegex: !nestedRegex
-  def: (?#DoubleAllFloatRegex)((?<=\b){AllFloatRegex}(?=\b))
+  def: ((?<=\b){AllFloatRegex}(?=\b))
   references: [ AllFloatRegex ]
 ConnectorRegex: !simpleRegex
-  def: (?#ConnectorRegex)(?<spacer>och)
+  def: (?<spacer>och)
 #Percentage Regex
 NumberWithSuffixPercentage: !nestedRegex
-  def: (?#NumberWithSuffixPercentage)(?<!%)({BaseNumbers.NumberReplaceToken})(\s*)(%(?!{BaseNumbers.NumberReplaceToken})|(procent|procentenheter)\b)
+  def: (?<!%)({BaseNumbers.NumberReplaceToken})(\s*)(%(?!{BaseNumbers.NumberReplaceToken})|(procent|procentenheter)\b)
   references: [ BaseNumbers.NumberReplaceToken ]
 FractionNumberWithSuffixPercentage: !nestedRegex
-  def: (?#FractionNumberWithSuffixPercentage)(({BaseNumbers.FractionNumberReplaceToken})\s+av)
+  def: (({BaseNumbers.FractionNumberReplaceToken})\s+av)
   references: [ BaseNumbers.FractionNumberReplaceToken ]
 NumberWithPrefixPercentage: !nestedRegex
-  def: (?#NumberWithPrefixPercentage)(procent\s+av)(\s*)({BaseNumbers.NumberReplaceToken})
+  def: (procent\s+av)(\s*)({BaseNumbers.NumberReplaceToken})
   references: [ BaseNumbers.NumberReplaceToken ]
 NumberWithPrepositionPercentage: !nestedRegex
-  def: (?#NumberWithPrepositionPercentage)({BaseNumbers.NumberReplaceToken})\s*(ut\s+av)\s*({BaseNumbers.NumberReplaceToken})
+  def: ({BaseNumbers.NumberReplaceToken})\s*(ut\s+av)\s*({BaseNumbers.NumberReplaceToken})
   references: [ BaseNumbers.NumberReplaceToken ]
 #NumberRange Regex
 TillRegex: !simpleRegex
@@ -292,7 +292,7 @@ OrdinalNumberMap: !dictionary
     andre: 2
     sekundära: 2
     sekundäre: 2
-    tvåa: 2	
+    tvåa: 2
     tvåan: 2
     halva: 2
     halvan: 2

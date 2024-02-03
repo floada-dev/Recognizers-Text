@@ -354,7 +354,7 @@ public class SpanishDateTime {
             .replace("{DayRegex}", DayRegex)
             .replace("{BaseDateTime.CheckDecimalRegex}", BaseDateTime.CheckDecimalRegex);
 
-    public static final String DateExtractor9 = "\\b({WeekDayRegex}\\s+)?(?<!\\d[.,]){DayRegex}\\s*/\\s*{MonthNumRegex}((\\s+|\\s*,\\s*|\\s+d[eo]\\s+){DateYearRegex})?\\b{BaseDateTime.CheckDecimalRegex}(?!\\s*[/\\\\\\.]\\s*\\d+)"
+    public static final String DateExtractor9 = "\\b({WeekDayRegex}\\s+)?(?<!\\d[.,]){DayRegex}\\s*(/|\\bdel\\b)\\s*{MonthNumRegex}((\\s+|\\s*,\\s*|\\s+d[eo]\\s+){DateYearRegex})?\\b{BaseDateTime.CheckDecimalRegex}(?!\\s*[/\\\\\\.]\\s*\\d+)"
             .replace("{WeekDayRegex}", WeekDayRegex)
             .replace("{DayRegex}", DayRegex)
             .replace("{MonthNumRegex}", MonthNumRegex)
@@ -1315,4 +1315,6 @@ public class SpanishDateTime {
     public static final String SemiAnnualTypeRegex = "(semestral(es|mente)?)$";
 
     public static final String YearTypeRegex = "(años?|anual(mente)?)$";
+
+    public static final List<String> ThisTerms = Arrays.asList("esta");
 }

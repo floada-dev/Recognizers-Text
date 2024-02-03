@@ -30,7 +30,7 @@ public abstract class AbstractTest {
 
     private static final String SpecsPath = "../../Specs";
 
-    private static final List<String> SupportedCultures = Arrays.asList("English", "Spanish", "Portuguese", "French", "German", "Chinese");
+    private static final List<String> SupportedCultures = Arrays.asList("English", "Spanish", "Portuguese", "French", "German", "Swedish");
 
     // FEFF - UTF-8 byte order mark (EF BB BF) as Unicode char representation.
     private static final String UTF8_BOM = "\uFEFF";

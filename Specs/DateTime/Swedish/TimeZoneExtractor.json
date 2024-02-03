@@ -1,7 +1,7 @@
 [
   {
     "Input": "Boka ett rum åt mig Afghansk tid",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "Afghansk tid",
@@ -13,7 +13,7 @@
   },
   {
     "Input": "Jag befinner mig i Amerikansk-Stillahavs normaltid",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "Amerikansk-Stillahavs normaltid",
@@ -25,7 +25,7 @@
   },
   {
     "Input": "Jag befinner mig i Aqtöbe/Aktiubinsk tid",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "aqtöbe/aktiubinsk tid",
@@ -37,7 +37,7 @@
   },
   {
     "Input": "Klockan är 13:00 Östamerikansk sommartid",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "östamerikansk sommartid",
@@ -50,7 +50,7 @@
   {
     "Input": "Book me a room at beijing time",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "beijing time",
@@ -63,7 +63,7 @@
   {
     "Input": "Book me a room at utc4:30",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "utc4:30",
@@ -76,7 +76,7 @@
   {
     "Input": "Book me a room at gmt-3",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "gmt-3",
@@ -89,7 +89,7 @@
   {
     "Input": "Book me a room at afghanistan standard time",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "afghanistan standard time",
@@ -101,7 +101,7 @@
   },
   {
     "Input": "Book me a room at aft",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Comment": "Test to ensure default (English) implementation works",
     "Results": [
       {
@@ -115,7 +115,7 @@
   {
     "Input": "Book me a room at beijing-time",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "beijing-time",
@@ -128,7 +128,7 @@
   {
     "Input": "Book me a room at St. Louis-time",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "St. Louis-time",
@@ -141,7 +141,7 @@
   {
     "Input": "Book me a room at San José Time",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "San José Time",
@@ -154,7 +154,7 @@
   {
     "Input": "For me, Christchurch Time, Colchester-time or Edinburgh time is OK.",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "Christchurch Time",
@@ -179,7 +179,7 @@
   {
     "Input": "Cortana will email you to find a time which works in the Sydney timezone.",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "Sydney timezone",
@@ -192,7 +192,7 @@
   {
     "Input": "Cortana will email you to find a time which works in the Montréal time.",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "Montréal time",
@@ -205,7 +205,7 @@
   {
     "Input": "Cortana will email you to find a time which works in the Montreal time.",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "Montreal time",
@@ -218,7 +218,7 @@
   {
     "Input": "Book me a room at pt",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "pt",
@@ -231,7 +231,7 @@
   {
     "Input": "Book me a room at et",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "et",
@@ -244,7 +244,7 @@
   {
     "Input": "let's meet Saint Barthélemy time",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "Saint Barthélemy time",
@@ -256,7 +256,7 @@
   },
   {
     "Input": "let's meet saint barthelemy timezone",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "saint barthelemy timezone",
@@ -269,19 +269,19 @@
   {
     "Input": "It is the outcome of the vote that counts.",
     "Comment": "This case is to verify that the utc substring won't be extracted from the word outcome.",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": []
   },
   {
     "Input": "Show me times at Lincoln Square",
     "Comment": "This case is to verify that the 'me time' substring won't be extracted from the 'me times'.",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": []
   },
   {
     "Input": "I said New York time, not York time",
     "Comment": "Extract longest item when there are some overlap items",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "New York time",
@@ -300,7 +300,7 @@
   {
     "Input": "I'm in the pacific timezone",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "pacific timezone",
@@ -313,7 +313,7 @@
   {
     "Input": "Let's meet at 1pm mountain timezone",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "mountain timezone",
@@ -326,7 +326,7 @@
   {
     "Input": "It's 1pm Eastern Daylight Time",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "eastern daylight time",
@@ -339,7 +339,7 @@
   {
     "Input": "It's about 1pm ACDT",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "acdt",
@@ -352,7 +352,7 @@
   {
     "Input": "Once upon a time...",
     "Comment": "Test to ensure default (English) implementation works",
-    "NotSupportedByDesign": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python",
     "Results": []
   }
 ]

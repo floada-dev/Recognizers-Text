@@ -26,4 +26,7 @@ public class Constants {
     public static final String RELATIVE_START = "start";
     public static final String RELATIVE_END = "end";
     public static final String RELATIVE_CURRENT = "current";
+
+    // Groups' names for named groups in regexes
+    public static final String RELATIVE_ORDINAL_GROUP_NAME = "relativeOrdinal";
 }

@@ -222,7 +222,10 @@ public class BaseDurationParser implements IDateTimeParser {
                 int numVal = Math.round(Double.valueOf(pr.getValue().toString()).floatValue());
 
                 String timex = TimexUtility.generateDurationTimex(numVal, Constants.TimexBusinessDay, false);
-                double timeValue = numVal * config.getUnitValueMap().get(srcUnit.split(" ")[1]);
+                String[] srcUnits = srcUnit.split(" ");
+                // Some cultures have this unit as one word
+                int srcUnitIdx = srcUnits.length > 1 ? 1 : 0;
+                double timeValue = numVal * config.getUnitValueMap().get(srcUnits[srcUnitIdx]);
 
                 result.setTimex(timex);
                 result.setFutureValue(timeValue);

@@ -31,6 +31,7 @@ public final class NumberFormatUtility {
         supportedCultures.put(Culture.German, LongFormatType.DoubleNumDotComma);
         supportedCultures.put(Culture.Chinese, null);
         supportedCultures.put(Culture.Japanese, LongFormatType.DoubleNumDotComma);
+        supportedCultures.put(Culture.Swedish, LongFormatType.DoubleNumBlankComma);
     }
 
     public static String format(Object value, CultureInfo culture) {

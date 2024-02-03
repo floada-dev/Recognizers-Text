@@ -64,19 +64,29 @@ import com.microsoft.recognizers.text.datetime.spanish.extractors.SpanishMergedE
 import com.microsoft.recognizers.text.datetime.spanish.extractors.SpanishSetExtractorConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.extractors.SpanishTimeExtractorConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.extractors.SpanishTimePeriodExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishDateExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishDatePeriodExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishDateTimeExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishDateTimePeriodExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishDurationExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishHolidayExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishMergedExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishSetExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishTimeExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishTimePeriodExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishTimeZoneExtractorConfiguration;
 import com.microsoft.recognizers.text.tests.AbstractTest;
 import com.microsoft.recognizers.text.tests.NotSupportedException;
 import com.microsoft.recognizers.text.tests.TestCase;
+import org.javatuples.Pair;
+import org.junit.Assert;
+import org.junit.AssumptionViolatedException;
+import org.junit.runners.Parameterized;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.IntStream;
-
-import org.javatuples.Pair;
-import org.junit.Assert;
-import org.junit.AssumptionViolatedException;
-import org.junit.runners.Parameterized;
 
 public class DateTimeExtractorTest extends AbstractTest {
 
@@ -142,6 +152,8 @@ public class DateTimeExtractorTest extends AbstractTest {
                     return getFrenchExtractor(modelName);
                 case Culture.German:
                     return getGermanExtractor(modelName);
+                case Culture.Swedish:
+                    return getSwedishExtractor(modelName);
                 default:
                     throw new NotSupportedException("Extractor Type/Name not supported in: " + culture);
             }
@@ -292,6 +304,43 @@ public class DateTimeExtractorTest extends AbstractTest {
 
         default:
             throw new NotSupportedException("German extractor Type/Name not supported for type: " + name);
+        }
+    }
+
+    private static IDateTimeExtractor getSwedishExtractor(String name) throws NotSupportedException {
+
+        IOptionsConfiguration config = new BaseOptionsConfiguration();
+        switch (name) {
+            case "DateExtractor":
+                return new BaseDateExtractor(new SwedishDateExtractorConfiguration(config));
+            case "DatePeriodExtractor":
+                return new BaseDatePeriodExtractor(new SwedishDatePeriodExtractorConfiguration(config));
+//            case "DateTimeAltExtractor":
+//                return new BaseDateTimeAltExtractor(new SwedishDateTimeAltExtractorConfiguration(config));
+            case "DateTimeExtractor":
+                return new BaseDateTimeExtractor(new SwedishDateTimeExtractorConfiguration());
+            case "DateTimePeriodExtractor":
+                return new BaseDateTimePeriodExtractor(new SwedishDateTimePeriodExtractorConfiguration());
+            case "DurationExtractor":
+                return new BaseDurationExtractor(new SwedishDurationExtractorConfiguration());
+            case "HolidayExtractor":
+                return new BaseHolidayExtractor(new SwedishHolidayExtractorConfiguration());
+            case "MergedExtractor":
+                return new BaseMergedDateTimeExtractor(new SwedishMergedExtractorConfiguration(DateTimeOptions.None));
+            case "MergedExtractorSkipFromTo":
+                return new BaseMergedDateTimeExtractor(
+                        new SwedishMergedExtractorConfiguration(DateTimeOptions.SkipFromToMerge));
+            case "SetExtractor":
+                return new BaseSetExtractor(new SwedishSetExtractorConfiguration());
+            case "TimeExtractor":
+                return new BaseTimeExtractor(new SwedishTimeExtractorConfiguration());
+            case "TimePeriodExtractor":
+                return new BaseTimePeriodExtractor(new SwedishTimePeriodExtractorConfiguration());
+            case "TimeZoneExtractor":
+                return new BaseTimeZoneExtractor(new SwedishTimeZoneExtractorConfiguration(DateTimeOptions.EnablePreview));
+
+            default:
+                throw new NotSupportedException("Swedish extractor Type/Name not supported for type: " + name);
         }
     }
 }

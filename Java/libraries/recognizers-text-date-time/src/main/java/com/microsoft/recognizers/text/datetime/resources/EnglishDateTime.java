@@ -162,7 +162,7 @@ public class EnglishDateTime {
             .replace("{RelativeMonthRegex}", RelativeMonthRegex)
             .replace("{WrittenMonthRegex}", WrittenMonthRegex);
 
-    public static final String DateUnitRegex = "(?<unit>(decade|year|(?<uoy>month|week)|(?<business>(business\\s+|week\\s*))?(?<uoy>day)|fortnight|weekend)(?<plural>s)?|(?<=(^|\\s)\\d{1,4})[ymwd])\\b";
+    public static final String DateUnitRegex = "(?<unit>(decade|year|(?<uoy>month|week|fortnight)|(?<business>(business\\s+|week\\s*))?(?<uoy>day)|fortnight|weekend)(?<plural>s)?|(?<=(^|\\s)\\d{1,4})[ymwd])\\b";
 
     public static final String DateTokenPrefix = "on ";
 
@@ -214,7 +214,7 @@ public class EnglishDateTime {
             .replace("{YearRegex}", YearRegex)
             .replace("{WrittenOrdinalDayRegex}", WrittenOrdinalDayRegex);
 
-    public static final String MonthWithYear = "\\b((({WrittenMonthRegex}[\\.]?|((the\\s+)?(?<cardinal>first|1st|second|2nd|third|3rd|fourth|4th|fifth|5th|sixth|6th|seventh|7th|eighth|8th|ninth|9th|tenth|10th|eleventh|11th|twelfth|12th|last)\\s+month(?=\\s+(of|in))))((\\s*)[/\\\\\\-\\.,]?(\\s+(of|in))?(\\s*)({YearRegex}|(?<order>following|next|last|this)\\s+year)|\\s+(of|in)\\s+{TwoDigitYearRegex}))|(({YearRegex}|(?<order>following|next|last|this)\\s+year)(\\s*),?(\\s*){WrittenMonthRegex}))\\b"
+    public static final String MonthWithYear = "\\b((({WrittenMonthRegex}[\\.]?|((the\\s+)?(?<cardinal>first|1st|second|2nd|third|3rd|fourth|4th|fifth|5th|sixth|6th|seventh|7th|eighth|8th|ninth|9th|tenth|10th|eleventh|11th|twelfth|12th|last)\\s+month(?=\\s+(of|in))))((\\s*)[/\\\\\\-\\.,]?(\\s+(of|in))?(\\s*)({YearRegex}|{TwoDigitYearRegex}|(?<order>following|next|last|this)\\s+year)|\\s+(of|in)\\s+{TwoDigitYearRegex}))|(({YearRegex}|(?<order>following|next|last|this)\\s+year)(\\s*),?(\\s*){WrittenMonthRegex}))\\b"
             .replace("{WrittenMonthRegex}", WrittenMonthRegex)
             .replace("{YearRegex}", YearRegex)
             .replace("{TwoDigitYearRegex}", TwoDigitYearRegex);
@@ -768,7 +768,7 @@ public class EnglishDateTime {
     public static final String SetLastRegex = "(?<last>following|next|upcoming|this|{LastNegPrefix}last|past|previous|current)"
             .replace("{LastNegPrefix}", LastNegPrefix);
 
-    public static final String EachDayRegex = "^\\s*(each|every)\\s*day\\b";
+    public static final String EachDayRegex = "\\s*((each|every)\\s*day)|daily\\b";
 
     public static final String DurationFollowedUnit = "(^\\s*{DurationUnitRegex}\\s+{SuffixAndRegex})|(^\\s*{SuffixAndRegex}?(\\s+|-)?{DurationUnitRegex})"
             .replace("{SuffixAndRegex}", SuffixAndRegex)
@@ -1065,8 +1065,8 @@ public class EnglishDateTime {
         .put("weekend", "WE")
         .put("fortnights", "2W")
         .put("fortnight", "2W")
-        .put("weekdays", "D")
-        .put("weekday", "D")
+        .put("weekdays", "WD")
+        .put("weekday", "WD")
         .put("days", "D")
         .put("day", "D")
         .put("d", "D")
@@ -1579,6 +1579,10 @@ public class EnglishDateTime {
     public static final String HalfMultiplierRegex = "^(semi)(-|\\s)?";
 
     public static final String DayTypeRegex = "((week)?da(il)?ys?)$";
+
+    public static final String WeekDayTypeRegex = "(weekday?)$";
+
+    public static final String FortNightRegex = "(fortnight?)$";
 
     public static final String WeekTypeRegex = "(week(s|ly)?)$";
 

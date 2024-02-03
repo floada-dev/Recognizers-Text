@@ -17,6 +17,8 @@ import com.microsoft.recognizers.text.datetime.models.DateTimeModel;
 import com.microsoft.recognizers.text.datetime.parsers.BaseMergedDateTimeParser;
 import com.microsoft.recognizers.text.datetime.spanish.extractors.SpanishMergedExtractorConfiguration;
 import com.microsoft.recognizers.text.datetime.spanish.parsers.SpanishMergedParserConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.extractors.SwedishMergedExtractorConfiguration;
+import com.microsoft.recognizers.text.datetime.swedish.parsers.SwedishMergedParserConfiguration;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -99,6 +101,12 @@ public class DateTimeRecognizer extends Recognizer<DateTimeOptions> {
         registerModel(DateTimeModel.class, Culture.German, dateTimeOptions -> new DateTimeModel(
                 new BaseMergedDateTimeParser(new GermanMergedParserConfiguration(options)),
                 new BaseMergedDateTimeExtractor(new GermanMergedExtractorConfiguration(options))
+        ));
+
+        // Swedish
+        registerModel(DateTimeModel.class, Culture.Swedish, dateTimeOptions -> new DateTimeModel(
+                new BaseMergedDateTimeParser(new SwedishMergedParserConfiguration(options)),
+                new BaseMergedDateTimeExtractor(new SwedishMergedExtractorConfiguration(options))
         ));
     }
 }

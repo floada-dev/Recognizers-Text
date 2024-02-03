@@ -1,0 +1,278 @@
+﻿[
+  {
+    "Input": "Sep. 21, 2023",
+    "Context": {
+      "ReferenceDateTime": "2019-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "sep. 21, 2023",
+        "Start": 0,
+        "End": 12,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2023-09-21",
+              "type": "date",
+              "value": "2023-09-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "sep. 21, 2023",
+    "Context": {
+      "ReferenceDateTime": "2019-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "sep. 21, 2023",
+        "Start": 0,
+        "End": 12,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2023-09-21",
+              "type": "date",
+              "value": "2023-09-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Sep 21, 2023",
+    "Context": {
+      "ReferenceDateTime": "2019-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "sep 21, 2023",
+        "Start": 0,
+        "End": 11,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2023-09-21",
+              "type": "date",
+              "value": "2023-09-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Sept 21, 2023",
+    "Context": {
+      "ReferenceDateTime": "2019-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "sept 21, 2023",
+        "Start": 0,
+        "End": 12,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2023-09-21",
+              "type": "date",
+              "value": "2023-09-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Sept. 21, 2023",
+    "Context": {
+      "ReferenceDateTime": "2019-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "sept. 21, 2023",
+        "Start": 0,
+        "End": 13,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2023-09-21",
+              "type": "date",
+              "value": "2023-09-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "April. 16, 1994",
+    "Context": {
+      "ReferenceDateTime": "1990-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "april. 16, 1994",
+        "Start": 0,
+        "End": 14,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1994-04-16",
+              "type": "date",
+              "value": "1994-04-16"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "April. 16, 1994",
+    "Context": {
+      "ReferenceDateTime": "1990-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "april. 16, 1994",
+        "Start": 0,
+        "End": 14,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1994-04-16",
+              "type": "date",
+              "value": "1994-04-16"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Onsdag 21:e mars 1997",
+    "Context": {
+      "ReferenceDateTime": "1990-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "onsdag 21:e mars 1997",
+        "Start": 0,
+        "End": 20,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1997-03-21",
+              "type": "date",
+              "value": "1997-03-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Onsdag, 21:e mars 1997",
+    "Context": {
+      "ReferenceDateTime": "1990-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "onsdag, 21:e mars 1997",
+        "Start": 0,
+        "End": 21,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1997-03-21",
+              "type": "date",
+              "value": "1997-03-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Onsdag, 21:e mars, 1997",
+    "Context": {
+      "ReferenceDateTime": "1990-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "onsdag, 21:e mars, 1997",
+        "Start": 0,
+        "End": 22,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1997-03-21",
+              "type": "date",
+              "value": "1997-03-21"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Onsdag, 21:e mars, 1997, 19:00",
+    "Context": {
+      "ReferenceDateTime": "1990-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "onsdag, 21:e mars, 1997, 19:00",
+        "Start": 0,
+        "End": 29,
+        "TypeName": "datetimeV2.datetime",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1997-03-21T19:00",
+              "type": "datetime",
+              "value": "1997-03-21 19:00:00"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "2006 1:a mars",
+    "Context": {
+      "ReferenceDateTime": "2010-05-23T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "2006 1:a mars",
+        "Start": 0,
+        "End": 12,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "2006-03-01",
+              "type": "date",
+              "value": "2006-03-01"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

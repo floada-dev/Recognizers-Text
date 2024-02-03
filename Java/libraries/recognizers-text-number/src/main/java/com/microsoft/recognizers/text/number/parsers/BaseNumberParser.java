@@ -3,6 +3,7 @@
 
 package com.microsoft.recognizers.text.number.parsers;
 
+import com.microsoft.recognizers.text.Culture;
 import com.microsoft.recognizers.text.CultureInfo;
 import com.microsoft.recognizers.text.ExtractResult;
 import com.microsoft.recognizers.text.IParser;
@@ -49,7 +50,8 @@ public class BaseNumberParser implements IParser {
                 + getKeyRegex(config.getOrdinalNumberMap().keySet());
 
         // Necessary for the german language because bigger numbers are not separated by whitespaces or special characters like in other languages
-        if (config.getCultureInfo().cultureCode.equalsIgnoreCase("de-DE")) {
+        String cultureCode = config.getCultureInfo().cultureCode;
+        if (cultureCode.equals(Culture.German) || cultureCode.equals(Culture.Swedish)) {
             this.textNumberRegex = Pattern.compile("(" + singleIntFrac + ")", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CHARACTER_CLASS);
         } else {
             this.textNumberRegex = Pattern.compile("(?<=\\b)(" + singleIntFrac + ")(?=\\b)", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CHARACTER_CLASS);

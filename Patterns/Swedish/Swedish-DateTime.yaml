@@ -3,744 +3,747 @@
 LangMarker: Swe
 CheckBothBeforeAfter: !bool false
 TillRegex: !nestedRegex
-  def: (?#TillRegex)(?<till>\b(till|tom)\b(\s+den\b)?|{BaseDateTime.RangeConnectorSymbolRegex})
+  def: (?<till>\b(till|tom)\b(\s+den\b)?|{BaseDateTime.RangeConnectorSymbolRegex})
   references: [ BaseDateTime.RangeConnectorSymbolRegex ]
 RangeConnectorRegex: !nestedRegex
-  def: (?#RangeConnectorRegex)(?<and>\b(och|tom)\b(\s+den\b)?|{BaseDateTime.RangeConnectorSymbolRegex})
+  def: (?<and>\b(och|tom)\b(\s+den\b)?|{BaseDateTime.RangeConnectorSymbolRegex})
   references: [ BaseDateTime.RangeConnectorSymbolRegex ]
 # Filter regex, no need to localize
 LastNegPrefix: !simpleRegex
-  def: (?#LastNegPrefix)(?<!(w(ill|ould|on\s*'\s*t)|m(ay|ight|ust)|sh(all|ould(n\s*'\s*t)?)|c(an(\s*'\s*t|not)?|ould(n\s*'\s*t)?))(\s+not)?\s+)
+  def: (?<!(w(ill|ould|on\s*'\s*t)|m(ay|ight|ust)|sh(all|ould(n\s*'\s*t)?)|c(an(\s*'\s*t|not)?|ould(n\s*'\s*t)?))(\s+not)?\s+)
 RelativeRegex: !nestedRegex
-  def: (?#RelativeRegex)\b(?<order>efter|nästa|kommande|de(nn|tt)a|de(n|t)\s+här|{LastNegPrefix}senaste|förra|tidigare|innevarande)\b
+  def: \b(?<order>efter|nästa|kommande|de(nn|tt)a|de(n|t)\s+här|{LastNegPrefix}senaste|förra|tidigare|innevarande)\b
   references: [ LastNegPrefix ]
 StrictRelativeRegex: !nestedRegex
-  def: (?#StrictRelativeRegex)\b(?<order>efter|nästa|kommande|de(nn|tt)a|de(n|t)\s+här|{LastNegPrefix}senaste|förra|tidigare|innevarande)\b
+  def: \b(?<order>efter|nästa|kommande|de(nn|tt)a|de(n|t)\s+här|{LastNegPrefix}senaste|förra|tidigare|innevarande)\b
   references: [ LastNegPrefix ]
 UpcomingPrefixRegex: !simpleRegex
-  def: (?#UpcomingPrefixRegex)((de(n|t)\s+)?(kommande|här))
-NextPrefixRegex: !nestedRegex 
-  def: (?#NextPrefixRegex)\b(efter|nästa|{UpcomingPrefixRegex})\b
+  def: ((de(n|t)\s+)?(kommande))
+NextPrefixRegex: !nestedRegex
+  def: \b(efter|nästa|{UpcomingPrefixRegex})\b
   references: [ UpcomingPrefixRegex ]
 # We make "next" and "upcoming" separately as when parsing, some behaviours are different
 # "next Friday" might be different from "upcoming Friday"
 AfterNextSuffixRegex: !simpleRegex
-  def: (?#AfterNextSuffixRegex)\b(efter\s+nästa)\b
+  def: \b(efter\s+nästa)\b
 PastPrefixRegex: !simpleRegex
-  def: (?#PastPrefixRegex)((de(n|t)\s+)?förra)\b
+  def: ((de(n|t)\s+)?förra)\b
 PreviousPrefixRegex: !nestedRegex
-  def: (?#PreviousPrefixRegex)({LastNegPrefix}förra|föregående|{PastPrefixRegex})\b
+  def: ({LastNegPrefix}förra|föregående|{PastPrefixRegex})\b
   references: [ LastNegPrefix, PastPrefixRegex ]
 # We make "past" and "previous" separately as when parsing, some behaviours are different
 # "last Tuesday" might be different from "past Tuesday"
 ThisPrefixRegex: !simpleRegex
-  def: (?#ThisPrefixRegex)(innevarande|de(nn|tt)a|de(n|t)\s+här)\b
+  def: (innevarande|de(nn|tt)a|de(n|t)\s+här)\b
 RangePrefixRegex: !simpleRegex
-  def: (?#RangePrefixRegex)(från|mellan)
+  def: (från|mellan)
 CenturySuffixRegex: !simpleRegex
-  def: (?#CenturySuffixRegex)(^sekel)\b
+  def: (^sekel)\b
 ReferencePrefixRegex: !simpleRegex
-  def: (?#ReferencePrefixRegex)(samma)\b
+  def: (samma)\b
 FutureSuffixRegex: !simpleRegex
-  def: (?#FutureSuffixRegex)\b((i\s+)?framtiden)\b
+  def: \b((i\s+)?framtiden)\b
 PastSuffixRegex: !simpleRegex
-  def: (?#PastSuffixRegex)\b((i\s+)dåtid(en)?)\b
+  def: \b((i\s+)dåtid(en)?)\b
 DayRegex: !simpleRegex
-  def: (?#DayRegex)(den\s*)?(?<!(\d+:?|\$)\s*)(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])(?:\:(a|e))?)(?=\b|t)
+  def: (den\s*)?(?<!(\d+:?|\$)\s*)(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])(?:\:(a|e))?)(?=\b|t)
 ImplicitDayRegex: !simpleRegex
-  def: (?#ImplicitDayRegex)(den\s*)?(?<day>(?:3[0-1]|[0-2]?\d)(?:\:(a|e)))\b
+  def: (den\s*)?(?<day>(?:3[0-1]|[0-2]?\d)(?:\:(a|e)))\b
 MonthNumRegex: !simpleRegex
-  def: (?#MonthNumRegex)(?<month>1[0-2]|(0)?[1-9])\b
+  def: (?<month>1[0-2]|(0)?[1-9])\b
 WrittenOneToNineRegex: !simpleRegex
-  def: (?#WrittenOneToNineRegex)(?:e(n|tt)|två|tre|fyra|fem|sex|sju|åtta|nio)
+  def: (?:e(n|tt)|två|tre|fyra|fem|sex|sju|åtta|nio)
 WrittenElevenToNineteenRegex: !simpleRegex
-  def: (?#WrittenElevenToNineteenRegex)(?:elva|tolv|(?:tret|fjor|fem|sex|sjut|ar|nit)ton)
+  def: (?:elva|tolv|(?:tret|fjor|fem|sex|sjut|ar|nit)ton)
 WrittenTensRegex: !simpleRegex
-  def: (?#WrittenTensRegex)(?:tio|tjugo|trettio|fyrtio|femtio|sextio|sjuttio|åttio|nittio)
+  def: (?:tio|tjugo|trettio|fyrtio|femtio|sextio|sjuttio|åttio|nittio)
 WrittenNumRegex: !nestedRegex
-  def: (?#WrittenNumRegex)(?:{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}(\s*{WrittenOneToNineRegex})?)
+  def: (?:{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}(\s*{WrittenOneToNineRegex})?)
   references: [ WrittenOneToNineRegex, WrittenElevenToNineteenRegex, WrittenTensRegex ]
 WrittenCenturyFullYearRegex: !nestedRegex
-  def: (?#WrittenCenturyFullYearRegex)(?:(ett|två)\s+tusen(\s*{WrittenOneToNineRegex}\s*hundra)?)
+  def: (?:(ett|två)\s+tusen(\s*{WrittenOneToNineRegex}\s*hundra)?)
   references: [ WrittenOneToNineRegex]
 WrittenCenturyOrdinalYearRegex: !simpleRegex
-  def: (?#WrittenCenturyOrdinalYearRegex)(?:tjugo(\s+(ett|två))?|tio|elva|tolv|tretton|femton|arton|tjugo|(?:fjor|sex|sjut|nit)(ton)?|ett|två|tre|fyra|fem|sju|åtta|nio)
+  def: (?:tjugo(\s+(ett|två))?|tio|elva|tolv|tretton|femton|arton|tjugo|(?:fjor|sex|sjut|nit)(ton)?|ett|två|tre|fyra|fem|sju|åtta|nio)
 CenturyRegex: !nestedRegex
-  def: (?#CenturyRegex)\b(?<century>{WrittenCenturyFullYearRegex}|(ett|två)tusen|{WrittenCenturyOrdinalYearRegex}(\s*hundra)?)
+  def: \b(?<century>{WrittenCenturyFullYearRegex}|(ett|två)tusen|{WrittenCenturyOrdinalYearRegex}(\s*hundra)?)
   references: [WrittenCenturyFullYearRegex, WrittenCenturyOrdinalYearRegex ]
 LastTwoYearNumRegex: !nestedRegex
-  def: (?#LastTwoYearNumRegex)(?:(noll\s+)?{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}(\s*{WrittenOneToNineRegex})?)
+  def: (?:(noll\s+)?{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}(\s*{WrittenOneToNineRegex})?)
   references: [ WrittenOneToNineRegex, WrittenElevenToNineteenRegex, WrittenTensRegex ]
 FullTextYearRegex: !nestedRegex
-  def: (?#FullTextYearRegex)\b((?<firsttwoyearnum>{CenturyRegex})(\s+och)?\s*(?<lasttwoyearnum>{LastTwoYearNumRegex})\b|\b(?<firsttwoyearnum>{WrittenCenturyFullYearRegex}|{WrittenCenturyOrdinalYearRegex}\s*hundra))\b
+  def: \b((?<firsttwoyearnum>{CenturyRegex})(\s+och)?\s*(?<lasttwoyearnum>{LastTwoYearNumRegex})\b|\b(?<firsttwoyearnum>{WrittenCenturyFullYearRegex}|{WrittenCenturyOrdinalYearRegex}\s*hundra))\b
   references: [ CenturyRegex, WrittenCenturyFullYearRegex, WrittenCenturyOrdinalYearRegex, LastTwoYearNumRegex ]
 OclockRegex: !simpleRegex
-  def: (?#OclockRegex)(?<oclock>o\s*((’|‘|')\s*)?clock|sharp|prick)
+  def: (?<oclock>o\s*((’|‘|')\s*)?clock|sharp|prick)
 SpecialDescRegex: !simpleRegex
-  def: (?#SpecialDescRegex)((?<ipm>)p\b)
+  def: ((?<ipm>)p\b)
 AmDescRegex: !nestedRegex
-  def: (?#AmDescRegex)(?:{BaseDateTime.BaseAmDescRegex})
+  def: (?:{BaseDateTime.BaseAmDescRegex})
   references: [BaseDateTime.BaseAmDescRegex]
 PmDescRegex: !nestedRegex
-  def: (?#PmDescRegex)(:?{BaseDateTime.BasePmDescRegex})
+  def: (:?{BaseDateTime.BasePmDescRegex})
   references: [BaseDateTime.BasePmDescRegex]
 AmPmDescRegex: !nestedRegex
-  def: (?#AmPmDescRegex)(:?{BaseDateTime.BaseAmPmDescRegex})
+  def: (:?{BaseDateTime.BaseAmPmDescRegex})
   references: [BaseDateTime.BaseAmPmDescRegex]
 DescRegex: !nestedRegex
-  def: (?#DescRegex)(:?(:?({OclockRegex}\s+)?(?<desc>({AmPmDescRegex}|{AmDescRegex}|{PmDescRegex}|{SpecialDescRegex})))|{OclockRegex})
+  def: (:?(:?({OclockRegex}\s+)?(?<desc>({AmPmDescRegex}|{AmDescRegex}|{PmDescRegex}|{SpecialDescRegex})))|{OclockRegex})
   references: [ OclockRegex, AmDescRegex, PmDescRegex, AmPmDescRegex, SpecialDescRegex ]
 OfPrepositionRegex: !simpleRegex
-  def: (?#OfPrepositionRegex)(\bi\b)
+  def: (\bi\b)
 # Exclude cases that include the "Am/Pm" suffix
 TwoDigitYearRegex: !nestedRegex
-  def: (?#TwoDigitYearRegex)\b(?<![$])(?<year>([0-9]\d))(?!(\s*((\:\d)|{AmDescRegex}|{PmDescRegex}|\.\d)))\b
+  def: \b(?<![$])(?<year>([0-9]\d))(?!(\s*((\:\d)|{AmDescRegex}|{PmDescRegex}|\.\d)))\b
   references: [ AmDescRegex, PmDescRegex]
 YearRegex: !nestedRegex
-  def: (?#YearRegex)(?:{BaseDateTime.FourDigitYearRegex}|{FullTextYearRegex})
+  def: (?:{BaseDateTime.FourDigitYearRegex}|{FullTextYearRegex})
   references: [ BaseDateTime.FourDigitYearRegex, FullTextYearRegex ]
 WeekDayRegex: !simpleRegex
-  def: (?#WeekDayRegex)\b(?<weekday>(?:sö(n)?|må(n)?|ti(s)?|on(s)?|to(rs)?|fr(e)?|lö(r)?))(d(ags?(en|ar)?)?)?\b
+  def: \b(?<weekday>(?:sö(n)?|må(n)?|ti(s)?|on(s)?|to(rs)?|fr(e)?|lö(r)?))(d(ags?(en|ar)?)?)?\b
 SingleWeekDayRegex: !simpleRegex
-  def: (?#SingleWeekDayRegex)\b(?<weekday>(?<!(easter|palm)\s+)söndag|(?<!easter\s+)lördag|(?<!(easter|cyber)\s+)måndag|mån|(?<!black\s+)fredag|fri|fre|(?:ti(sd?)?|tors?)(dag)?|tor|on(sdag)?|ons?|((?<=på\s+)(lör|sön)))\b
+  def: \b(?<weekday>(?<!(easter|palm)\s+)söndag|(?<!easter\s+)lördag|(?<!(easter|cyber)\s+)måndag|mån|(?<!black\s+)fredag|fri|fre|(?:ti(sd?)?|tors?)(dag)?|tor|on(sdag)?|ons?|((?<=på\s+)(lör|sön)))\b
 RelativeMonthRegex: !nestedRegex
-  def: (?#RelativeMonthRegex)(?<relmonth>((dag\s+)?i\s+)?{RelativeRegex}\s+månad(en)?)\b
+  def: (?<relmonth>((dag\s+)?i\s+)?{RelativeRegex}\s+månad(en)?)\b
   references: [RelativeRegex]
 MonthRegex: !simpleRegex
-  def: (?#MonthRegex)\b(?<month>apr(il)?|aug(usti)?|dec(ember)?|feb(ruari)?|jan(uari)?|juli?|juni?|mar(s)?|maj|nov(ember)?|okt(ober)?|sept(ember)?|sep)(?!\p{L})
+  def: \b(?<month>apr(il)?|aug(usti)?|dec(ember)?|feb(ruari)?|jan(uari)?|juli?|juni?|mar(s)?|maj|nov(ember)?|okt(ober)?|sept(ember)?|sep)(?!\p{L})
 WrittenMonthRegex: !nestedRegex
-  def: (?#WrittenMonthRegex)((i\s+)?{MonthRegex}(\s+månad)?)
+  def: ((i\s+)?{MonthRegex}(\s+månad)?)
   references: [ MonthRegex ]
 MonthSuffixRegex: !nestedRegex
-  def: (?#MonthSuffixRegex)(?<msuf>(?:(i|under)\s+)?({RelativeMonthRegex}|{WrittenMonthRegex}))
+  def: (?<msuf>(?:(i|under)\s+)?({RelativeMonthRegex}|{WrittenMonthRegex}))
   references: [ RelativeMonthRegex, WrittenMonthRegex ]
 DateUnitRegex: !simpleRegex
-  def: (?#DateUnitRegex)(?<unit>(decenni(um)?|år|(?<uoy>månad|vecka?)|(?<business>(arbets\s*|vecka?\s*))?(?<uoy>dag)|weekend|helg)(?<plural>(s|or|er|ar|e?n))?|(?<=\s+\d{1,4})[ymwd])\b
+  def: (?<unit>(decenni(um)?|år|(?<uoy>månad|vecka?)|(?<business>(arbets\s*|vecka?\s*))?(?<uoy>dag)|weekend|helg)(?<plural>(s|or|er|ar|e?n))?|(?<=\s+\d{1,4})[ymwd])\b
 DateTokenPrefix: 'den '
 TimeTokenPrefix: 'kl '
 TokenBeforeDate: 'den '
 TokenBeforeTime: 'kl '
 HalfTokenRegex: !simpleRegex
-  def: (?#HalfTokenRegex)^(halv)
+  def: ^(halv)
 QuarterTokenRegex: !simpleRegex
-  def: (?#QuarterTokenRegex)^((en\s+)?kvart)
+  def: ^((en\s+)?kvart)
 ThreeQuarterTokenRegex: !simpleRegex
-  def: (?#ThreeQuarterTokenRegex)^(tre\s+kvart(ar)?)
+  def: ^(tre\s+kvart(ar)?)
 ToTokenRegex: !simpleRegex
-  def: (?#ToTokenRegex)\b(till)$
+  def: \b(till)$
 FromRegex: !simpleRegex
-  def: (?#FromRegex)\b(från(\s+den)?)$
+  def: \b(från(\s+den)?)$
 BetweenTokenRegex: !simpleRegex
-  def: (?#BetweenTokenRegex)\b(mellan(\s+den)?)$
+  def: \b(mellan(\s+den)?)$
 SimpleCasesRegex: !nestedRegex
-  def: (?#SimpleCasesRegex)\b({RangePrefixRegex}\s+)?({DayRegex})\s*{TillRegex}\s*({DayRegex}\s+{MonthSuffixRegex}|{MonthSuffixRegex}\s+{DayRegex})((\s+|\s*,\s*){YearRegex})?\b
+  def: \b({RangePrefixRegex}\s+)?({DayRegex})\s*{TillRegex}\s*({DayRegex}\s+{MonthSuffixRegex}|{MonthSuffixRegex}\s+{DayRegex})((\s+|\s*,\s*){YearRegex})?\b
   references: [ DayRegex, TillRegex, MonthSuffixRegex, YearRegex, RangePrefixRegex ]
 MonthFrontSimpleCasesRegex: !nestedRegex
-  def: (?#MonthFrontSimpleCasesRegex)\b({RangePrefixRegex}\s+)?{MonthSuffixRegex}\s+((från)\s+)?({DayRegex})\s*{TillRegex}\s*({DayRegex})((\s+|\s*,\s*){YearRegex})?\b
+  def: \b({RangePrefixRegex}\s+)?{MonthSuffixRegex}\s+((från)\s+)?({DayRegex})\s*{TillRegex}\s*({DayRegex})((\s+|\s*,\s*){YearRegex})?\b
   references: [ MonthSuffixRegex, DayRegex, TillRegex, YearRegex, RangePrefixRegex ]
 MonthFrontBetweenRegex: !nestedRegex
-  def: (?#MonthFrontBetweenRegex)\b{MonthSuffixRegex}\s+(mellan\s+)({DayRegex})\s*{RangeConnectorRegex}\s*({DayRegex})((\s+|\s*,\s*){YearRegex})?\b
+  def: \b{MonthSuffixRegex}\s+(mellan\s+)({DayRegex})\s*{RangeConnectorRegex}\s*({DayRegex})((\s+|\s*,\s*){YearRegex})?\b
   references: [ MonthSuffixRegex, DayRegex, RangeConnectorRegex , YearRegex ]
 BetweenRegex: !nestedRegex
-  def: (?#BetweenRegex)\b(mellan\s+)({DayRegex})\s*{RangeConnectorRegex}\s*({DayRegex})\s+{MonthSuffixRegex}((\s+|\s*,\s*){YearRegex})?\b
+  def: \b(mellan\s+)({DayRegex})\s*{RangeConnectorRegex}\s*({DayRegex})\s+{MonthSuffixRegex}((\s+|\s*,\s*){YearRegex})?\b
   references: [ DayRegex, RangeConnectorRegex , MonthSuffixRegex, YearRegex ]
 MonthWithYear: !nestedRegex
-  def: (?#MonthWithYear)\b((({WrittenMonthRegex}[\.]?|((den\s+)?(?<cardinal>först(e|a)|1:(e|a)|andr(e|a)|2:(a|e)|tredje|3:e|fjärde|4:e|femte|5:e|sjätte|6:e|sjunde|7:e|åttonde|8:e|nionde|9:e|tionde|10:e|elfte|11:e|tolfte|12:e|senaste)\s+månaden(?=\s+(of|in))))((\s*)[/\\\-\.,]?(\s+(of|in))?(\s*)({YearRegex}|(?<order>kommande|nästa|senaste|detta)\s+år(et)?)|\s+(of|in)\s+{TwoDigitYearRegex}))|(({YearRegex}|(?<order>kommande|nästa|senaste|detta)\s+år(et)?)(\s*),?(\s*){WrittenMonthRegex}))\b
+  def: \b((({WrittenMonthRegex}[\.]?|((den\s+)?(?<cardinal>först(e|a)|1:(e|a)|andr(e|a)|2:(a|e)|tredje|3:e|fjärde|4:e|femte|5:e|sjätte|6:e|sjunde|7:e|åttonde|8:e|nionde|9:e|tionde|10:e|elfte|11:e|tolfte|12:e|senaste)\s+månaden(?=\s+(of|in))))((\s*)[/\\\-\.,]?(\s+(of|in))?(\s*)({YearRegex}|(?<order>kommande|nästa|senaste|detta)\s+år(et)?)|\s+(of|in)\s+{TwoDigitYearRegex}))|(({YearRegex}|(?<order>kommande|nästa|senaste|detta)\s+år(et)?)(\s*),?(\s*){WrittenMonthRegex}))\b
   references: [ WrittenMonthRegex, YearRegex, TwoDigitYearRegex ]
 SpecialYearPrefixes: !simpleRegex
-  def: (?#SpecialYearPrefixes)(kalender|(?<special>räkenskaps|skol|läs))
+  def: (kalender|(?<special>räkenskaps|skol|läs))
 # TODO: OneWordPeriodRegex will be translated later
 OneWordPeriodRegex: !nestedRegex
-  def: (?#OneWordPeriodRegex)\b((((the\s+)?month of\s+)?({StrictRelativeRegex}\s+)?{MonthRegex})|(month|year) to date|(?<toDate>((un)?till?|to)\s+date)|({RelativeRegex}\s+)?(my\s+)?((?<business>working\s+week|workweek)|week(end)?|month|fortnight|(({SpecialYearPrefixes}\s+)?year))(?!((\s+of)?\s+\d+(?!({BaseDateTime.BaseAmDescRegex}|{BaseDateTime.BasePmDescRegex}))|\s+to\s+date))(\s+{AfterNextSuffixRegex})?)\b
+  def: \b((((the\s+)?month of\s+)?({StrictRelativeRegex}\s+)?{MonthRegex})|(month|year) to date|(?<toDate>((un)?till?|to)\s+date)|({RelativeRegex}\s+)?(my\s+)?((?<business>working\s+week|workweek)|week(end)?|month|fortnight|(({SpecialYearPrefixes}\s+)?year))(?!((\s+of)?\s+\d+(?!({BaseDateTime.BaseAmDescRegex}|{BaseDateTime.BasePmDescRegex}))|\s+to\s+date))(\s+{AfterNextSuffixRegex})?)\b
   references: [ StrictRelativeRegex, RelativeRegex, AfterNextSuffixRegex, SpecialYearPrefixes, BaseDateTime.BaseAmDescRegex, BaseDateTime.BasePmDescRegex, MonthRegex ]
 MonthNumWithYear: !nestedRegex
-  def: (?#MonthNumWithYear)\b(({BaseDateTime.FourDigitYearRegex}(\s*)[/\-\.](\s*){MonthNumRegex})|({MonthNumRegex}(\s*)[/\-](\s*){BaseDateTime.FourDigitYearRegex}))\b
+  def: \b(({BaseDateTime.FourDigitYearRegex}(\s*)[/\-\.](\s*){MonthNumRegex})|({MonthNumRegex}(\s*)[/\-](\s*){BaseDateTime.FourDigitYearRegex}))\b
   references: [ BaseDateTime.FourDigitYearRegex, MonthNumRegex ]
 WeekOfMonthRegex: !nestedRegex
-  def: (?#WeekOfMonthRegex)\b(?<wom>(den\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|sista)\s+veckan\s+{MonthSuffixRegex}(\s+{BaseDateTime.FourDigitYearRegex}|{RelativeRegex}\s+år)?)\b
+  def: \b(?<wom>(den\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|sista)\s+veckan\s+{MonthSuffixRegex}(\s+{BaseDateTime.FourDigitYearRegex}|{RelativeRegex}\s+år)?)\b
   references: [ MonthSuffixRegex, BaseDateTime.FourDigitYearRegex, RelativeRegex ]
 WeekOfYearRegex: !nestedRegex
-  def: (?#WeekOfYearRegex)\b(?<woy>(den\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|sista)\s+veckan(\s+i)?\s+({YearRegex}|{RelativeRegex}\s+år))\b
+  def: \b(?<woy>(den\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|sista)\s+veckan(\s+i)?\s+({YearRegex}|{RelativeRegex}\s+år))\b
   references: [ YearRegex, RelativeRegex ]
 OfYearRegex: !nestedRegex
-  def: (?#OfYearRegex)\b((i)\s+({YearRegex}|{StrictRelativeRegex}\s+år))\b
+  def: \b((i)\s+({YearRegex}|{StrictRelativeRegex}\s+år))\b
   references: [ YearRegex, StrictRelativeRegex ]
 FirstLastRegex: !simpleRegex
-  def: (?#FirstLastRegex)\b(den\s+)?((?<first>första)|(?<last>sista))\b
+  def: \b(den\s+)?((?<first>första)|(?<last>sista))\b
 FollowedDateUnit: !nestedRegex
-  def: (?#FollowedDateUnit)^\s*{DateUnitRegex}
+  def: ^\s*{DateUnitRegex}
   references: [ DateUnitRegex ]
 NumberCombinedWithDateUnit: !nestedRegex
-  def: (?#NumberCombinedWithDateUnit)\b(?<num>\d+(\.\d*)?){DateUnitRegex}
+  def: \b(?<num>\d+(\.\d*)?){DateUnitRegex}
   references: [ DateUnitRegex ]
 QuarterTermRegex: !simpleRegex
-  def: (?#QuarterTermRegex)\b(((?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e)[ -]+kvartalet)|(q(?<number>[1-4])))\b
+  def: \b(((?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e)[ -]+kvartalet)|(q(?<number>[1-4])))\b
 RelativeQuarterTermRegex: !nestedRegex
-  def: (?#RelativeQuarterTermRegex)\b(?<orderQuarter>{StrictRelativeRegex})\s+kvartalet\b
+  def: \b(?<orderQuarter>{StrictRelativeRegex})\s+kvartalet\b
   references: [ StrictRelativeRegex ]
 QuarterRegex: !nestedRegex
-  def: (?#QuarterRegex)((det\s+)?{QuarterTermRegex}(?:((\s+under)?\s+|\s*[,-]\s*)({YearRegex}|{RelativeRegex}\s+year))?)|{RelativeQuarterTermRegex}
+  def: ((det\s+)?{QuarterTermRegex}(?:((\s+under)?\s+|\s*[,-]\s*)({YearRegex}|{RelativeRegex}\s+year))?)|{RelativeQuarterTermRegex}
   references: [ YearRegex, RelativeRegex, QuarterTermRegex, RelativeQuarterTermRegex ]
 QuarterRegexYearFront: !nestedRegex
-  def: (?#QuarterRegexYearFront)(?:{YearRegex}|{RelativeRegex}\s+year)('s)?(?:\s*-\s*|\s+(det\s+)?)?{QuarterTermRegex}
+  def: (?:{YearRegex}|{RelativeRegex}\s+year)('s)?(?:\s*-\s*|\s+(det\s+)?)?{QuarterTermRegex}
   references: [ YearRegex, RelativeRegex, QuarterTermRegex ]
 HalfYearTermRegex: !simpleRegex
-  def: (?#HalfYearTermRegex)(?<cardinal>första|1:a|andra|2:a)\s+halvåret
+  def: (?<cardinal>första|1:a|andra|2:a)\s+halvåret
 HalfYearFrontRegex: !nestedRegex
-  def: (?#HalfYearFrontRegex)(?<year>((1[5-9]|20)\d{2})|2100)(\s*-\s*|\s+(det\s+)?)?h(?<number>[1-2])
+  def: (?<year>((1[5-9]|20)\d{2})|2100)(\s*-\s*|\s+(det\s+)?)?h(?<number>[1-2])
   references: [ YearRegex ]
 HalfYearBackRegex: !nestedRegex
-  def: (?#HalfYearBackRegex)(det\s+)?(h(?<number>[1-2])|({HalfYearTermRegex}))(\s+under|\s*,\s*)?\s+({YearRegex})
+  def: (det\s+)?(h(?<number>[1-2])|({HalfYearTermRegex}))(\s+under|\s*,\s*)?\s+({YearRegex})
   references: [ YearRegex, HalfYearTermRegex ]
 HalfYearRelativeRegex: !nestedRegex
-  def: (?#HalfYearRelativeRegex)(det\s+)?{HalfYearTermRegex}(\s+under|\s*,\s*)?\s+({RelativeRegex}\s+år)
+  def: (det\s+)?{HalfYearTermRegex}(\s+under|\s*,\s*)?\s+({RelativeRegex}\s+år)
   references: [ RelativeRegex, HalfYearTermRegex ]
 AllHalfYearRegex: !nestedRegex
-  def: (?#AllHalfYearRegex)({HalfYearFrontRegex})|({HalfYearBackRegex})|({HalfYearRelativeRegex})
+  def: ({HalfYearFrontRegex})|({HalfYearBackRegex})|({HalfYearRelativeRegex})
   references: [ HalfYearFrontRegex, HalfYearBackRegex, HalfYearRelativeRegex ]
 EarlyPrefixRegex: !simpleRegex
-  def: (?#EarlyPrefixRegex)\b(?<EarlyPrefix>early|början av|början på|(?<RelEarly>tidigare(\s+under)?))\b
+  def: \b(?<EarlyPrefix>early|början av|början på|(?<RelEarly>tidigare(\s+under)?))\b
 MidPrefixRegex: !simpleRegex
-  def: (?#MidPrefixRegex)\b(?<MidPrefix>mitten av)\b
+  def: \b(?<MidPrefix>mitten av)\b
 LaterPrefixRegex: !simpleRegex
-  def: (?#LaterPrefixRegex)\b(?<LatePrefix>slutet på|slutet av|(?<RelLate>senare(\s+under)?))\b
+  def: \b(?<LatePrefix>slutet på|slutet av|(?<RelLate>senare(\s+under)?))\b
 PrefixPeriodRegex: !nestedRegex
-  def: (?#PrefixPeriodRegex)({EarlyPrefixRegex}|{MidPrefixRegex}|{LaterPrefixRegex})
+  def: ({EarlyPrefixRegex}|{MidPrefixRegex}|{LaterPrefixRegex})
   references: [EarlyPrefixRegex, MidPrefixRegex, LaterPrefixRegex]
 PrefixDayRegex: !simpleRegex
-  def: (?#PrefixDayRegex)\b((?<EarlyPrefix>tidig(t|are))|(?<MidPrefix>mitt på)|(?<LatePrefix>senare?))(\s+på)?(\s+dagen)?$
+  def: \b((?<EarlyPrefix>tidig(t|are))|(?<MidPrefix>mitt på)|(?<LatePrefix>senare?))(\s+på)?(\s+dagen)?$
 SeasonDescRegex: !simpleRegex
-  def: (?#SeasonDescRegex)(?<seas>våren|sommaren|hösten|vintern)
+  def: (?<seas>våren|sommaren|hösten|vintern)
 SeasonRegex: !nestedRegex
-  def: (?#SeasonRegex)\b(?<season>({PrefixPeriodRegex}\s+)?({RelativeRegex}\s+)?{SeasonDescRegex}((\s+|\s*,\s*)?\s+({YearRegex}|{RelativeRegex}\s+året))?)\b
+  def: \b(?<season>({PrefixPeriodRegex}\s+)?({RelativeRegex}\s+)?{SeasonDescRegex}((\s+|\s*,\s*)?\s+({YearRegex}|{RelativeRegex}\s+året))?)\b
   references: [ YearRegex, RelativeRegex, SeasonDescRegex, PrefixPeriodRegex ]
 WhichWeekRegex: !simpleRegex
-  def: (?#WhichWeekRegex)\b(vecka)(\s*)(?<number>5[0-3]|[1-4]\d|0?[1-9])\b
+  def: \b(vecka)(\s*)(?<number>5[0-3]|[1-4]\d|0?[1-9])\b
 WeekOfRegex: !simpleRegex
-  def: (?#WeekOfRegex)((veckan)(\s+(som|(börjar|startar|inleds)(\s+den)?))|w/c)(\s+den)?
+  def: ((veckan)(\s+(som|(börjar|startar|inleds)(\s+den)?))|w/c)(\s+den)?
 MonthOfRegex: !simpleRegex
-  def: (?#MonthOfRegex)(månaden)(\s*)(i)
-# This is a look-behind assertion. Some cases should extract two digits as year like 11/25/16, where 16 means 2016. 
+  def: (månaden)(\s*)(i)
+# This is a look-behind assertion. Some cases should extract two digits as year like 11/25/16, where 16 means 2016.
 # The assertion determines if not connected with am/pm or hour separator (:), which should be a time.
 DateYearRegex: !nestedRegex
-  def: (?#DateYearRegex)(?<year>{BaseDateTime.FourDigitYearRegex}|(?<!,\s?){TwoDigitYearRegex}|{TwoDigitYearRegex}(?=(\.(?!\d)|[?!;]|$)))
+  def: (?<year>{BaseDateTime.FourDigitYearRegex}|(?<!,\s?){TwoDigitYearRegex}|{TwoDigitYearRegex}(?=(\.(?!\d)|[?!;]|$)))
   references: [ BaseDateTime.FourDigitYearRegex, TwoDigitYearRegex ]
 YearSuffix: !nestedRegex
-  def: (?#YearSuffix)((,|\si)?\s*({DateYearRegex}|{FullTextYearRegex}))
+  def: ((,|\si)?\s*({DateYearRegex}|{FullTextYearRegex}))
   references: [ DateYearRegex, FullTextYearRegex ]
 OnRegex: !nestedRegex
-  def: (?#OnRegex)(?<=\bden\s+)({DayRegex}s?)\b
+  def: (?<=\bden\s+)({DayRegex}s?)\b
   references: [ DayRegex ]
 RelaxedOnRegex: !simpleRegex
-  def: (?#RelaxedOnRegex)(?<=\b(den|om|på)\s+)((?<day>(3[0-1]|[0-2]?\d)(?:(a|e)))s?)\b
+  def: (?<=\b(den|om|på)\s+)((?<day>(3[0-1]|[0-2]?\d)(?:(a|e)))s?)\b
 PrefixWeekDayRegex: !simpleRegex
-  def: (?#PrefixWeekDayRegex)(\s*((,?\s*på)|[-—–]))
+  def: (\s*((,?\s*på)|[-—–]))
 ThisRegex: !nestedRegex
-  def: (?#ThisRegex)\b(denna(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})|({WeekDayRegex}((\s+i)?\s+(denna|den\s+här)\s*veckan?))\b|(på\s+){WeekDayRegex}$
+  def: \b(denna(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})|({WeekDayRegex}((\s+i)?\s+(denna|den\s+här)\s*veckan?))\b|((på|den(na|\s+här))\s+){WeekDayRegex}$
   references: [ WeekDayRegex, PrefixWeekDayRegex ]
 LastDateRegex: !nestedRegex
-  def: (?#LastDateRegex)\b({PreviousPrefixRegex}(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})|({WeekDayRegex}(\s+(den\s+)?senaste\s*veckan))\b|({WeekDayRegex}\s+(i\s+)?{PreviousPrefixRegex}\s*veckan)\b|(i\s+{WeekDayRegex})\b
+  def: \b({PreviousPrefixRegex}(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})|({WeekDayRegex}(\s+(den\s+)?senaste\s*veckan))\b|({WeekDayRegex}\s+(i\s+)?{PreviousPrefixRegex}\s*veckan)\b|(i\s+{WeekDayRegex})\b
   references: [ PreviousPrefixRegex, WeekDayRegex, PrefixWeekDayRegex ]
 NextDateRegex1: !nestedRegex
-  def: (?#NextDateRegex1)\b({NextPrefixRegex}(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})
+  def: \b({NextPrefixRegex}(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})
   references: [ NextPrefixRegex, WeekDayRegex, PrefixWeekDayRegex ]
 NextDateRegex2: !nestedRegex
-  def: (?#NextDateRegex2)\b((på\s+)?{WeekDayRegex}((\s+i)?\s+(den\s+kommande|nästa)\s*vecka))\b
+  def: \b((på\s+)?{WeekDayRegex}((\s+i)?\s+(den\s+kommande|nästa)\s*vecka))\b
   references: [ NextPrefixRegex, WeekDayRegex, PrefixWeekDayRegex ]
 NextDateRegex: !nestedRegex
-  def: (?#NextDateRegex)({NextDateRegex2}|{NextDateRegex1})
+  def: ({NextDateRegex2}|{NextDateRegex1})
   references: [ NextDateRegex1, NextDateRegex2 ]
 SpecialDayRegex: !nestedRegex
-  def: (?#SpecialDayRegex)\b(i förrgår|i övermorgon|dagen\s+(före|efter)(?!=\s+dag)|((den\s+)?({RelativeRegex}|min)\s+dag)|igår|imorgon|idag)\b
+  def: \b(i förrgår|i övermorgon|dagen\s+(före|efter)(?!=\s+dag)|((den\s+)?({RelativeRegex}|min)\s+dag)|igår|imorgon|idag)\b
   references: [ RelativeRegex ]
 SpecialDayWithNumRegex: !nestedRegex
-  def: (?#SpecialDayWithNumRegex)\b((?<number>{WrittenNumRegex})\s+dag(ar)?\s+från\s+(?<day>igår|imorgon|idag))\b
+  def: \b((?<number>{WrittenNumRegex})\s+dag(ar)?\s+från\s+(?<day>igår|imorgon|idag))\b
   references: [ WrittenNumRegex ]
 RelativeDayRegex: !nestedRegex
-  def: (?#RelativeDayRegex)\b(((den\s+)?{RelativeRegex}\s+dag(en)?))\b
+  def: \b(((den\s+)?{RelativeRegex}\s+dag(en)?))\b
   references: [ RelativeRegex ]
 SetWeekDayRegex: !simpleRegex
-  def: (?#SetWeekDayRegex)\b(?<prefix>på\s+)?(?<weekday>morgonen|eftermiddagen|kvällen|natten|(sön|mån|tis|ons|tors|fre|lör)dag(en)?)\b
+  def: \b(?<prefix>på\s+)?(?<weekday>morgonen|eftermiddagen|kvällen|natten|(sön|mån|tis|ons|tors|fre|lör)dag(s|ar|en))\b
 WeekDayOfMonthRegex: !nestedRegex
-  def: (?#WeekDayOfMonthRegex)(?<wom>(den\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|sista)\s+(veckan\s+{MonthSuffixRegex}[\.]?\s+(på\s+)?{WeekDayRegex}|{WeekDayRegex}\s+{MonthSuffixRegex}))
+  def: (?<wom>(den\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|sista)\s+(veckan\s+{MonthSuffixRegex}[\.]?\s+(på\s+)?{WeekDayRegex}|{WeekDayRegex}\s+{MonthSuffixRegex}))
   references: [ WeekDayRegex, MonthSuffixRegex ]
 RelativeWeekDayRegex: !nestedRegex
-  def: (?#RelativeWeekDayRegex)\b({WrittenNumRegex}\s+{WeekDayRegex}\s+(från\s+nu|senare))\b
+  def: \b({WrittenNumRegex}\s+{WeekDayRegex}\s+(från\s+nu|senare))\b
   references: [ WrittenNumRegex, WeekDayRegex ]
 SpecialDate: !nestedRegex
-  def: (?#SpecialDate)(?=\b(den)s+){DayRegex}\b
+  def: (?=\b(den)s+){DayRegex}\b
   references: [ DayRegex ]
 DatePreposition: !simpleRegex
-  def: (?#DatePreposition)\b(den|i)
+  def: \b(den|i)
 DateExtractorYearTermRegex: !nestedRegex
-  def: (?#DateExtractorYearTermRegex)(\s+|\s*[/\\.,-]\s*|\s+under\s+){DateYearRegex}
+  def: (\s+|\s*[/\\.,-]\s*|\s+under\s+){DateYearRegex}
   references: [ DateYearRegex ]
 DayPrefix: !nestedRegex
-  def: (?#DayPrefix)\b({WeekDayRegex}|{SpecialDayRegex})\b
+  def: \b({WeekDayRegex}|{SpecialDayRegex})\b
   references: [ WeekDayRegex, SpecialDayRegex ]
 DateExtractor1: !nestedRegex
-  def: (?#DateExtractor1)\b({DayPrefix}\s*[,-]?\s*)?(({DayRegex}[\.]?\s*[/\\.,-]?\s*{MonthRegex})|(\({DayRegex}\s*[-./ ]\s*{MonthRegex}\)))(\s*\(\s*{DayPrefix}\s*\))?({DateExtractorYearTermRegex}\b)?
+  def: \b({DayPrefix}\s*[,-]?\s*)?(({DayRegex}[\.]?\s*[/\\.,-]?\s*{MonthRegex})|(\({DayRegex}\s*[-./ ]\s*{MonthRegex}\)))(\s*\(\s*{DayPrefix}\s*\))?({DateExtractorYearTermRegex}\b)?
+  references: [ DayPrefix, MonthRegex, DayRegex, DateExtractorYearTermRegex ]
+DateExtractor2: !nestedRegex
+  def: \\b({DayPrefix}\\s*[,-]?\\s*)?(({MonthRegex}[\\.]?\\s*[/\\\\.,-]?\\s*{DayRegex})|(\\({MonthRegex}\\s*[-./]\\s*{DayRegex}\\)))(?!\\s*\\-\\s*\\d{2}\\b)(\\s*\\(\\s*{DayPrefix}\\s*\\))?({DateExtractorYearTermRegex}\\b)?
   references: [ DayPrefix, MonthRegex, DayRegex, DateExtractorYearTermRegex ]
 DateExtractor3: !nestedRegex
-  def: (?#DateExtractor3)\b({DayPrefix}(\s+|\s*,\s*))?({DayRegex}[\.]?(\s+|\s*[-,/]\s*|\s+i\s+){MonthRegex}[\.]?((\s+i)?{DateExtractorYearTermRegex})?|{BaseDateTime.FourDigitYearRegex}\s*[-./]?\s*(den\s+)?(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])(?:(a|e))?)[\.]?(\s+|\s*[-,/]\s*|\s+i\s+){MonthRegex}[\.]?)\b
+  def: \b({DayPrefix}(\s+|\s*,\s*))?({DayRegex}[\.]?(\s+|\s*[-,/]\s*|\s+i\s+){MonthRegex}[\.]?((\s+i)?{DateExtractorYearTermRegex})?|{BaseDateTime.FourDigitYearRegex}\s*[-./]?\s*(den\s+)?(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])(?:(\\:)?(a|e))?)[\.]?(\s+|\s*[-,/]\s*|\s+i\s+){MonthRegex}[\.]?)\b
   references: [ DayPrefix, DayRegex, MonthRegex, DateExtractorYearTermRegex, BaseDateTime.FourDigitYearRegex ]
 DateExtractor4: !nestedRegex
-  def: (?#DateExtractor4)\b{MonthNumRegex}\s*[/\\\-]\s*{DayRegex}[\.]?\s*[/\\\-]\s*{DateYearRegex}
+  def: \b{MonthNumRegex}\s*[/\\\-]\s*{DayRegex}[\.]?\s*[/\\\-]\s*{DateYearRegex}
   references: [ MonthNumRegex, DayRegex, DateYearRegex ]
 # The final lookahead in DateExtractor5 avoids extracting as date "10/1-11" from an input like "10/1-11/2/2017"
 DateExtractor5: !nestedRegex
-  def: (?#DateExtractor5)\b({DayPrefix}(\s*,)?\s+)?{DayRegex}\s*[/\\\-\.]\s*({MonthNumRegex}|{MonthRegex})\s*[/\\\-\.]\s*{DateYearRegex}(?!\s*[/\\\-\.]\s*\d+)
+  def: \b({DayPrefix}(\s*,)?\s+)?{DayRegex}\s*[/\\\-\.]\s*({MonthNumRegex}|{MonthRegex})\s*[/\\\-\.]\s*{DateYearRegex}(?!\s*[/\\\-\.]\s*\d+)
   references: [ DayPrefix, DayRegex, MonthNumRegex, MonthRegex, DateYearRegex ]
 DateExtractor6: !nestedRegex
-  def: (?#DateExtractor6)(?<={DatePreposition}\s+)({StrictRelativeRegex}\s+)?({DayPrefix}\s+)?{MonthNumRegex}[\-\.]{DayRegex}(?![%]){BaseDateTime.CheckDecimalRegex}\b
+  def: (?<={DatePreposition}\s+)({StrictRelativeRegex}\s+)?({DayPrefix}\s+)?{MonthNumRegex}[\-\.]{DayRegex}(?![%]){BaseDateTime.CheckDecimalRegex}\b
   references: [ MonthNumRegex, DayRegex, DayPrefix, DatePreposition, StrictRelativeRegex, BaseDateTime.CheckDecimalRegex ]
 DateExtractor7L: !nestedRegex
-  def: (?#DateExtractor7L)\b({DayPrefix}(\s*,)?\s+)?{MonthNumRegex}\s*/\s*{DayRegex}{DateExtractorYearTermRegex}(?![%])\b
+  def: \b({DayPrefix}(\s*,)?\s+)?{MonthNumRegex}\s*/\s*{DayRegex}{DateExtractorYearTermRegex}(?![%])\b
   references: [ MonthNumRegex, DayRegex, DayPrefix, DateExtractorYearTermRegex ]
 DateExtractor7S: !nestedRegex
-  def: (?#DateExtractor7S)\b({DayPrefix}(\s*,)?\s+)?{MonthNumRegex}\s*/\s*{DayRegex}(?![%]){BaseDateTime.CheckDecimalRegex}\b
+  def: \b({DayPrefix}(\s*,)?\s+)?{MonthNumRegex}\s*/\s*{DayRegex}(?![%]){BaseDateTime.CheckDecimalRegex}\b
   references: [ MonthNumRegex, DayRegex, DayPrefix, BaseDateTime.CheckDecimalRegex ]
 # The only difference between 7L and 7S is whether "Year" part is required
 # We have both the long and short Regex because we would like to catch both "11/20, 12" and "11/20, 12/20"
 # Only use the long Regex would ignore "11/20" in "11/20, 12/20" and it is hard to exhaust all characters after the "year" as we also have cases like "11/20, 12 of April"
 # Same for DateExtractor9L and DateExtractor9S
 DateExtractor8: !nestedRegex
-  def: (?#DateExtractor8)(?<={DatePreposition}\s+)({StrictRelativeRegex}\s+)?({DayPrefix}\s+)?{DayRegex}[\\\-]{MonthNumRegex}(?![%]){BaseDateTime.CheckDecimalRegex}\b
+  def: (?<={DatePreposition}\s+)({StrictRelativeRegex}\s+)?({DayPrefix}\s+)?{DayRegex}[\\\-]{MonthNumRegex}(?![%]){BaseDateTime.CheckDecimalRegex}\b
   references: [ DayRegex, MonthNumRegex, DayPrefix, DatePreposition, StrictRelativeRegex, BaseDateTime.CheckDecimalRegex ]
 DateExtractor9L: !nestedRegex
-  def: (?#DateExtractor9L)\b({DayPrefix}(\s*,)?\s+)?{DayRegex}\s*/\s*{MonthNumRegex}{DateExtractorYearTermRegex}(?![%])\b
+  def: \b({DayPrefix}(\s*,)?\s+)?{DayRegex}\s*/\s*{MonthNumRegex}{DateExtractorYearTermRegex}(?![%])\b
   references: [ DayRegex, MonthNumRegex, DayPrefix, DateExtractorYearTermRegex ]
 DateExtractor9S: !nestedRegex
-  def: (?#DateExtractor9S)\b({DayPrefix}(\s*,)?\s+)?{DayRegex}\s*/\s*{MonthNumRegex}{BaseDateTime.CheckDecimalRegex}(?![%])\b
+  def: \b({DayPrefix}(\s*,)?\s+)?{DayRegex}\s*/\s*{MonthNumRegex}{BaseDateTime.CheckDecimalRegex}(?![%])\b
   references: [ DayRegex, MonthNumRegex, DayPrefix, BaseDateTime.CheckDecimalRegex ]
 DateExtractorNoSep: !simpleRegex
-  def: (?#DateExtractorNoSep)\b((?<![$])(?<year>((1\d|20)\d{2})|2100)(\s+(?<month>1[0-2]|(0)?[1-9])\s+(?<day>(?:3[0-1]|[1-2]\d|0?[1-9]))|(?<month>1[0-2]|(0)?[1-9])(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])))\b)
+  def: \b((?<![$])(?<year>((1\d|20)\d{2})|2100)(\s+(?<month>1[0-2]|(0)?[1-9])\s+(?<day>(?:3[0-1]|[1-2]\d|0?[1-9]))|(?<month>1[0-2]|(0)?[1-9])(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])))\b)
 DateExtractorA: !nestedRegex
-  def: (?#DateExtractorA)\b({DayPrefix}(\s*,)?\s+)?(({BaseDateTime.FourDigitYearRegex}\s*[/\\\-\.]\s*({MonthNumRegex}|{MonthRegex})\s*[/\\\-\.]\s*{DayRegex})|({MonthRegex}\s*[/\\\-\.]\s*{BaseDateTime.FourDigitYearRegex}\s*[/\\\-\.]\s*(the\s+)?(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])(?:th|nd|rd|st)?))|({DayRegex}\s*[/\\\-\.]\s*{BaseDateTime.FourDigitYearRegex}\s*[/\\\-\.]\s*{MonthRegex})|{DateExtractorNoSep})
+  def: \b({DayPrefix}(\s*,)?\s+)?(({BaseDateTime.FourDigitYearRegex}\s*[/\\\-\.]\s*({MonthNumRegex}|{MonthRegex})\s*[/\\\-\.]\s*{DayRegex})|({MonthRegex}\s*[/\\\-\.]\s*{BaseDateTime.FourDigitYearRegex}\s*[/\\\-\.]\s*(the\s+)?(?<day>(?:3[0-1]|[1-2]\d|0?[1-9])(?:th|nd|rd|st)?))|({DayRegex}\s*[/\\\-\.]\s*{BaseDateTime.FourDigitYearRegex}\s*[/\\\-\.]\s*{MonthRegex})|{DateExtractorNoSep})
   references: [ BaseDateTime.FourDigitYearRegex, MonthNumRegex, MonthRegex, DayRegex, DayPrefix, DateExtractorNoSep ]
 OfMonth: !nestedRegex
-  def: (?#OfMonth)^(\s*(dagen\s+)?i)?\s*{MonthRegex}
+  def: ^(\s*(dagen\s+)?i)?\s*{MonthRegex}
   references: [ MonthRegex ]
 MonthEnd: !nestedRegex
-  def: (?#MonthEnd)'{MonthRegex}\s*(den)?\s*$'
+  def: '{MonthRegex}\s*(den)?\s*$'
   references: [ MonthRegex ]
 WeekDayEnd: !nestedRegex
-  def: (?#WeekDayEnd)(den\s+här\s+)?{WeekDayRegex}\s*,?(\bden\b)?\s*$
+  def: (den\s+här\s+)?{WeekDayRegex}\s*,?(\bden\b)?\s*$
   references: [ WeekDayRegex ]
 WeekDayStart: !nestedRegex
-  def: (?#WeekDayStart)^\s+(på\s+)?{WeekDayRegex}(\s+den)?\b
+  def: ^\s+(på\s+)?{WeekDayRegex}(\s+den)?\b
   references: [ WeekDayRegex ]
 RangeUnitRegex: !simpleRegex
-  def: (?#RangeUnitRegex)\b(?<unit>år|månad(er)?|veck(a|or)?)\b
+  def: \b(?<unit>år|månad(er)?|veck(a|or)?)\b
 HourNumRegex: !simpleRegex
-  def: (?#HourNumRegex)\b(?<hournum>noll|ett|två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv)\b
+  def: \b(?<hournum>noll|ett|två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv)\b
 MinuteNumRegex: !simpleRegex
-  def: (?#MinuteNumRegex)(((?<tens>tjugo|trettio|fyrtio|femtio)(\s*-?\s*))?(?<minnum>ett|två|tre|fyra|fem|sex|sju|åtta|nio)|(?<minnum>tio|elva|tolv|tretton|femton|årton|(fjor|sex|sjut|nit)(ton)|tjugo|trettio|fyrtio|femtio))
+  def: (((?<tens>tjugo|trettio|fyrtio|femtio)(\s*-?\s*))?(?<minnum>ett|två|tre|fyra|fem|sex|sju|åtta|nio)|(?<minnum>tio|elva|tolv|tretton|femton|årton|(fjor|sex|sjut|nit)(ton)|tjugo|trettio|fyrtio|femtio))
 DeltaMinuteNumRegex: !simpleRegex
-  def: (?#DeltaMinuteNumRegex)(((?<tens>tjugo|trettio|fyrtio|femtio)(\s*-?\s*))?(?<deltaminnum>ett|två|tre|fyra|fem|sex|sju|åtta|nio)|(?<deltaminnum>tio|elva|tolv|tretton|femton|arton|(fjor|sex|sjut|nit)(ton)|tjugo|trettio|fyrtio|femtio))
+  def: (((?<tens>tjugo|trettio|fyrtio|femtio)(\s*-?\s*))?(?<deltaminnum>ett|två|tre|fyra|fem|sex|sju|åtta|nio)|(?<deltaminnum>tio|elva|tolv|tretton|femton|arton|(fjor|sex|sjut|nit)(ton)|tjugo|trettio|fyrtio|femtio))
 PmRegex: !simpleRegex
-  def: (?#PmRegex)(?<pm>(((?:kl|runt|circa|kring)\s+(den\s+)?)?(((tidig|sen)\s+)?(eftermiddag|kväll)|midnatt|middag|lunch))|((kl|runt|circa|kring|till)\s+natt(en)?))
+  def: (?<pm>(((?:kl|runt|circa|kring)\s+(den\s+)?)?(((tidig|sen)\s+)?(eftermiddag|kväll)|midnatt|middag|lunch))|((kl|runt|circa|kring|till)\s+natt(en)?))
 PmRegexFull: !simpleRegex
-  def: (?#PmRegexFull)(?<pm>((?:kl|om|runt|circa)\s+(the\s+)?)?(((tidig|sen)\s+)?(eftermiddag|kväll)|(mid)?natt|middag|lunch))
+  def: (?<pm>((?:kl|om|runt|circa)\s+(the\s+)?)?(((tidig|sen)\s+)?(eftermiddag|kväll)|(mid)?natt|middag|lunch))
 AmRegex: !simpleRegex
-  def: (?#AmRegex)(?<am>((?:kl|om|runt|circa)\s+(the\s+)?)?((tidig|sen)\s+)?(morgon))
+  def: (?<am>((?:kl|om|runt|circa)\s+(the\s+)?)?((tidig|sen)\s+)?(morgon))
 LunchRegex: !simpleRegex
-  def: (?#LunchRegex)\blunch\b
+  def: \blunch\b
 NightRegex: !simpleRegex
-  def: (?#NightRegex)\b(mid)?natt\b
+  def: \b(mid)?natt\b
 CommonDatePrefixRegex: !simpleRegex
-  def: (?#CommonDatePrefixRegex)^[\.]
+  def: ^[\.]
 LessThanOneHour: !nestedRegex
-  def: (?#LessThanOneHour)(?<lth>(en\s+)?kvart|tre kvart|halvtimme?|{BaseDateTime.DeltaMinuteRegex}(\s+(minut(er)?|mins?))|{DeltaMinuteNumRegex}(\s+(minut(er)?|mins?)))
+  def: (?<lth>(en\s+)?kvart|tre kvart|halvtimme?|{BaseDateTime.DeltaMinuteRegex}(\s+(minut(er)?|mins?))|{DeltaMinuteNumRegex}(\s+(minut(er)?|mins?)))
   references: [ BaseDateTime.DeltaMinuteRegex, DeltaMinuteNumRegex ]
 WrittenTimeRegex: !nestedRegex
-  def: (?#WrittenTimeRegex)(?<writtentime>{HourNumRegex}\s+{MinuteNumRegex}(\s+(minut(er)?|mins?))?)
+  def: (?<writtentime>{HourNumRegex}\s+{MinuteNumRegex}(\s+(minut(er)?|mins?))?)
   references: [ HourNumRegex, MinuteNumRegex ]
 TimePrefix: !nestedRegex
-  def: (?#TimePrefix)(?<prefix>{LessThanOneHour}\s+(över|i))
+  def: (?<prefix>{LessThanOneHour}\s+(över|i))
   references: [ LessThanOneHour ]
 TimeSuffix: !nestedRegex
-  def: (?#TimeSuffix)(?<suffix>{AmRegex}|{PmRegex}|{OclockRegex})
+  def: (?<suffix>{AmRegex}|{PmRegex}|{OclockRegex})
   references: [ AmRegex, PmRegex, OclockRegex ]
 TimeSuffixFull: !nestedRegex
-  def: (?#TimeSuffixFull)(?<suffix>{AmRegex}|{PmRegexFull}|{OclockRegex})
+  def: (?<suffix>{AmRegex}|{PmRegexFull}|{OclockRegex})
   references: [ AmRegex, PmRegexFull, OclockRegex ]
 BasicTime: !nestedRegex
-  def: (?#BasicTime)\b(?<basictime>{WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}:{BaseDateTime.MinuteRegex}(:{BaseDateTime.SecondRegex})?|{BaseDateTime.HourRegex}(?![%\d]))
+  def: \b(?<basictime>{WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}:{BaseDateTime.MinuteRegex}(:{BaseDateTime.SecondRegex})?|{BaseDateTime.HourRegex}(?![%\d]))
   references: [ WrittenTimeRegex, HourNumRegex, BaseDateTime.HourRegex, BaseDateTime.MinuteRegex, BaseDateTime.SecondRegex ]
 MidnightRegex: !simpleRegex
-  def: (?#MidnightRegex)(?<midnight>mid\s*(-\s*)?natt)
+  def: (?<midnight>mid\s*(-\s*)?natt)
 MidmorningRegex: !simpleRegex
-  def: (?#MidmorningRegex)(?<midmorning>tidig\s+förmiddag)
+  def: (?<midmorning>tidig\s+förmiddag)
 MidafternoonRegex: !simpleRegex
-  def: (?#MidafternoonRegex)(?<midafternoon>mid\s*(-\s*)?eftermiddag)
+  def: (?<midafternoon>mid\s*(-\s*)?eftermiddag)
 MiddayRegex: !simpleRegex
-  def: (?#MiddayRegex)(?<midday>middag|mitt\s+på\s+dagen|((12\s)?lunch(tid)?))
+  def: (?<midday>middag|mitt\s+på\s+dagen|((12\s)?lunch(tid)?))
 MidTimeRegex: !nestedRegex
-  def: (?#MidTimeRegex)(?<mid>({MidnightRegex}|{MidmorningRegex}|{MidafternoonRegex}|{MiddayRegex}))
+  def: (?<mid>({MidnightRegex}|{MidmorningRegex}|{MidafternoonRegex}|{MiddayRegex}))
   references: [ MidnightRegex, MidmorningRegex, MidafternoonRegex, MiddayRegex ]
 AtRegex: !nestedRegex
-  def: (?#AtRegex)\b(?:(?:(?<=\b(at|(at)?\s*runt|vid)\s+)(?:{WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}(?!\.\d)(\s*((?<iam>a)|(?<ipm>p)))?|{MidTimeRegex}))|{MidTimeRegex})\b
+  def: \b(?:(?:(?<=\b(at|(at)?\s*runt|vid)\s+)(?:{WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}(?!\.\d)(\s*((?<iam>a)|(?<ipm>p)))?|{MidTimeRegex}))|{MidTimeRegex})\b
   references: [ WrittenTimeRegex, HourNumRegex, BaseDateTime.HourRegex, MidTimeRegex ]
 IshRegex: !nestedRegex
-  def: (?#IshRegex)'\b({BaseDateTime.HourRegex}(-|——)?tid|lunch(tid)?|middag(stid)?)\b'
+  def: '\b({BaseDateTime.HourRegex}(-|——)?tid|lunch(tid)?|middag(stid)?)\b'
   references: [ BaseDateTime.HourRegex ]
 TimeUnitRegex: !simpleRegex
-  def: (?#TimeUnitRegex)([^a-z]{1,}|\b)(?<unit>(tim(me)?|min(ut)?|s(ek(und)?)?)(?<plural>mar|er)?|h)\b
+  def: ([^a-z]{1,}|\b)(?<unit>(tim(me)?|min(ut)?|s(ek(und)?)?)(?<plural>mar|er)?|h)\b
 RestrictedTimeUnitRegex: !simpleRegex
-  def: (?#RestrictedTimeUnitRegex)(?<unit>timme|minut)\b
+  def: (?<unit>timme|minut)\b
 FivesRegex: !simpleRegex
-  def: (?#FivesRegex)(?<tens>(?:femton|(?:tjugo|trettio|fyrtio|femtio)(\s*fem)?|tio|fem))\b
+  def: (?<tens>(?:femton|(?:tjugo|trettio|fyrtio|femtio)(\s*fem)?|tio|fem))\b
 HourRegex: !nestedRegex
-  def: (?#HourRegex)\b{BaseDateTime.HourRegex}
+  def: \b{BaseDateTime.HourRegex}
   references: [ BaseDateTime.HourRegex ]
 PeriodHourNumRegex: !simpleRegex
-  def: (?#PeriodHourNumRegex)\b(?<hour>tjugo(\s+(en|ett|två|tre|fyra))?|elva|tolv|tretton|femton|arton|(fjor|sex|sjut|nit)(ton)?|noll|ett|en|två|tre|fem|åtta|tio)\b
+  def: \b(?<hour>tjugo(\s+(en|ett|två|tre|fyra))?|elva|tolv|tretton|femton|arton|(fjor|sex|sjut|nit)(ton)?|noll|ett|en|två|tre|fem|åtta|tio)\b
 ConnectNumRegex: !nestedRegex
-  def: (?#ConnectNumRegex)'\b{BaseDateTime.HourRegex}(?<min>[0-5][0-9])\s*{DescRegex}'
+  def: '\b{BaseDateTime.HourRegex}(?<min>[0-5][0-9])\s*{DescRegex}'
   references: [ BaseDateTime.HourRegex, DescRegex ]
 TimeRegexWithDotConnector: !nestedRegex
-  def: (?#TimeRegexWithDotConnector)({BaseDateTime.HourRegex}(\s*\.\s*){BaseDateTime.MinuteRegex})
+  def: ({BaseDateTime.HourRegex}(\s*\.\s*){BaseDateTime.MinuteRegex})
   references: [ BaseDateTime.HourRegex, BaseDateTime.MinuteRegex ]
 TimeRegex1: !nestedRegex
-  def: (?#TimeRegex1)\b({TimePrefix}\s+)?({WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex})(\s*|[.]){DescRegex}
+  def: \b({TimePrefix}\s+)?({WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex})(\s*|[.]){DescRegex}
   references: [ TimePrefix, WrittenTimeRegex, HourNumRegex, BaseDateTime.HourRegex, DescRegex ]
 TimeRegex2: !nestedRegex
-  def: (?#TimeRegex2)(\b{TimePrefix}\s+)?(t)?{BaseDateTime.HourRegex}(\s*)?:(\s*)?{BaseDateTime.MinuteRegex}((\s*)?:(\s*)?{BaseDateTime.SecondRegex})?(?<iam>a)?((\s*{DescRegex})|\b)
+  def: (\b{TimePrefix}\s+)?(t)?{BaseDateTime.HourRegex}(\s*)?:(\s*)?{BaseDateTime.MinuteRegex}((\s*)?:(\s*)?{BaseDateTime.SecondRegex})?(?<iam>a)?((\s*{DescRegex})|\b)
   references: [ TimePrefix, BaseDateTime.HourRegex, BaseDateTime.MinuteRegex, BaseDateTime.SecondRegex, DescRegex ]
 TimeRegex3: !nestedRegex
-  def: (?#TimeRegex3)(\b{TimePrefix}\s+)?{BaseDateTime.HourRegex}\.{BaseDateTime.MinuteRegex}(\s*{DescRegex})
+  def: (\b{TimePrefix}\s+)?{BaseDateTime.HourRegex}\.{BaseDateTime.MinuteRegex}(\s*{DescRegex})
   references: [ TimePrefix, BaseDateTime.HourRegex, BaseDateTime.MinuteRegex, DescRegex ]
 TimeRegex4: !nestedRegex
-  def: (?#TimeRegex4)\b{TimePrefix}\s+{BasicTime}(\s*{DescRegex})?\s+{TimeSuffix}\b
+  def: \b{TimePrefix}\s+{BasicTime}(\s*{DescRegex})?\s+{TimeSuffix}\b
   references: [ TimePrefix, BasicTime, DescRegex, TimeSuffix ]
 TimeRegex5: !nestedRegex
-  def: (?#TimeRegex5)\b{TimePrefix}\s+{BasicTime}((\s*{DescRegex})|\b)
+  def: \b{TimePrefix}\s+{BasicTime}((\s*{DescRegex})|\b)
   references: [ TimePrefix, BasicTime, DescRegex ]
 TimeRegex6: !nestedRegex
-  def: (?#TimeRegex6)({BasicTime})(\s*{DescRegex})?\s+{TimeSuffix}\b
+  def: ({BasicTime})(\s*{DescRegex})?\s+{TimeSuffix}\b
   references: [ BasicTime, DescRegex, TimeSuffix ]
 TimeRegex7: !nestedRegex
-  def: (?#TimeRegex7)\b{TimeSuffixFull}\s+(kl\s+)?{BasicTime}((\s*{DescRegex})|\b)
+  def: \b{TimeSuffixFull}\s+(kl\s+)?{BasicTime}((\s*{DescRegex})|\b)
   references: [ TimeSuffixFull, BasicTime, DescRegex ]
 TimeRegex8: !nestedRegex
-  def: (?#TimeRegex8).^
+  def: .^
   references: [ TimeSuffixFull, BasicTime, DescRegex ]
 TimeRegex9: !nestedRegex
-  def: (?#TimeRegex9)\b{PeriodHourNumRegex}(\s+|-){FivesRegex}((\s*{DescRegex})|\b)
+  def: \b{PeriodHourNumRegex}(\s+|-){FivesRegex}((\s*{DescRegex})|\b)
   references: [ PeriodHourNumRegex, FivesRegex, DescRegex ]
 TimeRegex10: !nestedRegex
-  def: (?#TimeRegex10)\b({TimePrefix}\s+)?{BaseDateTime.HourRegex}(\s*h|t\s*){BaseDateTime.MinuteRegex}(\s*{DescRegex})?
+  def: \b({TimePrefix}\s+)?{BaseDateTime.HourRegex}(\s*h|t\s*){BaseDateTime.MinuteRegex}(\s*{DescRegex})?
   references: [ TimePrefix, BaseDateTime.HourRegex, BaseDateTime.MinuteRegex, DescRegex ]
 TimeRegex11: !nestedRegex
-  def: (?#TimeRegex11)\b((?:({TimeTokenPrefix})?{TimeRegexWithDotConnector}(\s*{DescRegex}))|(?:(?:{TimeTokenPrefix}{TimeRegexWithDotConnector})(?!\s*procent|%)))
+  def: \b((?:({TimeTokenPrefix})?{TimeRegexWithDotConnector}(\s*{DescRegex}))|(?:(?:{TimeTokenPrefix}{TimeRegexWithDotConnector})(?!\s*procent|%)))
   references: [ TimeTokenPrefix, TimeRegexWithDotConnector, DescRegex ]
 FirstTimeRegexInTimeRange: !nestedRegex
-  def: (?#FirstTimeRegexInTimeRange)\b{TimeRegexWithDotConnector}(\s*{DescRegex})?
+  def: \b{TimeRegexWithDotConnector}(\s*{DescRegex})?
   references: [ TimeRegexWithDotConnector, DescRegex ]
 PureNumFromTo: !nestedRegex
-  def: (?#PureNumFromTo)({RangePrefixRegex}\s+)?({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?\s*{TillRegex}\s*({HourRegex}|{PeriodHourNumRegex})(?<rightDesc>\s*({PmRegex}|{AmRegex}|{DescRegex}))?
+  def: ({RangePrefixRegex}\s+)?({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?\s*{TillRegex}\s*({HourRegex}|{PeriodHourNumRegex})(?<rightDesc>\s*({PmRegex}|{AmRegex}|{DescRegex}))?
   references: [ HourRegex, PeriodHourNumRegex, DescRegex, TillRegex, PmRegex, AmRegex, RangePrefixRegex ]
 PureNumBetweenAnd: !nestedRegex
-  def: (?#PureNumBetweenAnd)(mellan\s+)(({BaseDateTime.TwoDigitHourRegex}{BaseDateTime.TwoDigitMinuteRegex})|{HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?\s*{RangeConnectorRegex}\s*(({BaseDateTime.TwoDigitHourRegex}{BaseDateTime.TwoDigitMinuteRegex})|{HourRegex}|{PeriodHourNumRegex})(?<rightDesc>\s*({PmRegex}|{AmRegex}|{DescRegex}))?
+  def: (mellan\s+)(({BaseDateTime.TwoDigitHourRegex}{BaseDateTime.TwoDigitMinuteRegex})|{HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?\s*{RangeConnectorRegex}\s*(({BaseDateTime.TwoDigitHourRegex}{BaseDateTime.TwoDigitMinuteRegex})|{HourRegex}|{PeriodHourNumRegex})(?<rightDesc>\s*({PmRegex}|{AmRegex}|{DescRegex}))?
   references: [ HourRegex, PeriodHourNumRegex, BaseDateTime.TwoDigitHourRegex, BaseDateTime.TwoDigitMinuteRegex, DescRegex, PmRegex, AmRegex, RangeConnectorRegex ]
 SpecificTimeFromTo: !nestedRegex
-  def: (?#SpecificTimeFromTo)({RangePrefixRegex}\s+)?(?<time1>(({TimeRegex2}|{FirstTimeRegexInTimeRange})|({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?))\s*{TillRegex}\s*(?<time2>(({TimeRegex2}|{TimeRegexWithDotConnector}(?<rightDesc>\s*{DescRegex}))|({HourRegex}|{PeriodHourNumRegex})(\s*(?<rightDesc>{DescRegex}))?))
+  def: ({RangePrefixRegex}\s+)?(?<time1>(({TimeRegex2}|{FirstTimeRegexInTimeRange})|({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?))\s*{TillRegex}\s*(?<time2>(({TimeRegex2}|{TimeRegexWithDotConnector}(?<rightDesc>\s*{DescRegex}))|({HourRegex}|{PeriodHourNumRegex})(\s*(?<rightDesc>{DescRegex}))?))
   references: [ TimeRegex2, FirstTimeRegexInTimeRange, TimeRegexWithDotConnector, TillRegex, HourRegex, PeriodHourNumRegex, DescRegex, PmRegex, AmRegex, RangePrefixRegex ]
 SpecificTimeBetweenAnd: !nestedRegex
-  def: (?#SpecificTimeBetweenAnd)(mellan\s+)(?<time1>(({TimeRegex2}|{FirstTimeRegexInTimeRange})|({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?))\s*{RangeConnectorRegex}\s*(?<time2>(({TimeRegex2}|{TimeRegexWithDotConnector}(?<rightDesc>\s*{DescRegex}))|({HourRegex}|{PeriodHourNumRegex})(\s*(?<rightDesc>{DescRegex}))?))
+  def: (mellan\s+)(?<time1>(({TimeRegex2}|{FirstTimeRegexInTimeRange})|({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?))\s*{RangeConnectorRegex}\s*(?<time2>(({TimeRegex2}|{TimeRegexWithDotConnector}(?<rightDesc>\s*{DescRegex}))|({HourRegex}|{PeriodHourNumRegex})(\s*(?<rightDesc>{DescRegex}))?))
   references: [ TimeRegex2, FirstTimeRegexInTimeRange, TimeRegexWithDotConnector, RangeConnectorRegex, HourRegex, PeriodHourNumRegex, DescRegex, PmRegex, AmRegex ]
 SuffixAfterRegex: !simpleRegex
-  def: (?#SuffixAfterRegex)\b(((kl)\s)?(eller|och)\s+(över|efter|senare|större)(?!\s+än))\b
+  def: \b(((kl)\s)?(eller|och)\s+(över|efter|senare|större)(?!\s+än))\b
 PrepositionRegex: !simpleRegex
-  def: (?#PrepositionRegex)(?<prep>^(,\s*)?(kl|på)(\s+den)?$)
+  def: (?<prep>^(,\s*)?(kl|på)(\s+den)?$)
 LaterEarlyRegex: !simpleRegex
-  def: (?#LaterEarlyRegex)((?<early>tidig(are)(\s+|-))|(?<late>efte(r?\s+|-)))
+  def: ((?<early>tidig(are)(\s+|-))|(?<late>efte(r?\s+|-)))
 MealTimeRegex: !simpleRegex
-  def: (?#MealTimeRegex)\b(at\s+)?(?<mealTime>breakfast|brunch|lunch(\s*tid)?|middags(\s*tid)?|kvällsmat)\b
+  def: \b(at\s+)?(?<mealTime>breakfast|brunch|lunch(\s*tid)?|middags(\s*tid)?|kvällsmat)\b
 UnspecificTimePeriodRegex: !nestedRegex
-  def: (?#UnspecificTimePeriodRegex)({MealTimeRegex})
+  def: ({MealTimeRegex})
   references: [ MealTimeRegex ]
 TimeOfDayRegex: !nestedRegex
-  def: (?#TimeOfDayRegex)\b(?<timeOfDay>((((in\s+the\s+)?{LaterEarlyRegex}?(in(\s+the)?\s+)?(morgon(en)?|eftermiddag(en)?|natt(en)?|kväll(en)?)))|{MealTimeRegex}|(((in\s+(the)?\s+)?)(dagtid|kontorstid)))s?)\b
+  def: \b(?<timeOfDay>((((in\s+the\s+)?{LaterEarlyRegex}?(in(\s+the)?\s+)?(morgon(en)?|eftermiddag(en)?|natt(en)?|kväll(en)?)))|{MealTimeRegex}|(((in\s+(the)?\s+)?)(dagtid|kontorstid)))s?)\b
   references: [ LaterEarlyRegex, MealTimeRegex ]
 SpecificTimeOfDayRegex: !nestedRegex
-  def: (?#SpecificTimeOfDayRegex)\b(({StrictRelativeRegex}\s+{TimeOfDayRegex})\b|\bikväll)s?\b
+  def: \b(({StrictRelativeRegex}\s+{TimeOfDayRegex})\b|\bikväll)s?\b
   references: [ TimeOfDayRegex, StrictRelativeRegex ]
 TimeFollowedUnit: !nestedRegex
-  def: (?#TimeFollowedUnit)^\s*{TimeUnitRegex}
+  def: ^\s*{TimeUnitRegex}
   references: [ TimeUnitRegex ]
 TimeNumberCombinedWithUnit: !nestedRegex
-  def: (?#TimeNumberCombinedWithUnit)\b(?<num>\d+(\.\d*)?){TimeUnitRegex}
+  def: \b(?<num>\d+(\.\d*)?){TimeUnitRegex}
   references: [ TimeUnitRegex ]
 BusinessHourSplitStrings: ['arbets', 'tid']
 NowRegex: !simpleRegex
-  def: (?#NowRegex)\b(?<now>(just\s+)?nu|så\s+snart\s+som\s+möjligt|asap|nyligen|tidigare|i\s+(present|denna\s+stund|denna\s+minut|detta\s+(ögonblick|present\s+time)))\b
+  def: \b(?<now>(just\s+)?nu|så\s+snart\s+som\s+möjligt|asap|nyligen|tidigare|i\s+(present|denna\s+stund|denna\s+minut|detta\s+(ögonblick|present\s+time)))\b
 #Used in DatePeriodParser to parse patterns like "from March to date" ("^date$" is English specific and does not need to be translated).
 NowParseRegex: !nestedRegex
-  def: (?#NowParseRegex)\b({NowRegex}|^(date)$)\b
+  def: \b({NowRegex}|^(date)$)\b
   references: [ NowRegex ]
 SuffixRegex: !simpleRegex
-  def: (?#SuffixRegex)^\s*(på\s+)?(morgonen|eftermiddagen|kvällen|natten)\b
+  def: ^\s*(på\s+)?(morgonen|eftermiddagen|kvällen|natten)\b
 NonTimeContextTokens: !simpleRegex
-  def: (?#NonTimeContextTokens)(building)
+  def: (building)
 DateTimeTimeOfDayRegex: !simpleRegex
-  def: (?#DateTimeTimeOfDayRegex)\b(?<timeOfDay>morning|(?<pm>eftermiddag(en)?|natt(en)?|kväll(en)?))\b
+  def: \b(?<timeOfDay>morning|(?<pm>eftermiddag(en)?|natt(en)?|kväll(en)?))\b
 DateTimeSpecificTimeOfDayRegex: !nestedRegex
-  def: (?#DateTimeSpecificTimeOfDayRegex)\b(({RelativeRegex}\s+{DateTimeTimeOfDayRegex})\b|\bikväll)\b
+  def: \b(({RelativeRegex}\s+{DateTimeTimeOfDayRegex})\b|\bikväll)\b
   references: [ DateTimeTimeOfDayRegex, RelativeRegex ]
 TimeOfTodayAfterRegex: !nestedRegex
-  def: (?#TimeOfTodayAfterRegex)^\s*(,\s*)?(på\s+)?{DateTimeSpecificTimeOfDayRegex}
+  def: ^\s*(,\s*)?(på\s+)?{DateTimeSpecificTimeOfDayRegex}
   references: [ DateTimeSpecificTimeOfDayRegex ]
 TimeOfTodayBeforeRegex: !nestedRegex
-  def: (?#TimeOfTodayBeforeRegex)'{DateTimeSpecificTimeOfDayRegex}(\s*,)?(\s+(på|runt|omkring|vid))?\s*$'
+  def: '{DateTimeSpecificTimeOfDayRegex}(\s*,)?(\s+(på|runt|omkring|vid))?\s*$'
   references: [ DateTimeSpecificTimeOfDayRegex ]
 SimpleTimeOfTodayAfterRegex: !nestedRegex
-  def: (?#SimpleTimeOfTodayAfterRegex)(?<!{NonTimeContextTokens}\s*)\b({HourNumRegex}|{BaseDateTime.HourRegex})\s*(,\s*)?((på|den)\s+)?{DateTimeSpecificTimeOfDayRegex}\b
+  def: (?<!{NonTimeContextTokens}\s*)\b({HourNumRegex}|{BaseDateTime.HourRegex})\s*(,\s*)?((på|den)\s+)?{DateTimeSpecificTimeOfDayRegex}\b
   references: [ NonTimeContextTokens, HourNumRegex, BaseDateTime.HourRegex, DateTimeSpecificTimeOfDayRegex ]
 SimpleTimeOfTodayBeforeRegex: !nestedRegex
-  def: (?#SimpleTimeOfTodayBeforeRegex)'\b{DateTimeSpecificTimeOfDayRegex}(\s*,)?(\s+(på|runt|omkring|vid))?\s*({HourNumRegex}|{BaseDateTime.HourRegex})\b'
+  def: '\b{DateTimeSpecificTimeOfDayRegex}(\s*,)?(\s+(på|runt|omkring|vid))?\s*({HourNumRegex}|{BaseDateTime.HourRegex})\b'
   references: [ DateTimeSpecificTimeOfDayRegex, HourNumRegex, BaseDateTime.HourRegex ]
 SpecificEndOfRegex: !simpleRegex
-  def: (?#SpecificEndOfRegex)(the\s+)?slutet av\s*$
+  def: (the\s+)?slutet av\s*$
 UnspecificEndOfRegex: !simpleRegex
-  def: (?#UnspecificEndOfRegex)\b(the\s+)?(eod|(slutet\s+(av|på)\s+dagen))\b
+  def: \b(the\s+)?(eod|(slutet\s+(av|på)\s+dagen))\b
 UnspecificEndOfRangeRegex: !simpleRegex
-  def: (?#UnspecificEndOfRangeRegex)\b(eoy)\b
+  def: \b(eoy)\b
 PeriodTimeOfDayRegex: !nestedRegex
-  def: (?#PeriodTimeOfDayRegex)\b((in\s+(the)?\s+)?{LaterEarlyRegex}?(this\s+)?{DateTimeTimeOfDayRegex})\b
+  def: \b((in\s+(the)?\s+)?{LaterEarlyRegex}?(this\s+)?{DateTimeTimeOfDayRegex})\b
   references: [ DateTimeTimeOfDayRegex, LaterEarlyRegex ]
 PeriodSpecificTimeOfDayRegex: !nestedRegex
-  def: (?#PeriodSpecificTimeOfDayRegex)\b({LaterEarlyRegex}?denna\s+{DateTimeTimeOfDayRegex}|({StrictRelativeRegex}\s+{PeriodTimeOfDayRegex})\b|\bikväll)\b
+  def: \b({LaterEarlyRegex}?denna\s+{DateTimeTimeOfDayRegex}|({StrictRelativeRegex}\s+{PeriodTimeOfDayRegex})\b|\bikväll)\b
   references: [ PeriodTimeOfDayRegex, StrictRelativeRegex, DateTimeTimeOfDayRegex, LaterEarlyRegex ]
 PeriodTimeOfDayWithDateRegex: !nestedRegex
- def: (?#PeriodTimeOfDayWithDateRegex)\b(({PeriodTimeOfDayRegex}(\s+(den))?))\b
+ def: \b(({PeriodTimeOfDayRegex}(\s+(den))?))\b
  references: [ PeriodTimeOfDayRegex ]
 LessThanRegex: !simpleRegex
-  def: (?#LessThanRegex)\b(mindre\s+än)\b
+  def: \b(mindre\s+än)\b
 MoreThanRegex: !simpleRegex
-  def: (?#MoreThanRegex)\b(mer\s+än)\b
+  def: \b(mer\s+än)\b
 DurationUnitRegex: !nestedRegex
-  def: (?#DurationUnitRegex)(?<unit>{DateUnitRegex}|tim(me|mar)?|h|min(ut(er)?)?|sek(und(er)?)?|nätter)\b
+  def: (?<unit>{DateUnitRegex}|tim(me|mar)?|h|min(ut(er)?)?|sek(und(er)?)?|nätter)\b
   references: [ DateUnitRegex ]
 SuffixAndRegex: !simpleRegex
-  def: (?#SuffixAndRegex)(?<suffix>\s*(och)\s+(en?\s+)?(?<suffix_num>halv|kvart))
+  def: (?<suffix>\s*(och)\s+(en?\s+)?(?<suffix_num>halv|kvart))
 # Look up how to translate 'semi'and 'tri' in this context
 PeriodicRegex: !simpleRegex
-  def: (?#PeriodicRegex)\b(?<periodic>((?<multiplier>semi|varannan|tri)(\s*|-))?(dagligen|månatligen|veckovis|kvartalsvis|årlig(en)?))\b
+  def: \b(?<periodic>((?<multiplier>semi|varannan|tri)(\s*|-))?(dagligen|månatligen|veckovis|kvartalsvis|årlig(en)?))\b
 EachUnitRegex: !nestedRegex
-  def: (?#EachUnitRegex)\b(?<each>(varje|(varje|var|en gång\s+(i|per|varje|var)?)\s?)(?<other>\s+(annan|alternate|second))?\s*({DurationUnitRegex}|(?<specialUnit>kvartal|weekends?|veckoslut|helg)|{WeekDayRegex})|(?<specialUnit>weekends))
+  def: \b(?<each>(varje|(varje|var|en gång\s+(i|per|varje|var)?)\s?)(?<other>\s+(annan|alternate|second))?\s*({DurationUnitRegex}|(?<specialUnit>kvartal|weekends?|veckoslut|helg)|{WeekDayRegex})|(?<specialUnit>weekends))
   references: [ DurationUnitRegex, WeekDayRegex ]
 EachPrefixRegex: !simpleRegex
-  def: (?#EachPrefixRegex)\b(?<each>(varje|var|en gång\s+(i|per|varje|var)?)\s*$)
+  def: \b(?<each>(varje|var|en gång\s+(i|per|varje|var)?)\s*$)
 SetEachRegex: !simpleRegex
-  def: (?#SetEachRegex)\b(?<each>(varje|var)(?<other>\s+(annan|alternate))?\s*)(?!den|det)\b
+  def: \b(?<each>(varje|var)(?<other>\s+(annan|alternate))?\s*)(?!den|det)\b
 SetLastRegex: !nestedRegex
-  def: (?#SetLastRegex)(?<last>följande|nästa|kommande|den\s+här|{LastNegPrefix}senaste|förra|tidigare|nuvarande)
+  def: (?<last>följande|nästa|kommande|den\s+här|{LastNegPrefix}senaste|förra|tidigare|nuvarande)
   references: [ LastNegPrefix ]
 EachDayRegex: !simpleRegex
-  def: (?#EachDayRegex)^\s*(var|varje)\s*dag\b
+  def: ^\s*(var|varje)\s*dag\b
 DurationFollowedUnit: !nestedRegex
-  def: (?#DurationFollowedUnit)(^\s*{DurationUnitRegex}\s+{SuffixAndRegex})|(^\s*{SuffixAndRegex}?(\s+|-)?{DurationUnitRegex})
+  def: (^\s*{DurationUnitRegex}\s+{SuffixAndRegex})|(^\s*{SuffixAndRegex}?(\s+|-)?{DurationUnitRegex})
   references: [ SuffixAndRegex, DurationUnitRegex ]
 NumberCombinedWithDurationUnit: !nestedRegex
-  def: (?#NumberCombinedWithDurationUnit)\b(?<num>\d+(\.\d*)?)(-)?{DurationUnitRegex}
+  def: \b(?<num>\d+(\.\d*)?)(-)?{DurationUnitRegex}
   references: [ DurationUnitRegex ]
 AnUnitRegex: !nestedRegex
-  def: (?#AnUnitRegex)(\b((?<half>(en)\s+)?halv|another)|(?<half>(1/2|½|en halv)))\s+{DurationUnitRegex}
+  def: (\b((?<half>(en)\s+)?halv|another)|(?<half>(1/2|½|en halv)))\s+{DurationUnitRegex}
   references: [ DurationUnitRegex ]
 DuringRegex: !simpleRegex
-  def: (?#DuringRegex)\b(under|i)\s+(?<unit>år(et)?|månad(en)?|veckan?|dag(en)?)\b
+  def: \b(under|i)\s+(?<unit>år(et)?|månad(en)?|veckan?|dag(en)?)\b
 AllRegex: !simpleRegex
-  def: (?#AllRegex)\b(?<all>(hela)(\s+|-)(?<unit>år(et)?|månad(en)?|veckan?|dag(en)?))\b
+  def: \b(?<all>(hela)(\s+|-)(?<unit>år(et)?|månad(en)?|veckan?|dag(en)?))\b
 HalfRegex: !simpleRegex
-  def: (?#HalfRegex)((e(n|tt)\s*)|\b)(?<half>halvt?\s+(?<unit>år|månad|vecka|dag|timm(e|a)))\b
+  def: ((e(n|tt)\s*)|\b)(?<half>halvt?\s+(?<unit>år|månad|vecka|dag|timm(e|a)))\b
 ConjunctionRegex: !simpleRegex
-  def: (?#ConjunctionRegex)\b((och(\s+under)?)|med)\b
+  def: \b((och(\s+under)?)|med)\b
 # Major holidays + holiday w/ weekday in name
 HolidayList1: !simpleRegex
-  def: (?#HolidayList1)(?<holiday>första maj|nyårsdagen|nyårsafton|trettondedag(en|\s+jul)|julafton|juldagen|annandag\s+jul|skärtorsdag(en)?|långfredag(en)?|påskafton|påskdagen|annandag\s+påsk|mardi gras|(washington|mao)'s birthday|juneteenth|(jubilee|freedom)(\s+day)|chinese new year|(new\s+(years'|year\s*'s|years?)\s+eve)|(new\s+(years'|year\s*'s|years?)(\s+day)?)|may\s*day|yuan dan|christmas eve|(christmas|xmas)(\s+day)?|black friday|yuandan|easter(\s+(sunday|saturday|monday))?|clean monday|ash wednesday|palm sunday|maundy thursday|good friday|white\s+(sunday|monday)|trinity sunday|pentecost|corpus christi|cyber monday)
+  def: (?<holiday>första maj|nyårsdagen|nyårsafton|trettondedag(en|\s+jul)|julafton|juldagen|annandag\s+jul|skärtorsdag(en)?|långfredag(en)?|påskafton|påskdagen|annandag\s+påsk|mardi gras|(washington|mao)'s birthday|juneteenth|(jubilee|freedom)(\s+day)|chinese new year|(new\s+(years'|year\s*'s|years?)\s+eve)|(new\s+(years'|year\s*'s|years?)(\s+day)?)|may\s*day|yuan dan|christmas eve|(christmas|xmas)(\s+day)?|black friday|yuandan|easter(\s+(sunday|saturday|monday))?|clean monday|ash wednesday|palm sunday|maundy thursday|good friday|white\s+(sunday|monday)|trinity sunday|pentecost|corpus christi|cyber monday)
 # Extra religious or local holidays
 HolidayList2: !simpleRegex
-  def: (?#HolidayList2)(?<holiday>(valborg(smässoafton)?|kristi himmelsfärdsdag|pingst(afton|dagen)|midsommar(afton|dagen)|allahelgonaafton|alla helgons dag|thanks\s*giving|all saint's|white lover|s(?:ain)?t?(\.)?\s+(?:patrick|george)(?:')?(?:s)?|us independence|all hallow|all souls|guy fawkes|cinco de mayo|halloween|qingming|dragon boat|april fools|tomb\s*sweeping)(\s+day)?)
+  def: (?<holiday>(valborg(smässoafton)?|kristi himmelsfärdsdag|pingst(afton|dagen)|midsommar(afton|dagen)|allahelgonaafton|alla helgons dag|thanks\s*giving|all saint's|white lover|s(?:ain)?t?(\.)?\s+(?:patrick|george)(?:')?(?:s)?|us independence|all hallow|all souls|guy fawkes|cinco de mayo|halloween|qingming|dragon boat|april fools|tomb\s*sweeping)(\s+day)?)
 # General holidays (must be followed by "day")
 HolidayList3: !simpleRegex
-  def: (?#HolidayList3)(?<holiday>(nationaldagen|sveriges nationaldag|mlk|martin luther king( jr)?|canberra|ascension|columbus|tree( planting)?|arbor|labou?r|((international|int'?l)\s+)?workers'?|mother'?s?|father'?s?|female|women('s)?|single|teacher'?s|youth|children|girls|lovers?|earth|inauguration|groundhog|valentine'?s|baptiste|bastille|veterans(?:')?|memorial|mid[ \-]autumn|moon|spring|lantern)\s+day)
+  def: (?<holiday>(nationaldagen|sveriges nationaldag|mlk|martin luther king( jr)?|canberra|ascension|columbus|tree( planting)?|arbor|labou?r|((international|int'?l)\s+)?workers'?|mother'?s?|father'?s?|female|women('s)?|single|teacher'?s|youth|children|girls|lovers?|earth|inauguration|groundhog|valentine'?s|baptiste|bastille|veterans(?:')?|memorial|mid[ \-]autumn|moon|spring|lantern)\s+day)
 # Islamic holidays
 HolidayList4: !simpleRegex
-  def: (?#HolidayList4)(?<holiday>ramad(h)?an|ram(a)?zan|ramathan|eid al(-|\s+)adha|eid al(-|\s+)azha|eidul(-|\s+)azha|feast of the sacrifice|(islamic|arabic|hijri) new year|eid al(-|\s+)fitr|festival of breaking the fast)
+  def: (?<holiday>ramad(h)?an|ram(a)?zan|ramathan|eid al(-|\s+)adha|eid al(-|\s+)azha|eidul(-|\s+)azha|feast of the sacrifice|(islamic|arabic|hijri) new year|eid al(-|\s+)fitr|festival of breaking the fast)
 # Combined holiday regex
 # TODO: Fix 'weekend of' -> ?-helgen
 HolidayRegex: !nestedRegex
-  def: (?#HolidayRegex)\b(({StrictRelativeRegex}\s+({HolidayList1}|{HolidayList2}|{HolidayList3}|{HolidayList4}))|(?<holidayWeekend>((the\s+)?weekend\s+of\s+)({HolidayList1}|{HolidayList2}|{HolidayList3}|{HolidayList4})(\s+((of\s+)?({YearRegex}|{RelativeRegex}\s+year)))?)|(({HolidayList1}|{HolidayList2}|{HolidayList3}|{HolidayList4})((?<holidayWeekend>(\s+weekend)(\s+((of\s+)?({YearRegex}|{RelativeRegex}\s+year)))?)|(\s+(of\s+)?({YearRegex}|{RelativeRegex}\s+year)(?<holidayWeekend>\s+weekend)?))?))\b
+  def: \b(({StrictRelativeRegex}\s+({HolidayList1}|{HolidayList2}|{HolidayList3}|{HolidayList4}))|(?<holidayWeekend>((the\s+)?weekend\s+of\s+)({HolidayList1}|{HolidayList2}|{HolidayList3}|{HolidayList4})(\s+((of\s+)?({YearRegex}|{RelativeRegex}\s+year)))?)|(({HolidayList1}|{HolidayList2}|{HolidayList3}|{HolidayList4})((?<holidayWeekend>(\s+weekend)(\s+((of\s+)?({YearRegex}|{RelativeRegex}\s+year)))?)|(\s+(of\s+)?({YearRegex}|{RelativeRegex}\s+year)(?<holidayWeekend>\s+weekend)?))?))\b
   references: [ HolidayList1, HolidayList2, HolidayList3, HolidayList4, YearRegex, RelativeRegex, StrictRelativeRegex ]
 AMTimeRegex: !simpleRegex
-  def: (?#AMTimeRegex)(?<am>morgon(en)?|förmiddag(en)?)
+  def: (?<am>morgon(en)?|förmiddag(en)?)
 PMTimeRegex: !simpleRegex
-  def: (?#PMTimeRegex)\b(?<pm>eftermiddag(en)?|kväll(en)?|natt(en)?)\b
+  def: \b(?<pm>eftermiddag(en)?|kväll(en)?|natt(en)?)\b
 NightTimeRegex: !simpleRegex
-  def: (?#NightTimeRegex)(natten)
+  def: (natten)
 NowTimeRegex: !simpleRegex
-  def: (?#NowTimeRegex)(nu|vid\s+(denna tidpunkt|denna\s+minut|(ögonblick(et)?|(aktuell|nuvarande)\s+tidpunkt)))
+  def: (nu|vid\s+(denna tidpunkt|denna\s+minut|(ögonblick(et)?|(aktuell|nuvarande)\s+tidpunkt)))
 RecentlyTimeRegex: !simpleRegex
-  def: (?#RecentlyTimeRegex)(senaste|tidigare)
+  def: (senaste|tidigare)
 AsapTimeRegex: !simpleRegex
-  def: (?#AsapTimeRegex)(så\s+snart\s+(som|(som)?det\s+är)\s+möjligt|asap|snarast)
+  def: (så\s+snart\s+(som|(som)?det\s+är)\s+möjligt|asap|snarast)
 InclusiveModPrepositions: !simpleRegex
-  def: (?#InclusiveModPrepositions)(?<include>((den|kl|vid)\s+eller\s+)|(\s+eller\s+(den|kl|vid)))
+  def: (?<include>((den|kl|vid)\s+eller\s+)|(\s+eller\s+(den|kl|vid)))
 AroundRegex: !simpleRegex
-  def: (?#AroundRegex)(?:\b(?:runt|cirka|omkring)\s*?\b)(\s+den)?
+  def: (?:\b(?:runt|cirka|omkring)\s*?\b)(\s+den)?
 BeforeRegex: !nestedRegex
-  def: (?#BeforeRegex)((\b{InclusiveModPrepositions}?(?:före|innan|(ej\s+senare\s+än|tidigare)\s+än|slutar\s+(med|den)|by|tom|till|(?<include>så\s+sent\s+som)){InclusiveModPrepositions}?\b\s*?)|(?<!\w|>)((?<include><\s*=)|<))(\s+den)?
+  def: ((\b{InclusiveModPrepositions}?(?:före|innan|(ej\s+senare\s+än|tidigare)\s+än|slutar\s+(med|den)|by|tom|till|(?<include>så\s+sent\s+som)){InclusiveModPrepositions}?\b\s*?)|(?<!\w|>)((?<include><\s*=)|<))(\s+den)?
   references: [ InclusiveModPrepositions ]
 # "starting from" is SinceRegex
 AfterRegex: !nestedRegex
-  def: (?#AfterRegex)((\b{InclusiveModPrepositions}?((efter|(\s+med)?(start|början)(?!\sfrån)|(?<!ej\s+)senare än)|(år större än))(?!\s+lika med){InclusiveModPrepositions}?\b\s*?)|(?<!\w|<)((?<include>>\s*=)|>))(\s+den)?
+  def: ((\b{InclusiveModPrepositions}?((efter|(\s+med)?(start|början)(?!\sfrån)|(?<!ej\s+)senare än)|(år större än))(?!\s+lika med){InclusiveModPrepositions}?\b\s*?)|(?<!\w|<)((?<include>>\s*=)|>))(\s+den)?
   references: [ InclusiveModPrepositions ]
 SinceRegex: !simpleRegex
-  def: (?#SinceRegex)(?:(?:\b(?:sedan|senare\s+än\s+eller\s+lika\s+med|((med|som)\s+börja(n|r)|(som)?\s+startar)\s+(?:från|den|med)|så\s+tidigt\s+som|(any\s+time\s+)from)\b\s*?)|(?<!\w|<)(>=))(\s+den)?
+  def: (?:(?:\b(?:sedan|senare\s+än\s+eller\s+lika\s+med|((med|som)\s+börja(n|r)|(som)?\s+startar)\s+(?:från|den|med)|så\s+tidigt\s+som|(any\s+time\s+)from)\b\s*?)|(?<!\w|<)(>=))(\s+den)?
 SinceRegexExp: !nestedRegex
-  def: (?#SinceRegexExp)({SinceRegex}|\bfrån(\s+den)?\b)
+  def: ({SinceRegex}|\bfrån(\s+den)?\b)
   references: [ SinceRegex ]
 AgoRegex: !simpleRegex
-  def: (?#AgoRegex)\b(sedan|tidigare|före\s+(?<day>igår|idag))\b
+  def: \b(sedan|tidigare|före\s+(?<day>igår|idag))\b
 LaterRegex: !nestedRegex
-  def: (?#LaterRegex)\b(?:senare(?!((\s+under)?\s*{OneWordPeriodRegex})|(\s+{TimeOfDayRegex})|\s+än\b)|från nu|(från|efter)\s+(?<day>imorgon|idag))\b
+  def: \b(?:senare(?!((\s+under)?\s*{OneWordPeriodRegex})|(\s+{TimeOfDayRegex})|\s+än\b)|från nu|(från|efter)\s+(?<day>imorgon|idag))\b
   references: [ OneWordPeriodRegex, TimeOfDayRegex ]
 BeforeAfterRegex: !simpleRegex
-  def: (?#BeforeAfterRegex)\b((?<before>före)|(?<after>från|efter))\b
+  def: \b((?<before>före)|(?<after>från|efter))\b
 ModPrefixRegex: !nestedRegex
-  def: (?#ModPrefixRegex)\b({RelativeRegex}|{AroundRegex}|{BeforeRegex}|{AfterRegex}|{SinceRegex})\b
+  def: \b({RelativeRegex}|{AroundRegex}|{BeforeRegex}|{AfterRegex}|{SinceRegex})\b
   references: [RelativeRegex, AroundRegex, BeforeRegex, AfterRegex, SinceRegex ]
 ModSuffixRegex: !nestedRegex
-  def: (?#ModSuffixRegex)\b({AgoRegex}|{LaterRegex}|{BeforeAfterRegex}|{FutureSuffixRegex}|{PastSuffixRegex})\b
+  def: \b({AgoRegex}|{LaterRegex}|{BeforeAfterRegex}|{FutureSuffixRegex}|{PastSuffixRegex})\b
   references: [AgoRegex, LaterRegex, BeforeAfterRegex, FutureSuffixRegex, PastSuffixRegex]
 InConnectorRegex: !simpleRegex
-  def: (?#InConnectorRegex)\b(om)\b
+  def: \b(om)\b
 SinceYearSuffixRegex: !nestedRegex
-  def: (?#SinceYearSuffixRegex)(^\s*{SinceRegex}(\s*år(et)?\s*)?{YearSuffix})
+  def: (^\s*{SinceRegex}(\s*år(et)?\s*)?{YearSuffix})
   references: [ SinceRegex, YearSuffix ]
 WithinNextPrefixRegex: !nestedRegex
-  def: (?#WithinNextPrefixRegex)\b(inom(\s+de(n|t))?(\s+(?<next>{NextPrefixRegex}))?)\b
+  def: \b(inom(\s+de(n|t))?(\s+(?<next>{NextPrefixRegex}))?)\b
   references: [ NextPrefixRegex ]
 TodayNowRegex: !simpleRegex  # Added to remove hard coded strings in BaseDatePeriodParser
-  def: (?#TodayNowRegex)\b(idag|nu|nuvarande (datum|tid))\b
+  def: \b(idag|nu|nuvarande (datum|tid))\b
 # "next" group here is used to judge uncommon unsupported cases like "within the next 5 days before today"
 MorningStartEndRegex: !nestedRegex
-  def: (?#MorningStartEndRegex)(^(morgon|{AmDescRegex}))|((morgon|{AmDescRegex})$)
+  def: (^(morgon|{AmDescRegex}))|((morgon|{AmDescRegex})$)
   references: [ AmDescRegex ]
 AfternoonStartEndRegex: !nestedRegex
-  def: (?#AfternoonStartEndRegex)(^(afternoon|{PmDescRegex}))|((afternoon|{PmDescRegex})$)
+  def: (^(afternoon|{PmDescRegex}))|((afternoon|{PmDescRegex})$)
   references: [ PmDescRegex ]
 EveningStartEndRegex: !simpleRegex
-  def: (?#EveningStartEndRegex)(^(evening))|((evening)$)
+  def: (^(evening))|((evening)$)
 NightStartEndRegex: !simpleRegex
-  def: (?#NightStartEndRegex)(^(over|to)?ni(ght|te))|((over|to)?ni(ght|te)$)
+  def: (^(over|to)?ni(ght|te))|((over|to)?ni(ght|te)$)
 InexactNumberRegex: !simpleRegex
-  def: (?#InexactNumberRegex)\b((för\s+)?några|flera|(?<NumTwoTerm>(ett\s+)?(par|antal)))\b
+  def: \b((för\s+)?några|flera|(?<NumTwoTerm>(ett\s+)?(par|antal)))\b
 InexactNumberUnitRegex: !nestedRegex
-  def: (?#InexactNumberUnitRegex)({InexactNumberRegex})\s+({DurationUnitRegex})
+  def: ({InexactNumberRegex})\s+({DurationUnitRegex})
   references: [InexactNumberRegex, DurationUnitRegex]
 RelativeTimeUnitRegex: !nestedRegex
-  def: (?#RelativeTimeUnitRegex)(?:(?:(?:{NextPrefixRegex}|{PreviousPrefixRegex}|{ThisPrefixRegex})\s+({TimeUnitRegex}))|((the|my))\s+({RestrictedTimeUnitRegex}))
+  def: (?:(?:(?:{NextPrefixRegex}|{PreviousPrefixRegex}|{ThisPrefixRegex})\s+({TimeUnitRegex}))|((the|my))\s+({RestrictedTimeUnitRegex}))
   references: [NextPrefixRegex, PreviousPrefixRegex, ThisPrefixRegex, TimeUnitRegex, RestrictedTimeUnitRegex]
 RelativeDurationUnitRegex: !nestedRegex
-  def: (?#RelativeDurationUnitRegex)(?:(?:(?<=({NextPrefixRegex}|{PreviousPrefixRegex}|{ThisPrefixRegex})\s+)({DurationUnitRegex}))|((the|my))\s+({RestrictedTimeUnitRegex}))
+  def: (?:(?:(?<=({NextPrefixRegex}|{PreviousPrefixRegex}|{ThisPrefixRegex})\s+)({DurationUnitRegex}))|((the|my))\s+({RestrictedTimeUnitRegex}))
   references: [NextPrefixRegex, PreviousPrefixRegex, ThisPrefixRegex, DurationUnitRegex, RestrictedTimeUnitRegex]
 ReferenceDatePeriodRegex: !nestedRegex
-  def: (?#ReferenceDatePeriodRegex)\b{ReferencePrefixRegex}\s+(?<duration>week(end)?|fortnight|month|year|decade)\b
+  def: \b{ReferencePrefixRegex}\s+(?<duration>week(end)?|fortnight|month|year|decade)\b
   references: [ReferencePrefixRegex]
 ConnectorRegex: !simpleRegex
-  def: (?#ConnectorRegex)^(-|,|for|t|runt|cirka|@)$
+  def: ^(-|,|for|t|runt|cirka|@)$
 FromToRegex: !simpleRegex
-  def: (?#FromToRegex)(\b(från).+(till|och|eller)\b.+)
+  def: (\b(från).+(till|och|eller)\b.+)
 SingleAmbiguousMonthRegex: !simpleRegex
-  def: (?#SingleAmbiguousMonthRegex)^(the\s+)?(may|march)$
+  def: ^(the\s+)?(may|march)$
 # Filter ambiguous single word datetime extractions in CalendarMode or when adding a modifier
 SingleAmbiguousTermsRegex: !simpleRegex
-  def: (?#SingleAmbiguousTermsRegex)^(the\s+)?(dag|vecka|månad|år)$
+  def: ^(the\s+)?(dag|vecka|månad|år)$
 UnspecificDatePeriodRegex: !simpleRegex
-  def: (?#UnspecificDatePeriodRegex)^(vecka|fortnight|månad|år)$
+  def: ^(vecka|fortnight|månad|år)$
 PrepositionSuffixRegex: !simpleRegex
-  def: (?#PrepositionSuffixRegex)\b(on|in|at|around|circa|from|to)$
+  def: \b(on|in|at|around|circa|from|to)$
 FlexibleDayRegex: !simpleRegex
-  def: (?#FlexibleDayRegex)(?<DayOfMonth>([A-Öa-ö]+\s)?[A-Öa-ö\d]+)
+  def: (?<DayOfMonth>([A-Öa-ö]+\s)?[A-Öa-ö\d]+)
 # Only match expressions NOT containing weekday names => Match: 'jag åkte tillbaka den andre' Do NOT match: 'jag åkte tillbaka lördagen den andre!'
 ForTheRegex: !nestedRegex
-  def: (?#ForTheRegex)\b((((?<=\btill\s+)den\s+{FlexibleDayRegex})|((?<!{WeekDayRegex}\s+)den\s+{FlexibleDayRegex}(?<=(ta|te|ra|re|de))))(?<end>\s*(,|\.(?!\d)|!|\?|$)))
+  def: \b((((?<=\btill\s+)den\s+{FlexibleDayRegex})|((?<!{WeekDayRegex}\s+)den\s+{FlexibleDayRegex}(?<=(ta|te|ra|re|de))))(?<end>\s*(,|\.(?!\d)|!|\?|$)))
   references: [WeekDayRegex, FlexibleDayRegex]
 WeekDayAndDayOfMonthRegex: !nestedRegex
-  def: (?#WeekDayAndDayOfMonthRegex)\b{WeekDayRegex}\s+(den\s+{FlexibleDayRegex})\b
+  def: \b{WeekDayRegex}\s+(den\s+{FlexibleDayRegex})\b
   references: [WeekDayRegex, FlexibleDayRegex]
 WeekDayAndDayRegex: !nestedRegex
-  def: (?#WeekDayAndDayRegex)\b{WeekDayRegex}\s+(?!(den)){DayRegex}(?!([-:]|(\s+({AmDescRegex}|{PmDescRegex}|{OclockRegex}))))\b
+  def: \b{WeekDayRegex}\s+(?!(den)){DayRegex}(?!([-:]|(\s+({AmDescRegex}|{PmDescRegex}|{OclockRegex}))))\b
   references: [WeekDayRegex, DayRegex, AmDescRegex, PmDescRegex, OclockRegex]
 RestOfDateRegex: !simpleRegex
-  def: (?#RestOfDateRegex)\b(rest|remaining)\s+(of\s+)?((the|my|this|current)\s+)?(?<duration>vecka|fortnight|månad|år|decennium)\b
+  def: \b(rest|remaining)\s+(of\s+)?((the|my|this|current)\s+)?(?<duration>vecka|fortnight|månad|år|decennium)\b
 RestOfDateTimeRegex: !simpleRegex
   def: \b(rest|remaining)\s+(av\s+)?((den|min|denna|nuvarande)\s+)?(?<unit>dag)\b
 AmbiguousRangeModifierPrefix: !simpleRegex
-  def: (?#AmbiguousRangeModifierPrefix)(från)
+  def: (från)
 NumberEndingPattern: !nestedRegex
-  def: (?#NumberEndingPattern)^(?:\s+(?<meeting>möte|avtalad tid|konferens|sammanträde|((skype|teams|zoom|facetime)\s+)?samtal)\s+till\s+(?<newTime>{PeriodHourNumRegex}|{HourRegex})([\.]?$|(\.,|,|!|\?)))
+  def: ^(?:\s+(?<meeting>möte|avtalad tid|konferens|sammanträde|((skype|teams|zoom|facetime)\s+)?samtal)\s+till\s+(?<newTime>{PeriodHourNumRegex}|{HourRegex})([\.]?$|(\.,|,|!|\?)))
   references: [PeriodHourNumRegex, HourRegex]
 OneOnOneRegex: !simpleRegex
-  def: (?#OneOnOneRegex)\b(1\s*:\s*1(?!\d))|(one (on )?one|one\s*-\s*one|one\s*:\s*one)\b
+  def: \b(1\s*:\s*1(?!\d))|(one (on )?one|one\s*-\s*one|one\s*:\s*one)\b
 LaterEarlyPeriodRegex: !nestedRegex
-  def: (?#LaterEarlyPeriodRegex)\b(({PrefixPeriodRegex})\s*\b\s*(?<suffix>{OneWordPeriodRegex}|(?<FourDigitYear>{BaseDateTime.FourDigitYearRegex}))|({UnspecificEndOfRangeRegex}))\b
+  def: \b(({PrefixPeriodRegex})\s*\b\s*(?<suffix>{OneWordPeriodRegex}|(?<FourDigitYear>{BaseDateTime.FourDigitYearRegex}))|({UnspecificEndOfRangeRegex}))\b
   references: [PrefixPeriodRegex, OneWordPeriodRegex, BaseDateTime.FourDigitYearRegex, UnspecificEndOfRangeRegex]
 WeekWithWeekDayRangeRegex: !nestedRegex
-  def: (?#WeekWithWeekDayRangeRegex)\b((?<week>({NextPrefixRegex}|{PreviousPrefixRegex}|this)\s+week)((\s+mellan\s+{WeekDayRegex}\s+och\s+{WeekDayRegex})|(\s+från\s+{WeekDayRegex}\s+till\s+{WeekDayRegex})))\b
+  def: \b((?<week>({NextPrefixRegex}|{PreviousPrefixRegex}|this)\s+week)((\s+mellan\s+{WeekDayRegex}\s+och\s+{WeekDayRegex})|(\s+från\s+{WeekDayRegex}\s+till\s+{WeekDayRegex})))\b
   references: [NextPrefixRegex, PreviousPrefixRegex, WeekDayRegex]
 GeneralEndingRegex: !simpleRegex
-  def: (?#GeneralEndingRegex)^\s*((\.,)|\.|,|!|\?)?\s*$
+  def: ^\s*((\.,)|\.|,|!|\?)?\s*$
 MiddlePauseRegex: !simpleRegex
-  def: (?#MiddlePauseRegex)\s*(,)\s*
+  def: \s*(,)\s*
 DurationConnectorRegex: !simpleRegex
-  def: (?#DurationConnectorRegex)^\s*(?<connector>\s+|och|,)\s*$
+  def: ^\s*(?<connector>\s+|och|,)\s*$
 PrefixArticleRegex: !simpleRegex
-  def: (?#PrefixArticleRegex)\bthe\s+
+  def: \bthe\s+
 OrRegex: !simpleRegex
-  def: (?#OrRegex)\s*((\b|,\s*)(eller|och)\b|,)\s*
+  def: \s*((\b|,\s*)(eller|och)\b|,)\s*
 SpecialYearTermsRegex: !nestedRegex
-  def: (?#SpecialYearTermsRegex)\b((({SpecialYearPrefixes}\s+)?year)|(cy|(?<special>fy|sy)))
+  def: \b((({SpecialYearPrefixes}\s+)?year)|(cy|(?<special>fy|sy)))
   references: [ SpecialYearPrefixes ]
 YearPlusNumberRegex: !nestedRegex
-  def: (?#YearPlusNumberRegex)\b({SpecialYearTermsRegex}\s*((?<year>(\d{2,4}))|{FullTextYearRegex}))\b
+  def: \b({SpecialYearTermsRegex}\s*((?<year>(\d{2,4}))|{FullTextYearRegex}))\b
   references: [ FullTextYearRegex, SpecialYearTermsRegex ]
 NumberAsTimeRegex: !nestedRegex
-  def: (?#NumberAsTimeRegex)\b({WrittenTimeRegex}|{PeriodHourNumRegex}|{BaseDateTime.HourRegex})\b
+  def: \b({WrittenTimeRegex}|{PeriodHourNumRegex}|{BaseDateTime.HourRegex})\b
   references: [ WrittenTimeRegex, PeriodHourNumRegex, BaseDateTime.HourRegex ]
 TimeBeforeAfterRegex: !nestedRegex
-  def: (?#TimeBeforeAfterRegex)\b(((?<=\b(before|no later than|by|after)\s+)({WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}|{MidTimeRegex}))|{MidTimeRegex})\b
+  def: \b(((?<=\b(before|no later than|by|after)\s+)({WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}|{MidTimeRegex}))|{MidTimeRegex})\b
   references: [ WrittenTimeRegex, HourNumRegex, BaseDateTime.HourRegex, MidTimeRegex ]
 DateNumberConnectorRegex: !simpleRegex
-  def: (?#DateNumberConnectorRegex)^\s*(?<connector>\s+at)\s*$
+  def: ^\s*(?<connector>\s+at)\s*$
 DecadeRegex: !simpleRegex
-  def: (?#DecadeRegex)(?<decade>(?:nough|twen|thir|fou?r|fif|six|seven|eigh|nine)ties|two\s+thousands)
+  def: (?<decade>(?:nough|twen|thir|fou?r|fif|six|seven|eigh|nine)ties|two\s+thousands)
 DecadeWithCenturyRegex: !nestedRegex
-  def: (?#DecadeWithCenturyRegex)(the\s+)?(((?<century>\d|1\d|2\d)?(')?(?<decade>\d0)(')?(\s)?s\b)|(({CenturyRegex}(\s+|-)(and\s+)?)?{DecadeRegex})|({CenturyRegex}(\s+|-)(and\s+)?(?<decade>tens|hundreds)))
+  def: (the\s+)?(((?<century>\d|1\d|2\d)?(')?(?<decade>\d0)(')?(\s)?s\b)|(({CenturyRegex}(\s+|-)(and\s+)?)?{DecadeRegex})|({CenturyRegex}(\s+|-)(and\s+)?(?<decade>tens|hundreds)))
   references: [ CenturyRegex, DecadeRegex ]
 RelativeDecadeRegex: !nestedRegex
-  def: (?#RelativeDecadeRegex)\b((the\s+)?{RelativeRegex}\s+((?<number>[\w,]+)\s+)?decades?)\b
+  def: \b((the\s+)?{RelativeRegex}\s+((?<number>[\w,]+)\s+)?decades?)\b
   references: [ RelativeRegex ]
 YearPeriodRegex: !nestedRegex
-  def: (?#YearPeriodRegex)((((from|during|in)\s+)?{YearRegex}\s*({TillRegex})\s*{YearRegex})|(((between)\s+){YearRegex}\s*({RangeConnectorRegex})\s*{YearRegex}))
+  def: ((((from|during|in)\s+)?{YearRegex}\s*({TillRegex})\s*{YearRegex})|(((between)\s+){YearRegex}\s*({RangeConnectorRegex})\s*{YearRegex}))
   references: [ YearRegex, TillRegex, RangeConnectorRegex ]
 StrictTillRegex: !nestedRegex
-  def: (?#StrictTillRegex)(?<till>\b(to|(un)?till?|thru|through)\b|{BaseDateTime.RangeConnectorSymbolRegex}(?!\s*(h[1-2]|q[1-4])(?!(\s+of|\s*,\s*))))
+  def: (?<till>\b(to|(un)?till?|thru|through)\b|{BaseDateTime.RangeConnectorSymbolRegex}(?!\s*(h[1-2]|q[1-4])(?!(\s+of|\s*,\s*))))
   references: [ BaseDateTime.RangeConnectorSymbolRegex ]
 StrictRangeConnectorRegex : !nestedRegex
-  def: (?#StrictRangeConnectorRegex)(?<and>\b(and|through|to)\b|{BaseDateTime.RangeConnectorSymbolRegex}(?!\s*(h[1-2]|q[1-4])(?!(\s+of|\s*,\s*))))
+  def: (?<and>\b(and|through|to)\b|{BaseDateTime.RangeConnectorSymbolRegex}(?!\s*(h[1-2]|q[1-4])(?!(\s+of|\s*,\s*))))
   references: [ BaseDateTime.RangeConnectorSymbolRegex ]
 StartMiddleEndRegex: !simpleRegex
-  def: (?#StartMiddleEndRegex)\b((?<StartOf>((the\s+)?(start|beginning)\s+of\s+)?)(?<MiddleOf>((the\s+)?middle\s+of\s+)?)(?<EndOf>((the\s+)?end\s+of\s+)?))
+  def: \b((?<StartOf>((the\s+)?(start|beginning)\s+of\s+)?)(?<MiddleOf>((the\s+)?middle\s+of\s+)?)(?<EndOf>((the\s+)?end\s+of\s+)?))
 ComplexDatePeriodRegex: !nestedRegex
-  def: (?#ComplexDatePeriodRegex)(?:((from|during|in)\s+)?{StartMiddleEndRegex}(?<start>.+)\s*({StrictTillRegex})\s*{StartMiddleEndRegex}(?<end>.+)|((between)\s+){StartMiddleEndRegex}(?<start>.+)\s*({StrictRangeConnectorRegex})\s*{StartMiddleEndRegex}(?<end>.+))
+  def: (?:((from|during|in)\s+)?{StartMiddleEndRegex}(?<start>.+)\s*({StrictTillRegex})\s*{StartMiddleEndRegex}(?<end>.+)|((between)\s+){StartMiddleEndRegex}(?<start>.+)\s*({StrictRangeConnectorRegex})\s*{StartMiddleEndRegex}(?<end>.+))
   references: [ StrictTillRegex, StrictRangeConnectorRegex, StartMiddleEndRegex ]
 # Do not localize FailFastRegex to other cultures at this momment. Experimental feature. To be improved.
 FailFastRegex: !nestedRegex
-  def: (?#FailFastRegex)'{BaseDateTime.DeltaMinuteRegex}|\b(?:{BaseDateTime.BaseAmDescRegex}|{BaseDateTime.BasePmDescRegex})|{BaseDateTime.BaseAmPmDescRegex}|\b(?:zero|{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}|{WrittenMonthRegex}|{SeasonDescRegex}|{DecadeRegex}|centur(y|ies)|weekends?|quarters?|hal(f|ves)|yesterday|to(morrow|day|night)|tmr|noonish|\d(-|——)?ish|((the\s+\w*)|\d)(th|rd|nd|st)|(mid\s*(-\s*)?)?(night|morning|afternoon|day)s?|evenings?|noon|lunch(time)?|dinner(time)?|(day|night)time|overnight|dawn|dusk|sunset|hours?|hrs?|h|minutes?|mins?|seconds?|secs?|eo[dmy]|mardi[ -]?gras|birthday|eve|christmas|xmas|thanksgiving|halloween|yuandan|easter|yuan dan|april fools|cinco de mayo|all (hallow|souls)|guy fawkes|(st )?patrick|hundreds?|noughties|aughts|thousands?)\b|{WeekDayRegex}|{SetWeekDayRegex}|{NowRegex}|{PeriodicRegex}|\b({DateUnitRegex}|{ImplicitDayRegex})'
+  def: '{BaseDateTime.DeltaMinuteRegex}|\b(?:{BaseDateTime.BaseAmDescRegex}|{BaseDateTime.BasePmDescRegex})|{BaseDateTime.BaseAmPmDescRegex}|\b(?:zero|{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}|{WrittenMonthRegex}|{SeasonDescRegex}|{DecadeRegex}|centur(y|ies)|weekends?|quarters?|hal(f|ves)|yesterday|to(morrow|day|night)|tmr|noonish|\d(-|——)?ish|((the\s+\w*)|\d)(th|rd|nd|st)|(mid\s*(-\s*)?)?(night|morning|afternoon|day)s?|evenings?|noon|lunch(time)?|dinner(time)?|(day|night)time|overnight|dawn|dusk|sunset|hours?|hrs?|h|minutes?|mins?|seconds?|secs?|eo[dmy]|mardi[ -]?gras|birthday|eve|christmas|xmas|thanksgiving|halloween|yuandan|easter|yuan dan|april fools|cinco de mayo|all (hallow|souls)|guy fawkes|(st )?patrick|hundreds?|noughties|aughts|thousands?)\b|{WeekDayRegex}|{SetWeekDayRegex}|{NowRegex}|{PeriodicRegex}|\b({DateUnitRegex}|{ImplicitDayRegex})'
   references: [ BaseDateTime.DeltaMinuteRegex, BaseDateTime.BaseAmDescRegex, BaseDateTime.BasePmDescRegex, BaseDateTime.BaseAmPmDescRegex, ImplicitDayRegex, DateUnitRegex, WeekDayRegex, SetWeekDayRegex, NowRegex, PeriodicRegex, DecadeRegex, SeasonDescRegex, WrittenMonthRegex, WrittenTensRegex, WrittenElevenToNineteenRegex, WrittenOneToNineRegex ]
 UnitMap: !dictionary
   types: [ string, string ]
@@ -946,7 +949,7 @@ CardinalMap: !dictionary
     12th: 12
 DayOfWeek: !dictionary
   types: [ string, int ]
-  entries: 
+  entries:
     måndagen: 1
     måndag: 1
     månd: 1
@@ -1267,12 +1270,12 @@ DayOfMonth: !dictionary
     '09:e': 9
 DoubleNumbers: !dictionary
   types: [ string, double ]
-  entries: 
+  entries:
     half: 0.5
     quarter: 0.25
 HolidayNames: !dictionary
   types: [ string, 'string[]' ]
-  entries: 
+  entries:
     easterday: [ easterday, easter, eastersunday ]
     ashwednesday: [ ashwednesday ]
     palmsunday: [ palmsunday ]
@@ -1337,9 +1340,9 @@ HolidayNames: !dictionary
     juneteenth: [ juneteenth, freedomday, jubileeday]
     # Islamic Holidays
     ramadan: [ ramadan, ramazan, ramzan, ramadhan, ramathan ]
-    sacrifice: [ eidaladha, eidalazha, eidulazha, feastofthesacrifice ] 
+    sacrifice: [ eidaladha, eidalazha, eidulazha, feastofthesacrifice ]
     islamicnewyear: [ islamicnewyear, hijrinewyear, arabicnewyear ]
-    eidalfitr: [ eidalfitr, festivalofbreakingthefast ] 
+    eidalfitr: [ eidalfitr, festivalofbreakingthefast ]
 WrittenDecades: !dictionary
   types: [ string, int ]
   entries:
@@ -1400,7 +1403,7 @@ SuperfluousWordList: !list
     - perhaps
     - say
     - like
-# For DurationDateRestrictions, only translate these terms if this particular circumstance applies in the target language. If not, keep it empty. 
+# For DurationDateRestrictions, only translate these terms if this particular circumstance applies in the target language. If not, keep it empty.
 DurationDateRestrictions: [ today, now, 'current date' ]
 # Cases collected from mined data
 AmbiguityFiltersDict: !dictionary
@@ -1426,42 +1429,42 @@ AmbiguityDurationFiltersDict: !dictionary
 # For TimeOfDay resolution
 MorningTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - morgon
     - morgonen
     - morning
 AfternoonTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - afternoon
     - eftermiddag
     - eftermiddagen
 EveningTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - evening
     - kväll
     - kvällen
 MealtimeBreakfastTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - breakfast
     - frukost
     - frukosten
 MealtimeBrunchTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - brunch
     - brunchen
 MealtimeLunchTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - lunch
     - lunchtime
     - lunchen
 MealtimeDinnerTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - dinner
     - dinnertime
     - supper
@@ -1469,23 +1472,23 @@ MealtimeDinnerTermList: !list
     - kvällsmaten
 DaytimeTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - daytime
     - dagtid
 NightTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - night
     - natt
     - natten
 NighttimeTermList: !list
   types: [ string ]
-  entries: 
+  entries:
     - nighttime
     - night-time
 SameDayTerms: !list
   types: [ string ]
-  entries: 
+  entries:
     - today
     - current date
     - otd
@@ -1493,7 +1496,7 @@ SameDayTerms: !list
     - i dag
 PlusOneDayTerms: !list
   types: [ string ]
-  entries: 
+  entries:
     - tomorrow
     - tmr
     - day after
@@ -1501,7 +1504,7 @@ PlusOneDayTerms: !list
     - i morgon
 MinusOneDayTerms: !list
   types: [ string ]
-  entries: 
+  entries:
     - yesterday
     - day before
     - igår
@@ -1512,14 +1515,14 @@ MinusOneDayTerms: !list
     - dag före
 PlusTwoDayTerms: !list
   types: [ string ]
-  entries: 
+  entries:
     - day after tomorrow
     - day after tmr
     - övermorgon
     - i övermorgon
 MinusTwoDayTerms: !list
   types: [ string ]
-  entries: 
+  entries:
     - day before yesterday
     - förrgår
     - i förrgår
@@ -1571,7 +1574,7 @@ YearTerms: !list
     - år
 GenericYearTerms: !list
   types: [ string ]
-  entries: 
+  entries:
     - y
 YearToDateTerms: !list
   types: [ string ]

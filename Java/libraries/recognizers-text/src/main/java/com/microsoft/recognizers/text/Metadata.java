@@ -69,4 +69,14 @@ public class Metadata {
     public void setDurationWithBeforeAndAfter(boolean durationWithBeforeAndAfter) {
         isDurationWithBeforeAndAfter = durationWithBeforeAndAfter;
     }
+
+    private boolean isRelativeOrdinal;
+
+    public void setIsRelativeOrdinal(boolean relativeOrdinal) {
+        this.isRelativeOrdinal = relativeOrdinal;
+    }
+
+    public boolean getIsRelativeOrdinal() {
+        return this.isRelativeOrdinal;
+    }
 }

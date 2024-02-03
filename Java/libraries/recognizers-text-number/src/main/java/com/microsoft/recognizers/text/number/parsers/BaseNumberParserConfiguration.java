@@ -68,6 +68,33 @@ public abstract class BaseNumberParserConfiguration implements INumberParserConf
     }
 
     @Override
+    public long resolveCompositeNumber(String numberStr) {
+        if (numberStr.contains("-")) {
+            String[] numbers = numberStr.split(Pattern.quote("-"));
+            long ret = 0;
+            for (String number : numbers) {
+                if (ordinalNumberMap.containsKey(number)) {
+                    ret += ordinalNumberMap.get(number);
+                } else if (cardinalNumberMap.containsKey(number)) {
+                    ret += cardinalNumberMap.get(number);
+                }
+            }
+
+            return ret;
+        }
+
+        if (ordinalNumberMap.containsKey(numberStr)) {
+            return ordinalNumberMap.get(numberStr);
+        }
+
+        if (cardinalNumberMap.containsKey(numberStr)) {
+            return cardinalNumberMap.get(numberStr);
+        }
+
+        return 0;
+    }
+
+    @Override
     public Map<String, Long> getCardinalNumberMap() {
         return this.cardinalNumberMap;
     }

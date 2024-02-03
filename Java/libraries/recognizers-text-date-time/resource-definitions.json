@@ -126,6 +126,38 @@
         "public class GermanDateTime {"
       ],
       "footer": [ "}" ]
+    },
+    {
+      "input": [ "Swedish", "Swedish-DateTime" ],
+      "output": "SwedishDateTime",
+      "header": [
+        "package com.microsoft.recognizers.text.datetime.resources;",
+        "",
+        "import java.util.Arrays;",
+        "import java.util.List;",
+        "import java.util.Map;",
+        "",
+        "import com.google.common.collect.ImmutableMap;",
+        "",
+        "public class SwedishDateTime {"
+      ],
+      "footer": [ "}" ]
+    },
+    {
+      "input": [ "Swedish", "Swedish-TimeZone" ],
+      "output": "SwedishTimeZone",
+      "header": [
+        "package com.microsoft.recognizers.text.datetime.resources;",
+        "",
+        "import java.util.Arrays;",
+        "import java.util.List;",
+        "import java.util.Map;",
+        "",
+        "import com.google.common.collect.ImmutableMap;",
+        "",
+        "public class SwedishTimeZone {"
+      ],
+      "footer": [ "}" ]
     }
   ]
 }

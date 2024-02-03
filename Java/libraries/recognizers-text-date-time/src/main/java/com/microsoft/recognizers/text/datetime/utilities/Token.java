@@ -82,7 +82,7 @@ public class Token {
         }
 
         for (Token token : mergedTokens) {
-            String substring = text.substring(token.start, token.end);
+            String substring = text.substring(token.start, Math.min(token.end, text.length()));
 
             ExtractResult er = new ExtractResult(token.start, token.getLength(), substring, extractorName, null, token.metadata);
 

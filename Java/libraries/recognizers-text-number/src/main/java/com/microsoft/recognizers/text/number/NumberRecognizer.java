@@ -22,6 +22,8 @@ import com.microsoft.recognizers.text.number.parsers.AgnosticNumberParserType;
 import com.microsoft.recognizers.text.number.parsers.BaseNumberRangeParser;
 import com.microsoft.recognizers.text.number.portuguese.parsers.PortugueseNumberParserConfiguration;
 import com.microsoft.recognizers.text.number.spanish.parsers.SpanishNumberParserConfiguration;
+import com.microsoft.recognizers.text.number.swedish.parsers.SwedishNumberParserConfiguration;
+import com.microsoft.recognizers.text.number.swedish.parsers.SwedishNumberRangeParserConfiguration;
 
 import java.util.List;
 import java.util.function.Function;
@@ -201,7 +203,7 @@ public class NumberRecognizer extends Recognizer<NumberOptions> {
                 AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Percentage, new GermanNumberParserConfiguration()),
                 new com.microsoft.recognizers.text.number.german.extractors.PercentageExtractor()));
         //endregion
-        
+
         //region Chinese
         registerModel(NumberModel.class, Culture.Chinese, (options) -> new NumberModel(
                 AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Number, new ChineseNumberParserConfiguration()),
@@ -215,6 +217,21 @@ public class NumberRecognizer extends Recognizer<NumberOptions> {
         registerModel(NumberRangeModel.class, Culture.Chinese, (options) -> new NumberRangeModel(
                 new BaseNumberRangeParser(new ChineseNumberRangeParserConfiguration()),
                 new com.microsoft.recognizers.text.number.chinese.extractors.NumberRangeExtractor(options)));
+        //endregion
+
+        //region Swedish
+        registerModel(NumberModel.class, Culture.Swedish, (options) -> new NumberModel(
+                AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Number, new SwedishNumberParserConfiguration(options)),
+                com.microsoft.recognizers.text.number.swedish.extractors.NumberExtractor.getInstance(NumberMode.PureNumber, options)));
+        registerModel(OrdinalModel.class, Culture.Swedish, (options) -> new OrdinalModel(
+                AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Ordinal, new SwedishNumberParserConfiguration(options)),
+                com.microsoft.recognizers.text.number.swedish.extractors.OrdinalExtractor.getInstance()));
+        registerModel(PercentModel.class, Culture.Swedish, (options) -> new PercentModel(
+                AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Percentage, new SwedishNumberParserConfiguration(options)),
+                new com.microsoft.recognizers.text.number.swedish.extractors.PercentageExtractor(options)));
+        registerModel(NumberRangeModel.class, Culture.Swedish, (options) -> new NumberRangeModel(
+                new BaseNumberRangeParser(new SwedishNumberRangeParserConfiguration()),
+                new com.microsoft.recognizers.text.number.swedish.extractors.NumberRangeExtractor(options)));
         //endregion
     }
 }

@@ -15,6 +15,7 @@ public class Culture {
     public static final String Japanese = "ja-jp";
     public static final String Dutch = "nl-nl";
     public static final String Italian = "it-it";
+    public static final String Swedish = "sv-se";
 
     public static final Culture[] SupportedCultures = new Culture[] {
         new Culture("English", English),
@@ -26,6 +27,7 @@ public class Culture {
         new Culture("Japanese", Japanese),
         new Culture("Dutch", Dutch),
         new Culture("Italian", Italian),
+        new Culture("Swedish", Swedish),
     };
 
     public final String cultureName;

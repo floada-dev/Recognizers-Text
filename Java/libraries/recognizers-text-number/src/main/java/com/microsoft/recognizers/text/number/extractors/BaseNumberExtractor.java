@@ -55,7 +55,8 @@ public abstract class BaseNumberExtractor implements IExtractor {
 
         HashMap<Match, String> matchSource = new HashMap<>();
 
-        getRegexes().forEach((k, value) -> {
+        Map<Pattern, String> regexes = getRegexes();
+        regexes.forEach((k, value) -> {
 
             Match[] matches = RegExpUtility.getMatches(k, source);
 
@@ -110,7 +111,11 @@ public abstract class BaseNumberExtractor implements IExtractor {
 
                         // Add Metadata information for Ordinal
                         if (getExtractType().contains(Constants.MODEL_ORDINAL)) {
-                            er.setMetadata(new Metadata());
+                            Metadata metadata = new Metadata();
+                            if (srcMatch.getGroup(Constants.RELATIVE_ORDINAL_GROUP_NAME).length > 0) {
+                                metadata.setIsRelativeOrdinal(true);
+                            }
+                            er.setMetadata(metadata);
                         }
 
                         result.add(er);
@@ -122,7 +127,7 @@ public abstract class BaseNumberExtractor implements IExtractor {
         }
 
         result = filterAmbiguity(result, source);
-        
+
         return result;
     }
 

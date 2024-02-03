@@ -15,6 +15,7 @@ import com.microsoft.recognizers.text.number.parsers.AgnosticNumberParserType;
 import com.microsoft.recognizers.text.number.parsers.BaseNumberParser;
 import com.microsoft.recognizers.text.number.parsers.BasePercentageParser;
 import com.microsoft.recognizers.text.number.spanish.parsers.SpanishNumberParserConfiguration;
+import com.microsoft.recognizers.text.number.swedish.parsers.SwedishNumberParserConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -57,6 +58,17 @@ public class ParserFactoryTest {
         IParser parseNumber = AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Number, new GermanNumberParserConfiguration());
         IParser parseCardinal = AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Cardinal, new GermanNumberParserConfiguration());
         IParser parsePercentage = AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Percentage, new GermanNumberParserConfiguration());
+
+        Assert.assertTrue(parseNumber instanceof BaseNumberParser);
+        Assert.assertTrue(parseCardinal instanceof BaseNumberParser);
+        Assert.assertTrue(parsePercentage instanceof BasePercentageParser);
+    }
+
+    @Test
+    public void swedishParser() {
+        IParser parseNumber = AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Number, new SwedishNumberParserConfiguration());
+        IParser parseCardinal = AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Cardinal, new SwedishNumberParserConfiguration());
+        IParser parsePercentage = AgnosticNumberParserFactory.getParser(AgnosticNumberParserType.Percentage, new SwedishNumberParserConfiguration());
 
         Assert.assertTrue(parseNumber instanceof BaseNumberParser);
         Assert.assertTrue(parseCardinal instanceof BaseNumberParser);

@@ -1144,4 +1144,6 @@ public class PortugueseDateTime {
     public static final String SemiAnnualTypeRegex = "(semestral(mente)?)$";
 
     public static final String YearTypeRegex = "(anual(mente)?)$";
+
+    public static final List<String> ThisTerms = Arrays.asList("esse", "essa", "este", "esta");
 }

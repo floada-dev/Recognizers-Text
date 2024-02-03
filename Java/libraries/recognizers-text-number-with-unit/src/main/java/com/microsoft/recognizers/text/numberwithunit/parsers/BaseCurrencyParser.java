@@ -14,6 +14,7 @@ import com.microsoft.recognizers.text.numberwithunit.utilities.DictionaryUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -172,7 +173,9 @@ public class BaseCurrencyParser implements IParser {
         if (numberValue == Double.MIN_VALUE) {
             return null;
         } else {
-            java.text.NumberFormat numberFormat = java.text.NumberFormat.getInstance();
+            String[] culture = this.config.getCultureInfo().cultureCode.split("-");
+            Locale locale = Locale.forLanguageTag(culture[0]);
+            java.text.NumberFormat numberFormat = java.text.NumberFormat.getInstance(locale);
             numberFormat.setMinimumFractionDigits(0);
             numberFormat.setGroupingUsed(false);
             return numberFormat.format(numberValue);
