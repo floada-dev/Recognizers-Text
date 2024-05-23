@@ -19851,6 +19851,29 @@
     ]
   },
   {
+    "Input": "20 March day of 1998",
+    "Context": {
+      "ReferenceDateTime": "1997-03-15T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "20 march day of 1998",
+        "Start": 0,
+        "End": 19,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1998-03-20",
+              "type": "date",
+              "value": "1998-03-20"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "Input": "Let's meet at friday the 26th around 4",
     "Context": {
       "ReferenceDateTime": "2021-03-15T00:00:00"

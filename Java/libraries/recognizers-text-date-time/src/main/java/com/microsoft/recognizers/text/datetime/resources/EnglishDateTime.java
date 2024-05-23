@@ -371,7 +371,7 @@ public class EnglishDateTime {
 
     public static final String DatePreposition = "\\b(on|in)";
 
-    public static final String DateExtractorYearTermRegex = "(\\s+|\\s*[/\\\\.,-]\\s*|\\s+of\\s+){DateYearRegex}"
+    public static final String DateExtractorYearTermRegex = "(\\s+|\\s*[/\\\\.,-]\\s*|\\s+(day\\s+)?of\\s+){DateYearRegex}"
             .replace("{DateYearRegex}", DateYearRegex);
 
     public static final String DayPrefix = "\\b({WeekDayRegex}|{SpecialDayRegex})\\b"

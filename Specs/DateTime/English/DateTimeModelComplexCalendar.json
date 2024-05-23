@@ -2744,7 +2744,7 @@
     "Context": {
       "ReferenceDateTime": "2018-06-14T00:00:00"
     },
-    "NotSupported": "python, javascript",
+    "NotSupported": "python, javascript, java",
     "Results": [
       {
         "Text": "next week, how about on wednesday",
@@ -2768,7 +2768,7 @@
     "Context": {
       "ReferenceDateTime": "2018-06-14T00:00:00"
     },
-    "NotSupported": "python, javascript",
+    "NotSupported": "python, javascript, java",
     "Results": [
       {
         "Text": "next week maybe, say on wednesday",
@@ -2792,7 +2792,7 @@
     "Context": {
       "ReferenceDateTime": "2018-06-14T00:00:00"
     },
-    "NotSupported": "python, javascript",
+    "NotSupported": "python, javascript, java",
     "Results": [
       {
         "Text": "next week, preferably on tuesday",
