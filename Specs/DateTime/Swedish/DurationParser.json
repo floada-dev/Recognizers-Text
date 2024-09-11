@@ -1,0 +1,140 @@
+[
+  {
+    "Input": "nio månaders ömsesidig uppsägningstid",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "nio månaders",
+        "Type": "duration",
+        "Value": {
+          "Timex": "P9M",
+          "FutureResolution": {
+            "duration": "23328000"
+          },
+          "PastResolution": {
+            "duration": "23328000"
+          }
+        },
+        "Start": 0,
+        "Length": 12
+      }
+    ]
+  },
+  {
+    "Input": "inom 60 dagars tid",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "60 dagars",
+        "Type": "duration",
+        "Value": {
+          "Timex": "P60D",
+          "FutureResolution": {
+            "duration": "5184000"
+          },
+          "PastResolution": {
+            "duration": "5184000"
+          }
+        },
+        "Start": 5,
+        "Length": 9
+      }
+    ]
+  },
+  {
+    "Input": "inom nittio arbetsdagars tid",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "nittio arbetsdagars",
+        "Type": "duration",
+        "Value": {
+          "Timex": "P90D",
+          "FutureResolution": {
+            "duration": "7776000"
+          },
+          "PastResolution": {
+            "duration": "7776000"
+          }
+        },
+        "Start": 5,
+        "Length": 19
+      }
+    ]
+  },
+  {
+    "Input": "därefter 2 års uppsägning",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "2 års",
+        "Type": "duration",
+        "Value": {
+          "Timex": "P2Y",
+          "FutureResolution": {
+            "duration": "63072000"
+          },
+          "PastResolution": {
+            "duration": "63072000"
+          }
+        },
+        "Start": 9,
+        "Length": 5
+      }
+    ]
+  },
+  {
+    "Input": "därefter med två veckors intervall",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "två veckors",
+        "Type": "duration",
+        "Value": {
+          "Timex": "P2W",
+          "FutureResolution": {
+            "duration": "1209600"
+          },
+          "PastResolution": {
+            "duration": "1209600"
+          }
+        },
+        "Start": 13,
+        "Length": 11
+      }
+    ]
+  },
+  {
+    "Input": "med 24 timmars fördröjning",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "Results": [
+      {
+        "Text": "24 timmars",
+        "Type": "duration",
+        "Value": {
+          "Timex": "PT24H",
+          "FutureResolution": {
+            "duration": "86400"
+          },
+          "PastResolution": {
+            "duration": "86400"
+          }
+        },
+        "Start": 4,
+        "Length": 10
+      }
+    ]
+  }
+]

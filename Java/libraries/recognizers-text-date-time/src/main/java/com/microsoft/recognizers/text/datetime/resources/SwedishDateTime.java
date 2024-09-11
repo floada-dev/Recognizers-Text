@@ -145,7 +145,7 @@ public class SwedishDateTime {
             .replace("{RelativeMonthRegex}", RelativeMonthRegex)
             .replace("{WrittenMonthRegex}", WrittenMonthRegex);
 
-    public static final String DateUnitRegex = "(?<unit>(decenni(um)?|år|(?<uoy>månad|vecka?)|(?<business>(arbets\\s*|vecka?\\s*))?(?<uoy>dag)|weekend|helg)(?<plural>(s|or|er|ar|e?n))?|(?<=\\s+\\d{1,4})[ymwd])\\b";
+    public static final String DateUnitRegex = "(?<unit>(decenni(um)?|år|(?<uoy>månad|vecka?)|(?<business>(arbets\\s*|vecka?\\s*))?(?<uoy>dag)|weekend|helg)(?<plural>(s|or|ors|er|ers|ar|ars|e?n))?|(?<=\\s+\\d{1,4})[ymwd])\\b";
 
     public static final String DateTokenPrefix = "den ";
 
@@ -336,13 +336,13 @@ public class SwedishDateTime {
     public static final String SpecialDayRegex = "\\b(i förrgår|i övermorgon|dagen\\s+(före|efter)(?!=\\s+dag)|((den\\s+)?({RelativeRegex}|min)\\s+dag)|igår|imorgon|idag)\\b"
             .replace("{RelativeRegex}", RelativeRegex);
 
-    public static final String SpecialDayWithNumRegex = "\\b((?<number>{WrittenNumRegex})\\s+dag(ar)?\\s+från\\s+(?<day>igår|imorgon|idag))\\b"
+    public static final String SpecialDayWithNumRegex = "\\b((?<number>{WrittenNumRegex})\\s+dag(ar(s)?)?\\s+från\\s+(?<day>igår|imorgon|idag))\\b"
             .replace("{WrittenNumRegex}", WrittenNumRegex);
 
     public static final String RelativeDayRegex = "\\b(((den\\s+)?{RelativeRegex}\\s+dag(en)?))\\b"
             .replace("{RelativeRegex}", RelativeRegex);
 
-    public static final String SetWeekDayRegex = "\\b(?<prefix>på\\s+)?(?<weekday>morgonen|eftermiddagen|kvällen|natten|(sön|mån|tis|ons|tors|fre|lör)dag(s|en|ar))\\b";
+    public static final String SetWeekDayRegex = "\\b(?<prefix>på\\s+)?(?<weekday>morgonen|eftermiddagen|kvällen|natten|(sön|mån|tis|ons|tors|fre|lör)dag(s|en|ar|ars))\\b";
 
     public static final String WeekDayOfMonthRegex = "(?<wom>(den\\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|sista)\\s+(veckan\\s+{MonthSuffixRegex}[\\.]?\\s+(på\\s+)?{WeekDayRegex}|{WeekDayRegex}\\s+{MonthSuffixRegex}))"
             .replace("{WeekDayRegex}", WeekDayRegex)
@@ -458,7 +458,7 @@ public class SwedishDateTime {
     public static final String WeekDayStart = "^\\s+(på\\s+)?{WeekDayRegex}(\\s+den)?\\b"
             .replace("{WeekDayRegex}", WeekDayRegex);
 
-    public static final String RangeUnitRegex = "\\b(?<unit>år|månad(er)?|veck(a|or)?)\\b";
+    public static final String RangeUnitRegex = "\\b(?<unit>år(s)?|månad(er(s)?)?|veck(a|or(s)?)?)\\b";
 
     public static final String HourNumRegex = "\\b(?<hournum>noll|ett|två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv)\\b";
 
@@ -738,7 +738,7 @@ public class SwedishDateTime {
 
     public static final String MoreThanRegex = "\\b(mer\\s+än)\\b";
 
-    public static final String DurationUnitRegex = "(?<unit>{DateUnitRegex}|tim(me|mar)?|h|min(ut(er)?)?|sek(und(er)?)?|nätter)\\b"
+    public static final String DurationUnitRegex = "(?<unit>{DateUnitRegex}|tim(me|mar|mars)?|h|min(ut(er)?)?|sek(und(er)?)?|nätter)\\b"
             .replace("{DateUnitRegex}", DateUnitRegex);
 
     public static final String SuffixAndRegex = "(?<suffix>\\s*(och)\\s+(en?\\s+)?(?<suffix_num>halv|kvart))";
@@ -1018,27 +1018,34 @@ public class SwedishDateTime {
         .put("decennier", "10Y")
         .put("decenniet", "10Y")
         .put("år", "Y")
+        .put("års", "Y")
         .put("åren", "Y")
         .put("månad", "MON")
         .put("månader", "MOM")
+        .put("månaders", "MOM")
         .put("kvartal", "3MON")
         .put("termin", "6MON")
         .put("terminer", "6MON")
         .put("vecka", "W")
         .put("veckor", "W")
+        .put("veckors", "W")
         .put("helg", "WE")
         .put("helger", "WE")
         .put("veckoslut", "WE")
         .put("dag", "D")
         .put("dagar", "D")
+        .put("dagars", "D")
         .put("arbetsdag", "D")
         .put("arbetsdagar", "D")
+        .put("arbetsdagars", "D")
         .put("veckodag", "D")
         .put("veckodagar", "D")
+        .put("veckodagars", "D")
         .put("natt", "D")
         .put("nätter", "D")
         .put("timme", "H")
         .put("timmar", "H")
+        .put("timmars", "H")
         .put("tim", "H")
         .put("t", "H")
         .put("minut", "M")
@@ -1091,21 +1098,27 @@ public class SwedishDateTime {
         .put("decennier", 315360000L)
         .put("decennium", 315360000L)
         .put("år", 31536000L)
+        .put("års", 31536000L)
         .put("månad", 2592000L)
         .put("månader", 2592000L)
+        .put("månaders", 2592000L)
         .put("helg", 172800L)
         .put("helger", 172800L)
         .put("veckoslut", 172800L)
         .put("vecka", 604800L)
         .put("veckor", 604800L)
+        .put("veckors", 604800L)
         .put("arbetsdag", 86400L)
         .put("arbetsdagar", 86400L)
+        .put("arbetsdagars", 86400L)
         .put("dag", 86400L)
         .put("dagar", 86400L)
+        .put("dagars", 86400L)
         .put("natt", 86400L)
         .put("nätter", 86400L)
         .put("timme", 3600L)
         .put("timmar", 3600L)
+        .put("timmars", 3600L)
         .put("tim", 3600L)
         .put("t", 3600L)
         .put("minut", 60L)
