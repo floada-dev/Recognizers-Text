@@ -2323,6 +2323,30 @@
     ]
   },
   {
+    "Input": "5 Jahren",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "NotSupported": "python, javascript",
+    "Results": [
+      {
+        "Text": "5 jahren",
+        "Start": 0,
+        "End": 7,
+        "TypeName": "datetimeV2.duration",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "P5Y",
+              "type": "duration",
+              "value": "157680000"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "Input": "Es wird unter der woche passieren",
     "Context": {
       "ReferenceDateTime": "2019-08-07T00:00:00"
@@ -5623,6 +5647,78 @@
               "timex": "2000-07-01",
               "type": "date",
               "value": "2000-07-01"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Mrz. 11, 1993",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "NotSupported": "javascript, python",
+    "Results": [
+      {
+        "Text": "mrz. 11, 1993",
+        "Start": 0,
+        "End": 12,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1993-03-11",
+              "type": "date",
+              "value": "1993-03-11"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Sep. 11, 1993",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "NotSupported": "javascript, python",
+    "Results": [
+      {
+        "Text": "sep. 11, 1993",
+        "Start": 0,
+        "End": 12,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1993-09-11",
+              "type": "date",
+              "value": "1993-09-11"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Sept. 11, 1993",
+    "Context": {
+      "ReferenceDateTime": "2016-11-07T00:00:00"
+    },
+    "NotSupported": "javascript, python",
+    "Results": [
+      {
+        "Text": "sept. 11, 1993",
+        "Start": 0,
+        "End": 13,
+        "TypeName": "datetimeV2.date",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "1993-09-11",
+              "type": "date",
+              "value": "1993-09-11"
             }
           ]
         }

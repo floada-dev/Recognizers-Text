@@ -201,7 +201,7 @@ public class GermanDateTime {
 
     public static final String MonthOfRegex = "(monat)(\\s*)(des)";
 
-    public static final String MonthRegex = "(?<month>apr((il)?\\b|\\.)|aug((ust)?\\b|\\.)|dez((ember)?\\b|\\.)|feb((ruar|ber)?\\b|\\.)|januar|j[äa]n((ner)?\\b|\\.)|jul((e?i|l)?\\b|l\\.)|jun([io]?\\b|\\.)|märz|mai|nov((ember)?\\b|\\.)|okt((ober)?\\b|\\.)|sept?((ember)?\\b|\\.))";
+    public static final String MonthRegex = "(?<month>apr((il)?\\b|\\.)|aug((ust)?\\b|\\.)|dez((ember)?\\b|\\.)|feb((ruar|ber)?\\b|\\.)|januar|j[äa]n((ner)?\\b|\\.)|jul((e?i|l)?\\b|l\\.)|jun([io]?\\b|\\.)|märz|mrz|mai|nov((ember)?\\b|\\.)|okt((ober)?\\b|\\.)|sep(t)?((ember)?\\b|\\.))";
 
     public static final String DateYearRegex = "(?<year>{BaseDateTime.FourDigitYearRegex}|{TwoDigitYearRegex})"
             .replace("{BaseDateTime.FourDigitYearRegex}", BaseDateTime.FourDigitYearRegex)
@@ -948,6 +948,7 @@ public class GermanDateTime {
         .put("jän", 1)
         .put("feb", 2)
         .put("mar", 3)
+        .put("mrz", 3)
         .put("apr", 4)
         .put("jun", 6)
         .put("jul", 7)
