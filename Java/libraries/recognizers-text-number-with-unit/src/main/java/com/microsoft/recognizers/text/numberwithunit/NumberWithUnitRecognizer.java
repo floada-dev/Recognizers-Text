@@ -212,8 +212,8 @@ public class NumberWithUnitRecognizer extends Recognizer<NumberWithUnitOptions> 
         //region German
         registerModel(CurrencyModel.class, Culture.German, (options) ->
                 new CurrencyModel(ImmutableMap.of(
-                        new NumberWithUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.german.extractors.CurrencyExtractorConfiguration()),
-                        new NumberWithUnitParser(new com.microsoft.recognizers.text.numberwithunit.german.parsers.CurrencyParserConfiguration()))));
+                        new BaseMergedUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.german.extractors.CurrencyExtractorConfiguration()),
+                        new BaseMergedUnitParser(new com.microsoft.recognizers.text.numberwithunit.german.parsers.CurrencyParserConfiguration()))));
         registerModel(TemperatureModel.class, Culture.German, (options) ->
                 new TemperatureModel(ImmutableMap.of(
                         new NumberWithUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.german.extractors.TemperatureExtractorConfiguration()),
@@ -226,6 +226,25 @@ public class NumberWithUnitRecognizer extends Recognizer<NumberWithUnitOptions> 
                 new AgeModel(ImmutableMap.of(
                         new NumberWithUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.german.extractors.AgeExtractorConfiguration()),
                         new NumberWithUnitParser(new com.microsoft.recognizers.text.numberwithunit.german.parsers.AgeParserConfiguration()))));
+        //endregion
+
+        //region Swedish
+        registerModel(CurrencyModel.class, Culture.Swedish, (options) ->
+                new CurrencyModel(ImmutableMap.of(
+                        new BaseMergedUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.swedish.extractors.CurrencyExtractorConfiguration()),
+                        new BaseMergedUnitParser(new com.microsoft.recognizers.text.numberwithunit.swedish.parsers.CurrencyParserConfiguration()))));
+        registerModel(TemperatureModel.class, Culture.Swedish, (options) ->
+                new TemperatureModel(ImmutableMap.of(
+                        new NumberWithUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.swedish.extractors.TemperatureExtractorConfiguration()),
+                        new NumberWithUnitParser(new com.microsoft.recognizers.text.numberwithunit.swedish.parsers.TemperatureParserConfiguration()))));
+        registerModel(DimensionModel.class, Culture.Swedish, (options) ->
+                new DimensionModel(ImmutableMap.of(
+                        new NumberWithUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.swedish.extractors.DimensionExtractorConfiguration()),
+                        new NumberWithUnitParser(new com.microsoft.recognizers.text.numberwithunit.swedish.parsers.DimensionParserConfiguration()))));
+        registerModel(AgeModel.class, Culture.Swedish, (options) ->
+                new AgeModel(ImmutableMap.of(
+                        new NumberWithUnitExtractor(new com.microsoft.recognizers.text.numberwithunit.swedish.extractors.AgeExtractorConfiguration()),
+                        new NumberWithUnitParser(new com.microsoft.recognizers.text.numberwithunit.swedish.parsers.AgeParserConfiguration()))));
         //endregion
 
 

@@ -24,7 +24,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "3",
-          "unit": "Euro"
+          "unit": "Euro",
+          "isoCurrency": "EUR"
         },
         "Start": 0,
         "End": 2
@@ -40,7 +41,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "3",
-          "unit": "United States dollar"
+          "unit": "United States dollar",
+          "isoCurrency": "USD"
         },
         "Start": 0,
         "End": 4
@@ -72,7 +74,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "7",
-          "unit": "Euro"
+          "unit": "Euro",
+          "isoCurrency": "EUR"
         },
         "Start": 0,
         "End": 10
@@ -88,7 +91,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "30",
-          "unit": "Cambodian riel"
+          "unit": "Cambodian riel",
+          "isoCurrency": "KHR"
         },
         "Start": 0,
         "End": 23
@@ -216,7 +220,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "16400000",
-          "unit": "Canadian dollar"
+          "unit": "Canadian dollar",
+          "isoCurrency": "CAD"
         },
         "Start": 48,
         "End": 80
@@ -264,7 +269,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "12500",
-          "unit": "Euro"
+          "unit": "Euro",
+          "isoCurrency": "EUR"
         },
         "Start": 30,
         "End": 39
@@ -280,7 +286,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "2500000",
-          "unit": "United States dollar"
+          "unit": "United States dollar",
+          "isoCurrency": "USD"
         },
         "Start": 39,
         "End": 49
@@ -296,7 +303,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "300000",
-          "unit": "British pound"
+          "unit": "British pound",
+          "isoCurrency": "GBP"
         },
         "Start": 55,
         "End": 65
@@ -312,7 +320,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "1",
-          "unit": "Euro"
+          "unit": "Euro",
+          "isoCurrency": "EUR"
         },
         "Start": 12,
         "End": 21
@@ -328,7 +337,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "2",
-          "unit": "Euro"
+          "unit": "Euro",
+          "isoCurrency": "EUR"
         },
         "Start": 8,
         "End": 16
@@ -376,7 +386,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "700",
-          "unit": "Euro"
+          "unit": "Euro",
+          "isoCurrency": "EUR"
         },
         "Start": 0,
         "End": 17
@@ -440,7 +451,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "100",
-          "unit": "Indian rupee"
+          "unit": "Indian rupee",
+          "isoCurrency": "INR"
         },
         "Start": 0,
         "End": 18
@@ -472,7 +484,8 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "700",
-          "unit": "Euro"
+          "unit": "Euro",
+          "isoCurrency": "EUR"
         },
         "Start": 0,
         "End": 17

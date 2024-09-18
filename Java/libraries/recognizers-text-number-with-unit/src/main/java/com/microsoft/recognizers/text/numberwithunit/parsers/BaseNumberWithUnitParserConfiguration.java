@@ -7,6 +7,7 @@ import com.microsoft.recognizers.text.CultureInfo;
 import com.microsoft.recognizers.text.IExtractor;
 import com.microsoft.recognizers.text.IParser;
 import com.microsoft.recognizers.text.numberwithunit.resources.BaseCurrency;
+import com.microsoft.recognizers.text.numberwithunit.resources.EnglishNumericWithUnit;
 import com.microsoft.recognizers.text.numberwithunit.utilities.DictionaryUtils;
 
 import java.util.HashMap;
@@ -64,8 +65,8 @@ public abstract class BaseNumberWithUnitParserConfiguration implements INumberWi
         this.unitMap = new HashMap<>();
         this.currencyFractionNumMap = BaseCurrency.CurrencyFractionalRatios;
         this.currencyFractionMapping = BaseCurrency.CurrencyFractionMapping;
-        this.currencyNameToIsoCodeMap = new HashMap<>();
-        this.currencyFractionCodeList = new HashMap<>();
+        this.currencyNameToIsoCodeMap = EnglishNumericWithUnit.CurrencyNameToIsoCodeMap;
+        this.currencyFractionCodeList = EnglishNumericWithUnit.FractionalUnitNameToCodeMap;
     }
 
     @Override

@@ -567,7 +567,7 @@ public class GermanNumericWithUnit {
 
     public static final ImmutableMap<String, String> CurrencyPrefixList = ImmutableMap.<String, String>builder()
         .put("Dollar", "$")
-        .put("United States dollar", "united states $|us$|us $|u.s. $|u.s $")
+        .put("United States dollar", "united states $|us$|us $|u.s. $|u.s $|usd")
         .put("East Caribbean dollar", "east caribbean $")
         .put("Australian dollar", "australian $|australia $")
         .put("Bahamian dollar", "bahamian $|bahamia $")
@@ -575,6 +575,7 @@ public class GermanNumericWithUnit {
         .put("Belize dollar", "belize $")
         .put("Bermudian dollar", "bermudian $")
         .put("British Virgin Islands dollar", "british virgin islands $|bvi$|virgin islands $|virgin island $|british virgin island $")
+        .put("British pound", "gbp")
         .put("Brunei dollar", "brunei $|b$")
         .put("Sen", "sen")
         .put("Singapore dollar", "singapore $|s$")

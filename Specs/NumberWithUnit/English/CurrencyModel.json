@@ -2304,7 +2304,7 @@
   },
   {
     "Input": "I would like to buy this item for GBP 350.",
-    "NotSupported": "python, java, javascript",
+    "NotSupported": "python, javascript",
     "Results": [
       {
         "Text": "gbp 350",
