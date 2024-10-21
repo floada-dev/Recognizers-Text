@@ -617,7 +617,7 @@ public class EnglishNumericWithUnit {
         .put("Swedish krona", "sek")
         .put("Chinese yuan", "￥")
         .put("Japanese yen", "¥")
-        .put("Euro", "€|EUR")
+        .put("Euro", "€|eur|euro")
         .put("Pound", "£")
         .put("Costa Rican colón", "₡")
         .put("Turkish lira", "₺")

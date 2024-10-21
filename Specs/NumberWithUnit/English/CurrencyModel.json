@@ -2980,5 +2980,39 @@
         }
       }
     ]
+  },
+  {
+    "Input": "Rate is EUR 9250 per day",
+    "NotSupported": "javascript, python",
+    "Results": [
+      {
+        "Text": "eur 9250",
+        "Start": 8,
+        "End": 15,
+        "TypeName": "currency",
+        "Resolution": {
+          "isoCurrency": "EUR",
+          "unit": "Euro",
+          "value": "9250"
+        }
+      }
+    ]
+  },
+  {
+    "Input": "Rate is EURO 10,000",
+    "NotSupported": "javascript, python",
+    "Results": [
+      {
+        "Text": "euro 10,000",
+        "Start": 8,
+        "End": 18,
+        "TypeName": "currency",
+        "Resolution": {
+          "isoCurrency": "EUR",
+          "unit": "Euro",
+          "value": "10000"
+        }
+      }
+    ]
   }
 ]
