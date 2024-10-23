@@ -8,7 +8,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "250000",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 13,
         "End": 25
@@ -40,7 +40,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "70000000",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 43,
         "End": 60
@@ -72,7 +72,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "134",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 48,
         "End": 57
@@ -82,7 +82,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "138",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 64,
         "End": 73
@@ -92,7 +92,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "102,6",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 155,
         "End": 167
@@ -141,7 +141,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "48",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 24,
         "End": 32
@@ -151,7 +151,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "1400000",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 48,
         "End": 66
@@ -417,7 +417,7 @@
         "TypeName": "currency",
         "Resolution": {
           "value": "1",
-          "unit": "Krone"
+          "unit": "Krona"
         },
         "Start": 0,
         "End": 7
@@ -619,6 +619,32 @@
         },
         "Start": 7,
         "End": 13
+      }
+    ]
+  },
+  {
+    "Input": "Köpeskillingen är ÅTTIOTUSENÅTTIO KRONOR (80 080 kr).",
+    "NotSupported": "javascript, python",
+    "Results": [
+      {
+        "Text": "åttiotusenåttio kronor",
+        "TypeName": "currency",
+        "Resolution": {
+          "value": "80080",
+          "unit": "Krona"
+        },
+        "Start": 18,
+        "End": 39
+      },
+      {
+        "Text": "80 080 kr",
+        "TypeName": "currency",
+        "Resolution": {
+          "value": "80080",
+          "unit": "Krona"
+        },
+        "Start": 42,
+        "End": 50
       }
     ]
   }

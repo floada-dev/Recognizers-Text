@@ -6,7 +6,7 @@
 
     <groupId>com.microsoft.recognizers.text</groupId>
     <artifactId>recognizers-text</artifactId>
-    <version>1.1.7-floada</version>
+    <version>1.1.8-floada</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.microsoft.recognizers.text</groupId>
         <artifactId>recognizers-text-java</artifactId>
-        <version>1.1.7-floada</version>
+        <version>1.1.8-floada</version>
         <relativePath>../../</relativePath>
     </parent>
 

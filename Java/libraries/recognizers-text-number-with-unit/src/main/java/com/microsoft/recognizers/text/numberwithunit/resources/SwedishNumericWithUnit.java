@@ -296,7 +296,7 @@ public class SwedishNumericWithUnit {
         .put("Faroese króna", "färöiska kronor|färöisk krona|fok")
         .put("Icelandic króna", "isländska kronor|isländsk krona")
         .put("Swedish krona", "svenska kronor|svensk krona|sek|spänn")
-        .put("Krone", "kronor|krona|króna|kr|-kr")
+        .put("Krona", "kronor|krona|króna|kr|-kr")
         .put("Øre", "Øre|oyra|eyrir|öre")
         .put("West African CFA franc", "västafrikanska cfa franc|xof|västafrikansk cfa franc")
         .put("Central African CFA franc", "centralafrikanska cfa franc|xaf|centralafrikansk cfa franc")
