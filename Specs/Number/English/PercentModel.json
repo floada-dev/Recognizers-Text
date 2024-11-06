@@ -196,6 +196,20 @@
     ]
   },
   {
+    "Input": "The required percentage of the voting securities is 10%.",
+    "Results": [
+      {
+        "Text": "10%",
+        "TypeName": "percentage",
+        "Resolution": {
+          "value": "10%"
+        },
+        "Start": 52,
+        "End": 54
+      }
+    ]
+  },
+  {
     "Input": "just need minus five percent",
     "Results": [
       {

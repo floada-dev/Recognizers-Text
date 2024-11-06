@@ -16,6 +16,10 @@ public class BasePercentageParser extends BaseNumberParser {
     @Override
     @SuppressWarnings("unchecked")
     public ParseResult parse(ExtractResult extractResult) {
+        if (extractResult.getData() == null) {
+            return null;
+        }
+
         String originText = extractResult.getText();
         ParseResult ret = null;
 
