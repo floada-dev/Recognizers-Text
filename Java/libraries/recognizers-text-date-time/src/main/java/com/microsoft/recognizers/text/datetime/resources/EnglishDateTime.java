@@ -755,7 +755,7 @@ public class EnglishDateTime {
 
     public static final String SuffixAndRegex = "(?<suffix>\\s*(and)\\s+(an?\\s+)?(?<suffix_num>half|quarter))";
 
-    public static final String PeriodicRegex = "\\b(?<periodic>((?<multiplier>semi|bi|tri)(\\s*|-))?(daily|monthly|weekly|quarterly|yearly|annual(ly)?))\\b";
+    public static final String PeriodicRegex = "\\b(?<periodic>((?<multiplier>twice|semi|bi|tri)(\\s*|-))?(daily|monthly|weekly|quarterly|yearly|annual(ly)?))\\b";
 
     public static final String EachUnitRegex = "\\b(?<each>(every|(each|any|once an|one a|once a)\\s?)(?<other>\\s+(other|alternate|second))?\\s*({DurationUnitRegex}|(?<specialUnit>quarters?|weekends?)|{WeekDayRegex})|(?<specialUnit>weekends))"
             .replace("{DurationUnitRegex}", DurationUnitRegex)
@@ -1576,7 +1576,7 @@ public class EnglishDateTime {
 
     public static final String DoubleMultiplierRegex = "^(bi)(-|\\s)?";
 
-    public static final String HalfMultiplierRegex = "^(semi)(-|\\s)?";
+    public static final String HalfMultiplierRegex = "^(twice|semi)(-|\\s)?";
 
     public static final String DayTypeRegex = "((week)?da(il)?ys?)$";
 

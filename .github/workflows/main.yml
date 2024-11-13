@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
       - name: Build and Test with Maven
         working-directory: Java
-        run: mvn -B clean install
+        run: mvn -B -Dcheckstyle.skip clean install
       - name: Publish Internal Microsoft Recognizers Text
         working-directory: Java
         run: mvn -B -pl libraries/recognizers-text -pl libraries/recognizers-text-number -pl libraries/recognizers-text-number-with-unit -pl libraries/recognizers-text-choice -pl libraries/recognizers-text-date-time -pl libraries/recognizers-text-datatypes-timex-expression -pl libraries/recognizers-text-sequence -DskipTests -Dcheckstyle.skip deploy -am

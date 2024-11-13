@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,7 @@ public class TimexUtility {
             put(DatePeriodTimexType.ByYear, Constants.TimexYear);
         }
     };
-    
+
     public enum UnspecificDateTimeTerms {
         None,
         NonspecificYear,
@@ -55,7 +56,7 @@ public class TimexUtility {
         if (equalDurationLength) {
             switch (timexType) {
                 case ByDay:
-                    unitCount = StringUtility.format((double)ChronoUnit.HOURS.between(begin, end) / 24);
+                    unitCount = StringUtility.format((double) ChronoUnit.HOURS.between(begin, end) / 24);
                     break;
                 case ByWeek:
                     unitCount = Long.toString(ChronoUnit.WEEKS.between(begin, end));
@@ -70,7 +71,7 @@ public class TimexUtility {
 
         return unitCount;
     }
-    
+
     public static String generateDatePeriodTimex(LocalDateTime begin, LocalDateTime end, DatePeriodTimexType timexType, UnspecificDateTimeTerms terms) {
         int beginYear = begin.getYear();
         int endYear = end.getYear();
@@ -78,7 +79,7 @@ public class TimexUtility {
         int endMonth = end.getMonthValue();
         int beginDay = begin.getDayOfMonth();
         int endDay = end.getDayOfMonth();
-        
+
         if (terms == UnspecificDateTimeTerms.NonspecificYear) {
             beginYear = endYear = -1;
         }
@@ -324,10 +325,20 @@ public class TimexUtility {
             return resolutionDic;
         }
 
-        HashMap<String, String> futureResolution = (HashMap<String, String>)resolutionDic.get(futureKey);
-        HashMap<String, String> pastResolution = (HashMap<String, String>)resolutionDic.get(pastKey);
+        HashMap<String, String> futureResolution = (HashMap<String, String>) resolutionDic.get(futureKey);
+        HashMap<String, String> pastResolution = (HashMap<String, String>) resolutionDic.get(pastKey);
         futureResolution.put(DateTimeResolutionKey.Timex, timexes[0]);
         pastResolution.put(DateTimeResolutionKey.Timex, timexes[1]);
         return resolutionDic;
+    }
+
+    public static String generateSetTimex(String durationType, float durationLength, float multiplier) {
+        float result = durationLength * multiplier;
+        String formattedResult = (result % 1 == 0) ? String.format(Locale.ENGLISH, "%.0f", result) : String.format(Locale.ENGLISH, "%.1f", result);
+        return "P" + formattedResult + durationType;
+    }
+
+    public static String generateSetTimex(String durationType, float durationLength) {
+        return generateSetTimex(durationType, durationLength, 1);
     }
 }

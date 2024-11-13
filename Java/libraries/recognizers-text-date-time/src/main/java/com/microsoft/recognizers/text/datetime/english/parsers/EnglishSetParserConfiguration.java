@@ -13,10 +13,14 @@ import com.microsoft.recognizers.text.datetime.parsers.config.ICommonDateTimePar
 import com.microsoft.recognizers.text.datetime.parsers.config.ISetParserConfiguration;
 import com.microsoft.recognizers.text.datetime.resources.EnglishDateTime;
 import com.microsoft.recognizers.text.datetime.utilities.MatchedTimexResult;
+import com.microsoft.recognizers.text.datetime.utilities.TimexUtility;
 import com.microsoft.recognizers.text.utilities.RegExpUtility;
 
 import java.util.Locale;
 import java.util.regex.Pattern;
+
+import static com.microsoft.recognizers.text.datetime.resources.EnglishDateTime.DoubleMultiplierRegex;
+import static com.microsoft.recognizers.text.datetime.resources.EnglishDateTime.HalfMultiplierRegex;
 
 public class EnglishSetParserConfiguration extends BaseOptionsConfiguration implements ISetParserConfiguration {
 
@@ -147,10 +151,10 @@ public class EnglishSetParserConfiguration extends BaseOptionsConfiguration impl
     }
 
     private static Pattern doubleMultiplierRegex =
-            RegExpUtility.getSafeRegExp(EnglishDateTime.DoubleMultiplierRegex);
+            RegExpUtility.getSafeRegExp(DoubleMultiplierRegex);
 
     private static Pattern halfMultiplierRegex =
-            RegExpUtility.getSafeRegExp(EnglishDateTime.HalfMultiplierRegex);
+            RegExpUtility.getSafeRegExp(HalfMultiplierRegex);
 
     private static Pattern dayTypeRegex =
             RegExpUtility.getSafeRegExp(EnglishDateTime.DayTypeRegex);
@@ -209,23 +213,32 @@ public class EnglishSetParserConfiguration extends BaseOptionsConfiguration impl
         float multiplier = 1;
         String durationType;
 
-        if (trimmedText.equals("daily")) {
-            result.setTimex("P1D");
-        } else if (trimmedText.equals("weekly")) {
-            result.setTimex("P1W");
-        } else if (trimmedText.equals("biweekly")) {
-            result.setTimex("P2W");
-        } else if (trimmedText.equals("monthly")) {
-            result.setTimex("P1M");
-        } else if (trimmedText.equals("quarterly")) {
-            result.setTimex("P3M");
-        } else if (trimmedText.equals("yearly") || trimmedText.equals("annually") || trimmedText.equals("annual")) {
-            result.setTimex("P1Y");
+        if (doubleMultiplierRegex.matcher(trimmedText).find()) {
+            multiplier = 2;
+        } else if (halfMultiplierRegex.matcher(trimmedText).find()) {
+            multiplier = 0.5f;
         }
 
-        if (result.getTimex() != "") {
-            result.setResult(true);
+        if (dayTypeRegex.matcher(trimmedText).find()) {
+            durationType = "D";
+        } else if (weekTypeRegex.matcher(trimmedText).find()) {
+            durationType = "W";
+        } else if (monthTypeRegex.matcher(trimmedText).find()) {
+            durationType = "M";
+        } else if (quarterTypeRegex.matcher(trimmedText).find()) {
+            durationType = "M";
+            durationLength = 3;
+        } else if (yearTypeRegex.matcher(trimmedText).find()) {
+            durationType = "Y";
+        } else {
+            result.setTimex(null);
+            result.setResult(false);
+            return result;
         }
+
+        String timex = TimexUtility.generateSetTimex(durationType, durationLength, multiplier);
+        result.setTimex(timex);
+        result.setResult(true);
 
         return result;
     }

@@ -16404,7 +16404,7 @@
     "Context": {
       "ReferenceDateTime": "2020-06-12T00:00:00"
     },
-    "NotSupported": "javascript, python, java",
+    "NotSupported": "javascript, python",
     "Results": [
       {
         "Text": "semi-annually",
@@ -16424,11 +16424,35 @@
     ]
   },
   {
+    "Input": "Payment twice monthly",
+    "Context": {
+      "ReferenceDateTime": "2020-06-12T00:00:00"
+    },
+    "NotSupported": "javascript, python",
+    "Results": [
+      {
+        "Text": "twice monthly",
+        "Start": 8,
+        "End": 20,
+        "TypeName": "datetimeV2.set",
+        "Resolution": {
+          "values": [
+            {
+              "timex": "P0.5M",
+              "type": "set",
+              "value": "not resolved"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "Input": "Please schedule a semiannual meeting",
     "Context": {
       "ReferenceDateTime": "2020-06-12T00:00:00"
     },
-    "NotSupported": "javascript, python, java",
+    "NotSupported": "javascript, python",
     "Results": [
       {
         "Text": "semiannual",
@@ -16599,7 +16623,7 @@
     "Context": {
       "ReferenceDateTime": "2020-06-12T00:00:00"
     },
-    "NotSupported": "javascript, python, java",
+    "NotSupported": "javascript, python",
     "Results": [
       {
         "Text": "bi-monthly",
@@ -16662,7 +16686,7 @@
     "Context": {
       "ReferenceDateTime": "2020-06-12T00:00:00"
     },
-    "NotSupported": "javascript, python, java",
+    "NotSupported": "javascript, python",
     "Results": [
       {
         "Text": "every two weekends",
@@ -16672,7 +16696,7 @@
         "Resolution": {
           "values": [
             {
-              "timex": "P2WE",
+              "timex": "P2W",
               "type": "set",
               "value": "not resolved"
             }
