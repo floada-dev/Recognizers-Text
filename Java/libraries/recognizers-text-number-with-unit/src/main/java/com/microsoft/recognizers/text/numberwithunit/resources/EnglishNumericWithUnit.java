@@ -609,6 +609,7 @@ public class EnglishNumericWithUnit {
         .put("Palauan dollar", "palauan $")
         .put("Pitcairn Islands dollar", "pitcairn islands $|pitcairn island $")
         .put("Solomon Islands dollar", "solomon islands $|si$|si $|solomon island $")
+        .put("Swiss franc", "chf")
         .put("Surinamese dollar", "surinamese $|surinam $")
         .put("New Taiwan dollar", "nt$|nt $")
         .put("Trinidad and Tobago dollar", "trinidad and tobago $|trinidad $|trinidadian $")

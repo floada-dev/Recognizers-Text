@@ -1123,6 +1123,38 @@
     ]
   },
   {
+    "Input": "CHF 1270",
+    "Results": [
+      {
+        "Text": "chf 1270",
+        "TypeName": "currency",
+        "Resolution": {
+          "value": "1270",
+          "unit": "Swiss franc",
+          "isoCurrency": "CHF"
+        },
+        "Start": 0,
+        "End": 7
+      }
+    ]
+  },
+  {
+    "Input": "CHF 1270.30",
+    "Results": [
+      {
+        "Text": "chf 1270.30",
+        "TypeName": "currency",
+        "Resolution": {
+          "value": "1270.3",
+          "unit": "Swiss franc",
+          "isoCurrency": "CHF"
+        },
+        "Start": 0,
+        "End": 10
+      }
+    ]
+  },
+  {
     "Input": "the ipl signed up kingfisher airlines as the official umpire partner for the series in a ( approximately £ 15 million ) deal .",
     "Results": [
       {
