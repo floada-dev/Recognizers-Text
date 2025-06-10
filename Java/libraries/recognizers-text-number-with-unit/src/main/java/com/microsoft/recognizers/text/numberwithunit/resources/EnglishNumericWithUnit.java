@@ -190,7 +190,7 @@ public class EnglishNumericWithUnit {
         .put("Norwegian krone", "norwegian krone|nok|norway krone|norway krones|norwegian krones")
         .put("Faroese króna", "faroese króna|faroese krona")
         .put("Icelandic króna", "icelandic króna|isk|icelandic krona|iceland króna|iceland krona")
-        .put("Swedish krona", "swedish krona|sek|swedan krona")
+        .put("Swedish krona", "swedish krona|sek|swedan krona|swedish kronor")
         .put("Krone", "kronor|krona|króna|krone|krones|kr|-kr")
         .put("Øre", "Øre|oyra|eyrir")
         .put("West African CFA franc", "west african cfa franc|xof|west africa cfa franc|west africa franc|west african franc")
