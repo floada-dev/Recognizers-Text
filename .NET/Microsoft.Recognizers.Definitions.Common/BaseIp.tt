@@ -1,7 +1,0 @@
-﻿<#@ template debug="true" hostspecific="true" language="C#" #>
-<#
-	this.DataFilename = @"Patterns\Base-Ip.yaml";
-	this.Language = null;
-	this.ClassName = "BaseIp";
-#>
-<#@ include file=".\CommonDefinitions.ttinclude"#>

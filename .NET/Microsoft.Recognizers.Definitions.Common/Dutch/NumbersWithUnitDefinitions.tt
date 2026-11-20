@@ -1,7 +1,0 @@
-﻿<#@ template debug="true" hostspecific="true" language="C#" #>
-<#
-	this.DataFilename = @"Patterns\Dutch\Dutch-NumbersWithUnit.yaml";
-	this.Language = "Dutch";
-	this.ClassName = "NumbersWithUnitDefinitions";
-#>
-<#@ include file="..\CommonDefinitions.ttinclude"#>

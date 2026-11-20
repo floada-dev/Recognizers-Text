@@ -5,6 +5,7 @@ package com.microsoft.recognizers.text.resources;
 
 import com.microsoft.recognizers.text.resources.datatypes.*;
 import com.microsoft.recognizers.text.resources.writters.*;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -35,7 +36,7 @@ public class CodeGenerator {
     public static void Generate(Path yamlFilePath, Path outputFilePath, String header, String footer) throws IOException {
 
         // Config YAML parser
-        Constructor constructor = new Constructor();
+        Constructor constructor = new Constructor(new LoaderOptions());
         constructor.addTypeDescription(new TypeDescription(ParamsRegex.class, "!paramsRegex"));
         constructor.addTypeDescription(new TypeDescription(SimpleRegex.class, "!simpleRegex"));
         constructor.addTypeDescription(new TypeDescription(NestedRegex.class, "!nestedRegex"));

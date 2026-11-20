@@ -6,7 +6,7 @@
 
     <groupId>com.microsoft.recognizers.text.samples.simpleconsole</groupId>
     <artifactId>recognizers-text-samples-simple-console</artifactId>
-    <version>1.1.12-floada</version>
+    <version>1.1.13-floada</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.microsoft.recognizers.text</groupId>
         <artifactId>recognizers-text-java</artifactId>
-        <version>1.1.12-floada</version>
+        <version>1.1.13-floada</version>
         <relativePath>../../</relativePath>
     </parent>
 
@@ -59,7 +59,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.4.2</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.recognizers.text.datetime</groupId>
