@@ -413,14 +413,14 @@ public class DateTimeParserTest extends AbstractTest {
         }
     }
 
-    public static <T extends Map> T parseDateTimeResolutionResult(Object result) {
+    private static Map<String, List<Map<String, Object>>> parseDateTimeResolutionResult(Object result) {
 
         // Deserializer
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             String json = mapper.writeValueAsString(result);
-            return mapper.readValue(json, new TypeReference<Map<String, Object>>() {
+            return mapper.readValue(json, new TypeReference<Map<String, List<Map<String, Object>>>>() {
             });
 
         } catch (JsonProcessingException e) {

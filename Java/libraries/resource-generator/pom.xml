@@ -6,13 +6,13 @@
 
     <groupId>com.microsoft.recognizers.text.resourcegenerator</groupId>
     <artifactId>resource-generator</artifactId>
-    <version>1.1.12-floada</version>
+    <version>1.1.13-floada</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>com.microsoft.recognizers.text</groupId>
         <artifactId>recognizers-text-java</artifactId>
-        <version>1.1.12-floada</version>
+        <version>1.1.13-floada</version>
         <relativePath>../../</relativePath>
     </parent>
 
@@ -24,17 +24,15 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.4.2</version>
         </dependency>
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.32</version>
+            <version>2.5</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

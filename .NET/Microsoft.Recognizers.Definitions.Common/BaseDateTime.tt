@@ -1,7 +1,0 @@
-﻿<#@ template debug="true" hostspecific="true" language="C#" #>
-<#
-	this.DataFilename = @"Patterns\Base-DateTime.yaml";
-	this.Language = null;
-	this.ClassName = "BaseDateTime";
-#>
-<#@ include file=".\CommonDefinitions.ttinclude"#>
